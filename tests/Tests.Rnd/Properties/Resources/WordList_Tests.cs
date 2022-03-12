@@ -1,7 +1,7 @@
 ﻿// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-namespace Rnd.Properties.Resources_Tests;
+namespace RndF.Properties.Resources_Tests;
 
 public class WordList_Tests
 {
