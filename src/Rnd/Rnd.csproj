@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<Description>Random value generators.</Description>
+	</PropertyGroup>
+	<PropertyGroup>
 		<LongWordListFile>eff-long-word-list.txt</LongWordListFile>
 		<LongWordListPath>$([MSBuild]::GetPathOfFileAbove('$(LongWordListFile)'))</LongWordListPath>
 	</PropertyGroup>

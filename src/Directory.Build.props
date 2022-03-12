@@ -45,7 +45,6 @@
 		<Company>bfren</Company>
 		<Copyright>Copyright © bfren.dev 2021-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
 		<Version>$(RndVersion)</Version>
-		<Description>Random object generator functions.</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/bfren/rnd</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
