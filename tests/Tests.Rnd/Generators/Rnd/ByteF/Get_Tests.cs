@@ -1,4 +1,4 @@
-﻿// Rnd Unit Tests
+﻿// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace Rnd.Generators.Rnd_Tests.ByteF_Tests;

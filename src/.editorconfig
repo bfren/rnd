@@ -460,7 +460,7 @@ tab_size = 4
 
 [*.{cs,csx,cake,vb,vbx}]
 
-file_header_template = Rnd: Generate random values.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2021
+file_header_template = Rnd: Random value generators.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2021
 # SA1636: File header copyright text should match.
 dotnet_diagnostic.SA1636.severity = none
 

@@ -1,4 +1,4 @@
-﻿// Rnd Unit Tests
+﻿// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using static Rnd.Generators.Rnd.StringF.R;

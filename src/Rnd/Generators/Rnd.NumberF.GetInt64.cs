@@ -1,4 +1,4 @@
-﻿// Rnd: Generate random values.
+﻿// Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
