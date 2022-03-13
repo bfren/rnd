@@ -45,7 +45,6 @@
 		<Company>bfren</Company>
 		<Copyright>Copyright © bfren.dev 2021-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
 		<Version>$(RndVersion)</Version>
-		<PackageId>Rnd</PackageId>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/bfren/rnd</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/bfren/rnd</RepositoryUrl>
