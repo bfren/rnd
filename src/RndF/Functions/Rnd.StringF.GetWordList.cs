@@ -20,8 +20,8 @@ public static partial class Rnd
 		);
 
 		/// <summary>
-		/// Retrieve EFF's long word list
-		/// https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
+		/// Retrieve EFF's long word list, with higher entropy for use with fewer words
+		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
 		internal static readonly Lazy<string[]> LongWordList = new(
 			() => GetWordList(Properties.Resources.eff_long_word_list)
