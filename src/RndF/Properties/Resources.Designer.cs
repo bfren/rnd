@@ -69,5 +69,15 @@ namespace RndF.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] eff_short_word_list {
+            get {
+                object obj = ResourceManager.GetObject("eff_short_word_list", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

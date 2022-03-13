@@ -3,7 +3,7 @@
 
 namespace RndF.Properties.Resources_Tests;
 
-public class WordList_Tests
+public class ShortWordList_Tests
 {
 	[Fact]
 	public void Returns_Byte_Array()
@@ -11,7 +11,7 @@ public class WordList_Tests
 		// Arrange
 
 		// Act
-		var result = Resources.eff_long_word_list;
+		var result = Resources.eff_short_word_list;
 
 		// Assert
 		Assert.IsType<byte[]>(result);

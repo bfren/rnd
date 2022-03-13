@@ -4,7 +4,7 @@
 		<PackageId>Rnd</PackageId>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="MaybeF" Version="8.0.*" />
+		<PackageReference Include="MaybeF" Version="8.0.1" />
 	</ItemGroup>
 	<PropertyGroup>
 		<LongWordListFile>eff-long-word-list.txt</LongWordListFile>

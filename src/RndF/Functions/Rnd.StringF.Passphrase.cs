@@ -1,9 +1,7 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System;
 using System.Collections.Generic;
-using System.IO;
 using MaybeF;
 
 namespace RndF;
@@ -12,34 +10,9 @@ public static partial class Rnd
 {
 	public static partial class StringF
 	{
-		/// <summary>
-		/// Lazy property so the resource is only loaded once
-		/// </summary>
-		private static readonly Lazy<string[]> WordList = new(
-			() =>
-			{
-				// Attempt to get embedded word list file
-				var wordListResource = new MemoryStream(Properties.Resources.eff_long_word_list);
-
-				// Return empty array if the resource can't be found
-				if (wordListResource is null)
-				{
-					return Array.Empty<string>();
-				}
-
-				// Read the words into a list
-				using var reader = new StreamReader(wordListResource);
-				string? line;
-				var words = new List<string>();
-				while ((line = reader.ReadLine()) != null && !string.IsNullOrEmpty(line))
-				{
-					words.Add(line);
-				}
-
-				// Return as an array
-				return words.ToArray();
-			}
-		);
+		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
+		public static Maybe<string> Passphrase() =>
+			Passphrase(ShortWordList.Value, 8, '-', true, true);
 
 		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
 		public static Maybe<string> Passphrase(int numberOfWords) =>
@@ -52,7 +25,7 @@ public static partial class Rnd
 			bool upperFirst,
 			bool includeNumber
 		) =>
-			Passphrase(WordList.Value, numberOfWords, separator, upperFirst, includeNumber);
+			Passphrase(LongWordList.Value, numberOfWords, separator, upperFirst, includeNumber);
 
 		/// <summary>
 		/// Generate a random passphrase

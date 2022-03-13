@@ -46,13 +46,15 @@ public static partial class Rnd
 		NumberF.GetInt64(max: 10000L);
 
 	/// <summary>
-	/// Generate a random passphrase with five dictionary words, a number, and one uppercase letter
+	/// Generate a random passphrase with eight dictionary words all starting with an uppercase
+	/// letter, and one number
 	/// </summary>
 	public static Maybe<string> Pass =>
-		StringF.Passphrase(5);
+		StringF.Passphrase();
 
 	/// <summary>
-	/// Generate a random string 6 characters long, containing uppercase and lowercase letters but no numbers or special characters
+	/// Generate a random string 6 characters long, containing uppercase and lowercase letters,
+	/// but no numbers or special characters
 	/// </summary>
 	public static string Str =>
 		StringF.Get(6);

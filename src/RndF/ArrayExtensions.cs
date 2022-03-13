@@ -12,7 +12,6 @@ public static class ArrayExtensions
 {
 	/// <summary>
 	/// Create a copy of an array and shuffle the elements using a Fisher-Yates Shuffle
-	/// See http://www.dotnetperls.com/fisher-yates-shuffle
 	/// </summary>
 	/// <typeparam name="T">Object type</typeparam>
 	/// <param name="this">Array to shuffle</param>
