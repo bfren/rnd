@@ -1,7 +1,7 @@
 ﻿// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using static RndF.Generators.Rnd.StringF.R;
+using static RndF.Rnd.StringF.R;
 
 namespace RndF.Rnd_Tests.StringF_Tests;
 
