@@ -25,8 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		Pack.csproj = Pack.csproj
+		.github\workflows\publish.yml = .github\workflows\publish.yml
 		README.md = README.md
 		Test.csproj = Test.csproj
+		.github\workflows\test.yml = .github\workflows\test.yml
 		Version = Version
 	EndProjectSection
 EndProject
