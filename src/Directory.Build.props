@@ -51,7 +51,8 @@
 		<Copyright>Copyright © bfren.dev 2021-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
 		<Version>$(RndVersion)</Version>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<PackageProjectUrl>https://github.com/bfren/rnd</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/bfren/rnd/wiki</PackageProjectUrl>
+		<PackageReadme>$(ReadmeFile)</PackageReadme>
 		<RepositoryUrl>https://github.com/bfren/rnd</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
