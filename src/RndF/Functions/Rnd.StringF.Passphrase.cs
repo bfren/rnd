@@ -10,13 +10,18 @@ public static partial class Rnd
 {
 	public static partial class StringF
 	{
+		/// <summary>
+		/// Default passphrase separator character
+		/// </summary>
+		internal const char DefaultSeparator = '-';
+
 		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
 		public static Maybe<string> Passphrase() =>
-			Passphrase(ShortWordList.Value, 8, '-', true, true);
+			Passphrase(ShortWordList.Value, 8, DefaultSeparator, true, true);
 
 		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
 		public static Maybe<string> Passphrase(int numberOfWords) =>
-			Passphrase(numberOfWords, '-', true, true);
+			Passphrase(numberOfWords, DefaultSeparator, true, true);
 
 		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
 		public static Maybe<string> Passphrase(
@@ -32,15 +37,15 @@ public static partial class Rnd
 		/// </summary>
 		/// <param name="wordList">List of words to use for the passphrase</param>
 		/// <param name="numberOfWords">The number of words in the passphrase (minimum: 2)</param>
-		/// <param name="separator">[Optional] Word separator</param>
-		/// <param name="upperFirst">[Optional] Whether or not to make the first letter of each word upper case</param>
-		/// <param name="includeNumber">[Optional] Whether or not to include a number with one of the words</param>
+		/// <param name="separator">Word separator</param>
+		/// <param name="upperFirst">Whether or not to make the first letter of each word upper case</param>
+		/// <param name="includeNumber">Whether or not to include a number with one of the words</param>
 		internal static Maybe<string> Passphrase(
 			string[] wordList,
 			int numberOfWords,
-			char separator = '-',
-			bool upperFirst = true,
-			bool includeNumber = true
+			char separator,
+			bool upperFirst,
+			bool includeNumber
 		)
 		{
 			// Number of words must be at least 2

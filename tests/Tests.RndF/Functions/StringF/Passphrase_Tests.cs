@@ -7,6 +7,58 @@ namespace RndF.Rnd_Tests.StringF_Tests;
 
 public class Passphrase_Tests
 {
+	[Fact]
+	public void No_Options_Returns_Eight_Words()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.StringF.Passphrase();
+
+		// Assert
+		var some = result.AssertSome().Split(Rnd.StringF.DefaultSeparator);
+		Assert.Equal(8, some.Length);
+	}
+
+	[Fact]
+	public void No_Options_Uses_Default_Separator()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.StringF.Passphrase();
+
+		// Assert
+		var some = result.AssertSome();
+		Assert.Contains(Rnd.StringF.DefaultSeparator, some);
+	}
+
+	[Fact]
+	public void No_Options_Makes_First_Letter_Uppercase()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.StringF.Passphrase();
+
+		// Assert
+		var some = result.AssertSome();
+		Assert.NotEqual(some, some.ToLower());
+	}
+
+	[Fact]
+	public void No_Options_Includes_A_Number()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.StringF.Passphrase();
+
+		// Assert
+		var some = result.AssertSome();
+		Assert.Contains(some, x => char.IsNumber(x));
+	}
+
 	[Theory]
 	[InlineData(-1)]
 	[InlineData(0)]
@@ -30,7 +82,7 @@ public class Passphrase_Tests
 		var empty = Array.Empty<string>();
 
 		// Act
-		var result = Rnd.StringF.Passphrase(empty, 3);
+		var result = Rnd.StringF.Passphrase(empty, 3, '-', true, true);
 
 		// Assert
 		var none = result.AssertNone();
