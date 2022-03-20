@@ -16,8 +16,7 @@ public static partial class Rnd
 			new(
 				year: NumberF.GetInt32(1, 9999),
 				month: NumberF.GetInt32(1, 12),
-				day: NumberF.GetInt32(1, 28),
-				new System.Globalization.GregorianCalendar()
+				day: NumberF.GetInt32(1, 28)
 			);
 	}
 }

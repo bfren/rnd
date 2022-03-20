@@ -46,4 +46,16 @@ public class Get_Tests
 	[Fact]
 	public void Never_Returns_Second_Out_Of_Bounds() =>
 		Never_Returns_Number_Out_Of_Bounds(dt => dt.Second, 0, 59);
+
+	[Fact]
+	public void Returns_UTC_DateTime()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.DateTimeF.Get();
+
+		// Assert
+		Assert.Equal(DateTimeKind.Utc, result.Kind);
+	}
 }

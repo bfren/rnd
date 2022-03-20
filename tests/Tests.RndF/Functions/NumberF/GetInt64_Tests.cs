@@ -50,8 +50,8 @@ public class GetInt64_Tests
 		}
 
 		// Assert
-		Assert.True(numbers.Min() == min);
-		Assert.True(numbers.Max() == max);
+		Assert.True(numbers.Min() >= min);
+		Assert.True(numbers.Max() <= max);
 	}
 
 	[Fact]

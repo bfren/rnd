@@ -19,8 +19,8 @@ public class Get_Tests
 		}
 
 		// Assert
-		Assert.True(numbers.Min() == min);
-		Assert.True(numbers.Max() == max);
+		Assert.True(numbers.Min() >= min);
+		Assert.True(numbers.Max() <= max);
 	}
 
 	[Fact]
@@ -34,4 +34,8 @@ public class Get_Tests
 	[Fact]
 	public void Never_Returns_Second_Out_Of_Bounds() =>
 		Never_Returns_Number_Out_Of_Bounds(dt => dt.Second, 0, 59);
+
+	[Fact]
+	public void Never_Returns_Millisecond_Out_Of_Bounds() =>
+		Never_Returns_Number_Out_Of_Bounds(dt => dt.Millisecond, 0, 999);
 }
