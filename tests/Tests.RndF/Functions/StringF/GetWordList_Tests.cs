@@ -1,7 +1,5 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
-
-using System.Text;
 
 namespace RndF.Rnd_Tests.StringF_Tests;
 
@@ -11,7 +9,7 @@ public class GetWordList_Tests
 	public void Empty_Input_Returns_Empty_Array()
 	{
 		// Arrange
-		var input = Array.Empty<byte>();
+		var input = string.Empty;
 
 		// Act
 		var result = Rnd.StringF.GetWordList(input);
@@ -29,10 +27,9 @@ public class GetWordList_Tests
 		var w1 = Rnd.Str;
 		var w2 = Rnd.Str;
 		var words = w0 + Environment.NewLine + w1 + Environment.NewLine + w2;
-		var bytes = Encoding.ASCII.GetBytes(words);
 
 		// Act
-		var result = Rnd.StringF.GetWordList(bytes);
+		var result = Rnd.StringF.GetWordList(words);
 
 		// Assert
 		Assert.Collection(result,

@@ -1,7 +1,5 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
-
-using System.Text;
 
 namespace RndF.Rnd_Tests.StringF_Tests;
 
@@ -12,8 +10,7 @@ public class LongWordList_Tests
 	{
 		// Arrange
 		var longList = Properties.Resources.eff_long_word_list;
-		var words = Encoding.ASCII.GetString(longList);
-		var list = from w in words.Split(Environment.NewLine)
+		var list = from w in longList.Split(Environment.NewLine)
 				   where !string.IsNullOrEmpty(w)
 				   select w;
 

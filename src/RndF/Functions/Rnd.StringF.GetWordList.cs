@@ -3,7 +3,6 @@
 
 using System;
 using System.Linq;
-using System.Text;
 
 namespace RndF;
 
@@ -30,18 +29,17 @@ public static partial class Rnd
 		/// <summary>
 		/// Convert a byte arry into a list of words
 		/// </summary>
-		/// <param name="bytes">Input byte array</param>
-		internal static string[] GetWordList(byte[] bytes)
+		/// <param name="input">Input byte array</param>
+		internal static string[] GetWordList(string input)
 		{
 			// Return empty array
-			if (bytes.Length == 0)
+			if (input.Length == 0)
 			{
 				return Array.Empty<string>();
 			}
 
 			// Read the words into a list
-			var words = Encoding.ASCII.GetString(bytes);
-			var list = from w in words.Split(Environment.NewLine)
+			var list = from w in input.Split(Environment.NewLine)
 					   where !string.IsNullOrEmpty(w)
 					   select w;
 
