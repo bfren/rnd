@@ -183,7 +183,7 @@ namespace RndF.Properties {
         /// </summary>
         internal static string eff_short_word_list {
             get {
-                return ResourceManager.GetString("eff_short_word_list", resourceCulture);
+                return ResourceManager.GetString("eff-short-word-list", resourceCulture);
             }
         }
     }

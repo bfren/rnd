@@ -121,7 +121,7 @@
   <data name="eff-long-word-list" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\eff-long-word-list.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="eff_short_word_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="eff-short-word-list" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\eff-short-word-list.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>
