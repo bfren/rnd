@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Description>Random value generators.</Description>
+		<Description>Cryptographically secure random value generators for Integer, DateTime, String (and Passphrase), Guid, and Byte types.</Description>
 		<PackageId>Rnd</PackageId>
 	</PropertyGroup>
 	<ItemGroup>
