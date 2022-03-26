@@ -10,9 +10,8 @@ public class ShortWordList_Tests
 	{
 		// Arrange
 		var shortList = Properties.Resources.eff_short_word_list;
-		var list = from w in shortList.Split(Environment.NewLine)
-				   where !string.IsNullOrEmpty(w)
-				   select w;
+		var list = from w in shortList.Split(',')
+				   select w.Trim();
 
 		// Act
 		var result = Rnd.StringF.ShortWordList.Value;

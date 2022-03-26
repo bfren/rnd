@@ -10,14 +10,13 @@ public class LongWordList_Tests
 	{
 		// Arrange
 		var longList = Properties.Resources.eff_long_word_list;
-		var list = from w in longList.Split(Environment.NewLine)
-				   where !string.IsNullOrEmpty(w)
-				   select w;
+		var list = from w in longList.Split(',')
+				   select w.Trim();
 
 		// Act
 		var result = Rnd.StringF.LongWordList.Value;
 
 		// Assert
-		Assert.Equal(list, result);
+		Assert.Equal(list.ToArray(), result);
 	}
 }
