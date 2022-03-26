@@ -39,7 +39,7 @@ public static partial class Rnd
 			}
 
 			// Read the words into a list
-			var list = from w in input.Split(Environment.NewLine)
+			var list = from w in input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
 					   where !string.IsNullOrEmpty(w)
 					   select w;
 
