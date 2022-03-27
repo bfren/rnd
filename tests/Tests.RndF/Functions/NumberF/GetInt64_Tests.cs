@@ -44,7 +44,7 @@ public class GetInt64_Tests
 		var numbers = new List<long>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.NumberF.GetInt64(min, max));
 		}
@@ -62,7 +62,7 @@ public class GetInt64_Tests
 		var numbers = new List<long>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.NumberF.GetInt64());
 		}

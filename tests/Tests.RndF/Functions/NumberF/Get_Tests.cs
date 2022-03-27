@@ -13,7 +13,7 @@ public class Get_Tests
 		var numbers = new List<double>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.NumberF.Get());
 		}
@@ -31,7 +31,7 @@ public class Get_Tests
 		var numbers = new List<double>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.NumberF.Get());
 		}
