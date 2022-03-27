@@ -1,4 +1,4 @@
-﻿// Rnd: Random value generators.
+// Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
@@ -10,7 +10,7 @@ public static partial class Rnd
 	public static partial class NumberF
 	{
 		/// <summary>
-		/// Returns a random number between 0 and 1
+		/// Returns a random double-precision floating point number between 0 and 1
 		/// </summary>
 		/// <remarks>
 		/// Thanks to https://stackoverflow.com/users/11178549/theodor-zoulias for comments and suggested improvements

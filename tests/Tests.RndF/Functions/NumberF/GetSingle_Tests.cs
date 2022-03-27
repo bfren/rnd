@@ -3,17 +3,17 @@
 
 namespace RndF.Rnd_Tests.NumberF_Tests;
 
-public class GetInt32_Tests
+public class GetSingle_Tests
 {
 	[Fact]
 	public void Min_GreaterThan_Max_Throws_ArgumentOutOfRangeException()
 	{
 		// Arrange
-		var min = 3;
-		var max = 2;
+		var min = 3f;
+		var max = 2f;
 
 		// Act
-		var action = void () => Rnd.NumberF.GetInt64(min, max);
+		var action = void () => Rnd.NumberF.GetSingle(min, max);
 
 		// Assert
 		var ex = Assert.Throws<ArgumentOutOfRangeException>(action);
@@ -24,10 +24,10 @@ public class GetInt32_Tests
 	public void Min_LessThan_Zero_Throws_ArgumentException()
 	{
 		// Arrange
-		var min = int.MinValue;
+		var min = float.MinValue;
 
 		// Act
-		var action = void () => Rnd.NumberF.GetInt32(min: min, max: Rnd.Int);
+		var action = void () => Rnd.NumberF.GetSingle(min: min, max: Rnd.Int);
 
 		// Assert
 		var ex = Assert.Throws<ArgumentException>(action);
@@ -39,14 +39,14 @@ public class GetInt32_Tests
 	{
 		// Arrange
 		var iterations = 1000000;
-		var min = 1;
-		var max = 10;
-		var numbers = new List<int>();
+		var min = 1.0653f;
+		var max = 10.6984f;
+		var numbers = new List<float>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			numbers.Add(Rnd.NumberF.GetInt32(min, max));
+			numbers.Add(Rnd.NumberF.GetSingle(min, max));
 		}
 
 		// Assert
@@ -59,12 +59,12 @@ public class GetInt32_Tests
 	{
 		// Arrange
 		var iterations = 10000;
-		var numbers = new List<int>();
+		var numbers = new List<float>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			numbers.Add(Rnd.NumberF.GetInt32());
+			numbers.Add(Rnd.NumberF.GetSingle());
 		}
 
 		var result = (double)numbers.Distinct().Count() / iterations;

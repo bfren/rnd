@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace RndF.Rnd_Tests.NumberF_Tests;
@@ -9,8 +9,8 @@ public class GetInt64_Tests
 	public void Min_GreaterThan_Max_Throws_ArgumentOutOfRangeException()
 	{
 		// Arrange
-		const long min = 3L;
-		const long max = 2L;
+		var min = 3L;
+		var max = 2L;
 
 		// Act
 		var action = void () => Rnd.NumberF.GetInt64(min, max);
@@ -24,7 +24,7 @@ public class GetInt64_Tests
 	public void Min_LessThan_Zero_Throws_ArgumentException()
 	{
 		// Arrange
-		const long min = long.MinValue;
+		var min = long.MinValue;
 
 		// Act
 		var action = void () => Rnd.NumberF.GetInt64(min: min, max: Rnd.Lng);
@@ -38,9 +38,9 @@ public class GetInt64_Tests
 	public void Never_Returns_Number_Out_Of_Bounds()
 	{
 		// Arrange
-		const int iterations = 1000000;
-		const long min = 1L;
-		const long max = 10L;
+		var iterations = 1000000;
+		var min = 1L;
+		var max = 10L;
 		var numbers = new List<long>();
 
 		// Act
@@ -58,7 +58,7 @@ public class GetInt64_Tests
 	public void Returns_Different_Number_Each_Time()
 	{
 		// Arrange
-		const int iterations = 10000;
+		var iterations = 10000;
 		var numbers = new List<long>();
 
 		// Act
@@ -67,9 +67,9 @@ public class GetInt64_Tests
 			numbers.Add(Rnd.NumberF.GetInt64());
 		}
 
-		var unique = numbers.Distinct();
+		var result = (double)numbers.Distinct().Count() / iterations;
 
 		// Assert
-		Assert.InRange(unique.Count(), numbers.Count - 2, numbers.Count);
+		Assert.True(result > Get_Tests.FailureRate);
 	}
 }
