@@ -55,21 +55,6 @@ public class GetSingle_Tests
 	}
 
 	[Fact]
-	public void Returns_Different_Number_Each_Time()
-	{
-		// Arrange
-		var iterations = 10000;
-		var numbers = new List<float>();
-
-		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			numbers.Add(Rnd.NumberF.GetSingle());
-		}
-
-		var result = (double)numbers.Distinct().Count() / iterations;
-
-		// Assert
-		Assert.True(result > Get_Tests.FailureRate);
-	}
+	public void Returns_Different_Number_Each_Time() =>
+		Get_Tests.Returns_Different_Number_With_Acceptable_Duplicate_Rate(Rnd.NumberF.GetSingle, 0.9995f);
 }
