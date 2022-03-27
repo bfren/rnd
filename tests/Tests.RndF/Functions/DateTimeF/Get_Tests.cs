@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace RndF.Rnd_Tests.DateTimeF_Tests;
@@ -9,18 +9,18 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 100000;
-		var numbers = new List<int>();
+		var values = new List<int>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
 			var dt = Rnd.DateTimeF.Get();
-			numbers.Add(value(dt));
+			values.Add(value(dt));
 		}
 
 		// Assert
-		Assert.True(numbers.Min() >= min);
-		Assert.True(numbers.Max() <= max);
+		Assert.True(values.Min() >= min);
+		Assert.True(values.Max() <= max);
 	}
 
 	[Fact]

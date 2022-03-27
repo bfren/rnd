@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace RndF.Rnd_Tests.BooleanF_Tests;
@@ -10,15 +10,17 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 100;
-		var results = new List<bool>();
+		var values = new List<bool>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			results.Add(Rnd.BooleanF.Get());
+			values.Add(Rnd.BooleanF.Get());
 		}
 
+		var result = values.Distinct().Count();
+
 		// Assert
-		Assert.Equal(2, results.Distinct().Count());
+		Assert.Equal(2, result);
 	}
 }
