@@ -103,13 +103,6 @@ public static partial class Rnd
 				throw new InvalidOperationException("You must include at least one character class.");
 			}
 
-			// Function to return a random list index
-			var appendOneOf = (List<char> list) =>
-			{
-				var index = NumberF.GetInt32(max: list.Count - 1);
-				random.Add(list[index]);
-			};
-
 			// Array of characters to use
 			var useChars = new List<char>();
 
@@ -155,6 +148,13 @@ public static partial class Rnd
 
 			// Return random string
 			return new(random.ToArray().Shuffle());
+
+			// Append one of the characters in list to the random string
+			void appendOneOf(List<char> list)
+			{
+				var index = NumberF.GetInt32(max: list.Count - 1);
+				random.Add(list[index]);
+			}
 		}
 
 		/// <summary>
