@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace RndF.Rnd_Tests.NumberF_Tests;
@@ -44,7 +44,7 @@ public class GetInt32_Tests
 		var numbers = new List<int>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.NumberF.GetInt32(min, max));
 		}
@@ -62,7 +62,7 @@ public class GetInt32_Tests
 		var numbers = new List<int>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.NumberF.GetInt32());
 		}

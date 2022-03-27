@@ -13,7 +13,7 @@ public class Get_Tests
 		var results = new List<bool>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			results.Add(Rnd.BooleanF.Get());
 		}
