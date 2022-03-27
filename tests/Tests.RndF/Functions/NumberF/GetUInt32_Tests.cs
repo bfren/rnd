@@ -3,17 +3,17 @@
 
 namespace RndF.Rnd_Tests.NumberF_Tests;
 
-public class GetInt32_Tests
+public class GetUInt32_Tests
 {
 	[Fact]
 	public void Min_GreaterThan_Max_Throws_ArgumentOutOfRangeException()
 	{
 		// Arrange
-		var min = 3;
-		var max = 2;
+		var min = 3u;
+		var max = 2u;
 
 		// Act
-		var action = void () => Rnd.NumberF.GetInt64(min, max);
+		var action = void () => Rnd.NumberF.GetUInt32(min, max);
 
 		// Assert
 		var ex = Assert.Throws<ArgumentOutOfRangeException>(action);
@@ -21,32 +21,18 @@ public class GetInt32_Tests
 	}
 
 	[Fact]
-	public void Min_LessThan_Zero_Throws_ArgumentException()
-	{
-		// Arrange
-		var min = int.MinValue;
-
-		// Act
-		var action = void () => Rnd.NumberF.GetInt32(min: min, max: Rnd.Int);
-
-		// Assert
-		var ex = Assert.Throws<ArgumentException>(action);
-		Assert.Equal("Minimum value must be at least 0. (Parameter 'min')", ex.Message);
-	}
-
-	[Fact]
 	public void Never_Returns_Number_Out_Of_Bounds()
 	{
 		// Arrange
 		var iterations = 1000000;
-		var min = 1;
-		var max = 10;
-		var numbers = new List<int>();
+		var min = 1u;
+		var max = 10u;
+		var numbers = new List<uint>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			numbers.Add(Rnd.NumberF.GetInt32(min, max));
+			numbers.Add(Rnd.NumberF.GetUInt32(min, max));
 		}
 
 		// Assert
@@ -59,12 +45,12 @@ public class GetInt32_Tests
 	{
 		// Arrange
 		var iterations = 10000;
-		var numbers = new List<int>();
+		var numbers = new List<uint>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			numbers.Add(Rnd.NumberF.GetInt32());
+			numbers.Add(Rnd.NumberF.GetUInt32());
 		}
 
 		var result = (double)numbers.Distinct().Count() / iterations;

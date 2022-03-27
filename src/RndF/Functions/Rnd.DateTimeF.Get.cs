@@ -1,4 +1,4 @@
-﻿// Rnd: Random value generators.
+// Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
@@ -19,7 +19,8 @@ public static partial class Rnd
 				day: NumberF.GetInt32(1, 28),
 				hour: NumberF.GetInt32(0, 23),
 				minute: NumberF.GetInt32(0, 59),
-				second: NumberF.GetInt32(0, 59)
+				second: NumberF.GetInt32(0, 59),
+				DateTimeKind.Utc
 			);
 	}
 }

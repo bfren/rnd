@@ -1,21 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Description>Random value generators.</Description>
+		<Description>Cryptographically secure random value generators for Integer, DateTime, String (and Passphrase), Guid, and Byte types.</Description>
 		<PackageId>Rnd</PackageId>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="MaybeF" Version="8.0.*" />
-	</ItemGroup>
-	<PropertyGroup>
-		<LongWordListFile>eff-long-word-list.txt</LongWordListFile>
-		<LongWordListPath>$([MSBuild]::GetPathOfFileAbove('$(LongWordListFile)'))</LongWordListPath>
-		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Remove="eff-long-word-list.txt" />
-	</ItemGroup>
-	<ItemGroup Label="Embed Long Word List">
-		<EmbeddedResource Include="$(LongWordListPath)" />
+		<PackageReference Include="MaybeF" Version="8.1.*-*" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">

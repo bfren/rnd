@@ -8,11 +8,11 @@ public class Get_Tests
 	private static void Never_Returns_Number_Out_Of_Bounds(Func<DateTime, int> value, int min, int max)
 	{
 		// Arrange
-		const int iterations = 100000;
+		var iterations = 100000;
 		var numbers = new List<int>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			var dt = Rnd.DateTimeF.Get();
 			numbers.Add(value(dt));
@@ -46,4 +46,16 @@ public class Get_Tests
 	[Fact]
 	public void Never_Returns_Second_Out_Of_Bounds() =>
 		Never_Returns_Number_Out_Of_Bounds(dt => dt.Second, 0, 59);
+
+	[Fact]
+	public void Returns_UTC_DateTime()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.DateTimeF.Get();
+
+		// Assert
+		Assert.Equal(DateTimeKind.Utc, result.Kind);
+	}
 }

@@ -61,12 +61,129 @@ namespace RndF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to abacus
+        ///abdomen
+        ///abdominal
+        ///abide
+        ///abiding
+        ///ability
+        ///ablaze
+        ///able
+        ///abnormal
+        ///abrasion
+        ///abrasive
+        ///abreast
+        ///abridge
+        ///abroad
+        ///abruptly
+        ///absence
+        ///absentee
+        ///absently
+        ///absinthe
+        ///absolute
+        ///absolve
+        ///abstain
+        ///abstract
+        ///absurd
+        ///accent
+        ///acclaim
+        ///acclimate
+        ///accompany
+        ///account
+        ///accuracy
+        ///accurate
+        ///accustom
+        ///acetone
+        ///achiness
+        ///aching
+        ///acid
+        ///acorn
+        ///acquaint
+        ///acquire
+        ///acre
+        ///acrobat
+        ///acronym
+        ///acting
+        ///action
+        ///activate
+        ///activator
+        ///active
+        ///activism
+        ///activist
+        ///activity
+        ///actress
+        ///acts
+        ///acutely
+        ///acuteness
+        ///aeration
+        ///aerobics
+        ///aer [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] eff_long_word_list {
+        internal static string eff_long_word_list {
             get {
-                object obj = ResourceManager.GetObject("eff-long-word-list", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("eff-long-word-list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to aardvark
+        ///abandoned
+        ///abbreviate
+        ///abdomen
+        ///abhorrence
+        ///abiding
+        ///abnormal
+        ///abrasion
+        ///absorbing
+        ///abundant
+        ///abyss
+        ///academy
+        ///accountant
+        ///acetone
+        ///achiness
+        ///acid
+        ///acoustics
+        ///acquire
+        ///acrobat
+        ///actress
+        ///acuteness
+        ///aerosol
+        ///aesthetic
+        ///affidavit
+        ///afloat
+        ///afraid
+        ///aftershave
+        ///again
+        ///agency
+        ///aggressor
+        ///aghast
+        ///agitate
+        ///agnostic
+        ///agonizing
+        ///agreeing
+        ///aidless
+        ///aimlessly
+        ///ajar
+        ///alarmclock
+        ///albatross
+        ///alchemy
+        ///alfalfa
+        ///algae
+        ///aliens
+        ///alkaline
+        ///almanac
+        ///alongside
+        ///alphabet
+        ///already
+        ///also
+        ///altitude
+        ///aluminum
+        ///always
+        ///amazingl [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string eff_short_word_list {
+            get {
+                return ResourceManager.GetString("eff-short-word-list", resourceCulture);
             }
         }
     }

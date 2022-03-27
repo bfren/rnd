@@ -16,7 +16,8 @@ public static partial class Rnd
 			new(
 				hour: NumberF.GetInt32(0, 23),
 				minute: NumberF.GetInt32(0, 59),
-				second: NumberF.GetInt32(0, 59)
+				second: NumberF.GetInt32(0, 59),
+				millisecond: NumberF.GetInt32(0, 999)
 			);
 	}
 }

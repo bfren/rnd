@@ -8,11 +8,11 @@ public class Get_Tests
 	private static void Never_Returns_Number_Out_Of_Bounds(Func<DateOnly, int> value, int min, int max)
 	{
 		// Arrange
-		const int iterations = 100000;
+		var iterations = 100000;
 		var numbers = new List<int>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			var d = Rnd.DateF.Get();
 			numbers.Add(value(d));

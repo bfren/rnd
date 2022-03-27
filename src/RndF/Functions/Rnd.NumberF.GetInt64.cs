@@ -1,4 +1,4 @@
-﻿// Rnd: Random value generators.
+// Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
@@ -10,7 +10,7 @@ public static partial class Rnd
 	public static partial class NumberF
 	{
 		/// <summary>
-		/// Returns a random integer between <see langword="0"/> and <see cref="long.MaxValue"/> inclusive
+		/// Returns a random positive integer between <see langword="0"/> and <see cref="long.MaxValue"/> inclusive
 		/// </summary>
 		/// <remarks>
 		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons
@@ -19,7 +19,7 @@ public static partial class Rnd
 			GetInt64(0, long.MaxValue);
 
 		/// <summary>
-		/// Returns a random integer between <see langword="0"/> and <paramref name="max"/> inclusive
+		/// Returns a random positive integer between <see langword="0"/> and <paramref name="max"/> inclusive
 		/// </summary>
 		/// <remarks>
 		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons
@@ -29,12 +29,12 @@ public static partial class Rnd
 			GetInt64(0, max);
 
 		/// <summary>
-		/// Returns a random integer between <paramref name="min"/> and <paramref name="max"/> inclusive
+		/// Returns a random positive integer between <paramref name="min"/> and <paramref name="max"/> inclusive
 		/// </summary>
 		/// <remarks>
 		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons
 		/// </remarks>
-		/// <param name="min">Minimum acceptable value</param>
+		/// <param name="min">Minimum acceptable value (must be at least <see langword="0"/>)</param>
 		/// <param name="max">Maximum acceptable value</param>
 		/// <exception cref="ArgumentOutOfRangeException"></exception>
 		/// <exception cref="ArgumentException"></exception>
