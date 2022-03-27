@@ -15,21 +15,23 @@ public static partial class Rnd
 		/// </summary>
 		internal const char DefaultSeparator = '-';
 
-		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
+		/// <summary>
+		/// Generate a random passphrase using the EFF short word list<br/>
+		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
+		/// </summary>
 		public static Maybe<string> Passphrase() =>
 			Passphrase(ShortWordList.Value, 8, DefaultSeparator, true, true);
 
-		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
+		/// <inheritdoc cref="Passphrase(int, char, bool, bool)"/>
 		public static Maybe<string> Passphrase(int numberOfWords) =>
 			Passphrase(numberOfWords, DefaultSeparator, true, true);
 
+		/// <summary>
+		/// Generate a random passphrase using the EFF long word list<br/>
+		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
+		/// </summary>
 		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
-		public static Maybe<string> Passphrase(
-			int numberOfWords,
-			char separator,
-			bool upperFirst,
-			bool includeNumber
-		) =>
+		public static Maybe<string> Passphrase(int numberOfWords, char separator, bool upperFirst, bool includeNumber) =>
 			Passphrase(LongWordList.Value, numberOfWords, separator, upperFirst, includeNumber);
 
 		/// <summary>

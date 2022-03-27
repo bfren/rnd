@@ -11,7 +11,7 @@ public static partial class Rnd
 	public static partial class StringF
 	{
 		/// <summary>
-		/// Retrieve EFF's short word list, with unique three-character prefixes
+		/// Retrieve EFF's short word list, with unique three-character prefixes<br/>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
 		internal static readonly Lazy<string[]> ShortWordList = new(
@@ -19,7 +19,7 @@ public static partial class Rnd
 		);
 
 		/// <summary>
-		/// Retrieve EFF's long word list, with higher entropy for use with fewer words
+		/// Retrieve EFF's long word list, with higher entropy for use with fewer words<br/>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
 		internal static readonly Lazy<string[]> LongWordList = new(
@@ -27,9 +27,9 @@ public static partial class Rnd
 		);
 
 		/// <summary>
-		/// Convert a byte arry into a list of words
+		/// Convert an input string into a list of words
 		/// </summary>
-		/// <param name="input">Input byte array</param>
+		/// <param name="input">Input string of words</param>
 		internal static string[] GetWordList(string input)
 		{
 			// Return empty array
@@ -38,9 +38,8 @@ public static partial class Rnd
 				return Array.Empty<string>();
 			}
 
-			// Read the words into a list
+			// Split the input string into a list of words
 			var list = from w in input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-					   where !string.IsNullOrEmpty(w)
 					   select w;
 
 			// Return as an array
