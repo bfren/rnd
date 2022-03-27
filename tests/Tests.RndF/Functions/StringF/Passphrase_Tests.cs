@@ -209,7 +209,7 @@ public class Passphrase_Tests
 		var phrases = new List<string>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			phrases.Add(Rnd.StringF.Passphrase(2).UnsafeUnwrap());
 		}

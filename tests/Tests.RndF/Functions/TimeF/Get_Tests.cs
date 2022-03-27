@@ -12,7 +12,7 @@ public class Get_Tests
 		var numbers = new List<int>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			var t = Rnd.TimeF.Get();
 			numbers.Add(value(t));

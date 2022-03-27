@@ -13,7 +13,7 @@ public class Get_Tests
 		var numbers = new List<Guid>();
 
 		// Act
-		for (int i = 0; i < iterations; i++)
+		for (var i = 0; i < iterations; i++)
 		{
 			numbers.Add(Rnd.GuidF.Get());
 		}
