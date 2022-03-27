@@ -8,13 +8,13 @@ namespace RndF.Properties.Resources_Tests;
 
 public class LongWordList_Tests
 {
-	public const string LongWordListHash = "Gfrw6qIUohOBcjImj3zxIaATS/w8JCnTyd3nFx4hTsE=";
+	public const string LongWordListHash = "P902MVfBPXPMuFuzphiFQVyZBFh892KfBxUozZVrfno=";
 
 	[Fact]
 	public void Returns_Correct_Values()
 	{
 		// Arrange
-		var list = Resources.eff_long_word_list;
+		var list = Resources.eff_long_word_list.ReplaceLineEndings(string.Empty);
 		var bytes = Encoding.UTF8.GetBytes(list);
 		var expected = Convert.FromBase64String(LongWordListHash);
 
