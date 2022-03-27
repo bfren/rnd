@@ -8,7 +8,7 @@ public class Get_Tests
 	/// <summary>
 	/// Allow a tiny amount of duplication to ensure the tests 'always' pass
 	/// </summary>
-	public const float AcceptableDuplicateRate = 0.9998f;
+	public static float AcceptableDuplicateRate { get; } = 0.9998f;
 
 	[Fact]
 	public void Never_Returns_Number_Out_Of_Bounds()
