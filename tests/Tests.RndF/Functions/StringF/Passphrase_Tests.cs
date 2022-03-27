@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using static RndF.Rnd.StringF.R;
@@ -56,7 +56,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var some = result.AssertSome();
-		Assert.Contains(some, x => char.IsNumber(x));
+		Assert.Contains(some, char.IsNumber);
 	}
 
 	[Theory]
@@ -126,9 +126,10 @@ public class Passphrase_Tests
 	public void Joins_Words_Using_Separator(char input)
 	{
 		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 3, max: 8);
 
 		// Act
-		var result = Rnd.StringF.Passphrase(3, input, Rnd.Flip, Rnd.Flip);
+		var result = Rnd.StringF.Passphrase(length, input, Rnd.Flip, Rnd.Flip);
 
 		// Assert
 		var some = result.AssertSome();
@@ -139,9 +140,10 @@ public class Passphrase_Tests
 	public void UpperFirst_True_Makes_First_Letter_Uppercase()
 	{
 		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 3, max: 8);
 
 		// Act
-		var result = Rnd.StringF.Passphrase(3, '-', true, Rnd.Flip);
+		var result = Rnd.StringF.Passphrase(length, '-', true, Rnd.Flip);
 
 		// Assert
 		var some = result.AssertSome();
@@ -152,9 +154,10 @@ public class Passphrase_Tests
 	public void UpperFirst_False_Does_Note_Make_First_Letter_Uppercase()
 	{
 		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 3, max: 8);
 
 		// Act
-		var result = Rnd.StringF.Passphrase(3, '-', false, Rnd.Flip);
+		var result = Rnd.StringF.Passphrase(length, '-', false, Rnd.Flip);
 
 		// Assert
 		var some = result.AssertSome();
@@ -165,40 +168,43 @@ public class Passphrase_Tests
 	public void IncludeNumber_True_Includes_A_Number()
 	{
 		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 3, max: 8);
 
 		// Act
-		var result = Rnd.StringF.Passphrase(3, '-', Rnd.Flip, true);
+		var result = Rnd.StringF.Passphrase(length, '-', Rnd.Flip, true);
 
 		// Assert
 		var some = result.AssertSome();
-		Assert.Contains(some, x => char.IsNumber(x));
+		Assert.Contains(some, char.IsNumber);
 	}
 
 	[Fact]
 	public void IncludeNumber_False_Does_Note_Include_A_Number()
 	{
 		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 3, max: 8);
 
 		// Act
-		var result = Rnd.StringF.Passphrase(3, '-', Rnd.Flip, false);
+		var result = Rnd.StringF.Passphrase(length, '-', Rnd.Flip, false);
 
 		// Assert
 		var some = result.AssertSome();
-		Assert.DoesNotContain(some, x => char.IsNumber(x));
+		Assert.DoesNotContain(some, char.IsNumber);
 	}
 
 	[Fact]
 	public void Does_Not_Repeat_Words()
 	{
 		// Arrange
-		const char sep = '|';
+		var length = 7776;
+		var sep = '|';
 
 		// Act
-		var result = Rnd.StringF.Passphrase(7776, sep, false, false);
+		var result = Rnd.StringF.Passphrase(length, sep, false, false);
 
 		// Assert
 		var some = result.AssertSome().Split(sep);
-		Assert.Equal(some.Length, some.Distinct().Count());
+		Assert.Equal(length, some.Distinct().Count());
 	}
 
 	[Fact]
@@ -206,17 +212,18 @@ public class Passphrase_Tests
 	{
 		// Arrange
 		var iterations = 10000;
+		var length = 2;
 		var phrases = new List<string>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			phrases.Add(Rnd.StringF.Passphrase(2).UnsafeUnwrap());
+			phrases.Add(Rnd.StringF.Passphrase(length).UnsafeUnwrap());
 		}
 
-		var unique = phrases.Distinct();
+		var result = phrases.Distinct().Count();
 
 		// Assert
-		Assert.InRange(unique.Count(), phrases.Count - 1, phrases.Count);
+		Assert.InRange(result, phrases.Count - 1, phrases.Count);
 	}
 }

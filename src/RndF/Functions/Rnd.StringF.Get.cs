@@ -59,7 +59,7 @@ public static partial class Rnd
 			}
 
 			// Don't include % so we don't confuse SQL databases
-			SpecialChars = new List<char>(new[] { '!', '#', '@', '+', '-', '*', '^', '=', ':', ';', '£', '$', '~', '`', '¬' });
+			SpecialChars = new List<char>(new[] { '!', '#', '@', '+', '-', '*', '^', '=', ':', ';', '£', '$', '~', '`', '¬', '|' });
 
 			AllChars = new List<char>();
 			AllChars.AddRange(LowercaseChars);
@@ -69,74 +69,69 @@ public static partial class Rnd
 		}
 
 		/// <summary>
-		/// Create a random string using default character groups - see <see cref="GetOptions.Default"/>
+		/// Create a random string using default character groups - see <see cref="CharacterClasses.Default"/>
 		/// </summary>
 		/// <param name="length">The length of the new random string</param>
 		public static string Get(int length) =>
-			Get(length, GetOptions.Default);
+			Get(length, CharacterClasses.Default);
+
+		/// <summary>
+		/// Create a random string using specified character groups (none are enabled by default)
+		/// </summary>
+		/// <remarks>
+		/// If you don't enable any character classes, you will get an exception
+		/// </remarks>
+		/// <param name="length">The length of the new random string</param>
+		/// <param name="chars">The character classes to include</param>
+		public static string Get(int length, SelectCharacterClasses chars) =>
+			Get(length, chars(CharacterClasses.None));
 
 		/// <summary>
 		/// Create a random string using specified character groups
 		/// Lowercase letters will always be used
 		/// </summary>
 		/// <param name="length">The length of the new random string</param>
-		/// <param name="opt">GetOptions</param>
-		public static string Get(int length, Func<GetOptions, GetOptions> opt) =>
-			Get(length, opt(GetOptions.Default));
-
-		/// <summary>
-		/// Create a random string using specified character groups
-		/// Lowercase letters will always be used
-		/// </summary>
-		/// <param name="length">The length of the new random string</param>
-		/// <param name="options">GetOptions</param>
+		/// <param name="classes">The character classes to include</param>
 		/// <exception cref="InvalidOperationException"></exception>
-		public static string Get(int length, GetOptions options)
+		internal static string Get(int length, CharacterClasses classes)
 		{
 			// Setup
 			var random = new List<char>();
 
-			if (!options.IsValid)
+			if (!classes.IsValid)
 			{
 				throw new InvalidOperationException("You must include at least one character class.");
 			}
 
-			// Function to return a random list index
-			void AppendOneOf(List<char> list)
-			{
-				var index = NumberF.GetInt32(max: list.Count - 1);
-				random.Add(list[index]);
-			}
-
 			// Array of characters to use
-			var chars = new List<char>();
+			var useChars = new List<char>();
 
 			// Add lowercase characters
-			if (options.Lower)
+			if (classes.Lower)
 			{
-				chars.AddRange(LowercaseChars);
-				AppendOneOf(LowercaseChars);
+				useChars.AddRange(LowercaseChars);
+				appendOneOf(LowercaseChars);
 			}
 
 			// Add uppercase characters
-			if (options.Upper)
+			if (classes.Upper)
 			{
-				chars.AddRange(UppercaseChars);
-				AppendOneOf(UppercaseChars);
+				useChars.AddRange(UppercaseChars);
+				appendOneOf(UppercaseChars);
 			}
 
 			// Add numbers
-			if (options.Numbers)
+			if (classes.Numbers)
 			{
-				chars.AddRange(NumberChars);
-				AppendOneOf(NumberChars);
+				useChars.AddRange(NumberChars);
+				appendOneOf(NumberChars);
 			}
 
 			// Add special characters
-			if (options.Special)
+			if (classes.Special)
 			{
-				chars.AddRange(SpecialChars);
-				AppendOneOf(SpecialChars);
+				useChars.AddRange(SpecialChars);
+				appendOneOf(SpecialChars);
 			}
 
 			// If the array is now bigger than the requested length, throw an exception
@@ -148,21 +143,34 @@ public static partial class Rnd
 			// Generate the rest of the random characters
 			while (random.Count < length)
 			{
-				AppendOneOf(chars);
+				appendOneOf(useChars);
 			}
 
 			// Return random string
 			return new(random.ToArray().Shuffle());
+
+			// Append one of the characters in list to the random string
+			void appendOneOf(List<char> list)
+			{
+				var index = NumberF.GetInt32(max: list.Count - 1);
+				random.Add(list[index]);
+			}
 		}
 
 		/// <summary>
-		/// Get Options - at least one character class must be included
+		/// Return the character classes to use for a random string - see <see cref="Get(int, SelectCharacterClasses)"/>
+		/// </summary>
+		/// <param name="chars"></param>
+		public delegate CharacterClasses SelectCharacterClasses(CharacterClasses chars);
+
+		/// <summary>
+		/// Character classes - at least one character class must be included
 		/// </summary>
 		/// <param name="Lower">If true (default) lowercase letters will be included</param>
 		/// <param name="Upper">If true (default) uppercase letters will be included</param>
 		/// <param name="Numbers">If true numbers will be included</param>
 		/// <param name="Special">If true special characters will be included</param>
-		public sealed record class GetOptions(
+		public sealed record class CharacterClasses(
 			bool Lower,
 			bool Upper,
 			bool Numbers,
@@ -170,13 +178,25 @@ public static partial class Rnd
 		)
 		{
 			/// <summary>
+			/// Returns all character classes
+			/// </summary>
+			internal static CharacterClasses All =>
+				new(true, true, true, true);
+
+			/// <summary>
+			/// Returns no character classes
+			/// </summary>
+			internal static CharacterClasses None =>
+				new(false, false, false, false);
+
+			/// <summary>
 			/// Returns default character classes:
 			///		<see cref="Lower"/> = true
 			///		<see cref="Upper"/> = true
 			///		<see cref="Numbers"/> = false
 			///		<see cref="Special"/> = false
 			/// </summary>
-			internal static GetOptions Default =>
+			internal static CharacterClasses Default =>
 				new(true, true, false, false);
 
 			/// <summary>
