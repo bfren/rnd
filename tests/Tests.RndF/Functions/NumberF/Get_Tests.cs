@@ -6,9 +6,9 @@ namespace RndF.Rnd_Tests.NumberF_Tests;
 public class Get_Tests
 {
 	/// <summary>
-	/// Allow a tiny amount of duplication to ensure the tests always pass
+	/// Allow a tiny amount of duplication to ensure the tests 'always' pass
 	/// </summary>
-	public const float FailureRate = 0.9998f;
+	public const float AcceptableDuplicateRate = 0.9998f;
 
 	[Fact]
 	public void Never_Returns_Number_Out_Of_Bounds()
@@ -29,23 +29,46 @@ public class Get_Tests
 	}
 
 	[Fact]
-	public void Returns_Different_Number_Each_Time()
+	public void Returns_Different_Number_Each_Time() =>
+		Returns_Different_Number_With_Acceptable_Duplicate_Rate(Rnd.NumberF.Get);
+
+	internal static void Returns_Different_Number_With_Acceptable_Duplicate_Rate<T>(Func<T> get, float acceptableDuplicateRate = AcceptableDuplicateRate)
 	{
 		// Arrange
 		var iterations = 10000;
-		var numbers = new List<double>();
+		var numbers = new List<T>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			numbers.Add(Rnd.NumberF.Get());
+			numbers.Add(get());
 		}
 
 		var result = (double)numbers.Distinct().Count() / iterations;
 
 		// Assert
-		Assert.True(result > FailureRate);
-		Assert.True(numbers.Min() >= 0);
-		Assert.True(numbers.Max() <= 1);
+		Assert.True(
+			result > acceptableDuplicateRate,
+			$"Rate of unique values ({result:0.0000}) cannot be less than {acceptableDuplicateRate}. " +
+			$"Duplicates: {string.Join(',', GetDuplicates(numbers))}."
+		);
+	}
+
+	internal static List<T> GetDuplicates<T>(List<T> list)
+	{
+		var distinct = list.Distinct().ToList();
+		var duplicates = new List<T>();
+		foreach (var item in list)
+		{
+			if (distinct.Contains(item))
+			{
+				distinct.Remove(item);
+			}
+			else
+			{
+				duplicates.Add(item);
+			}
+		}
+		return duplicates;
 	}
 }
