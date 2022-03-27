@@ -34,6 +34,7 @@ public class Get_Tests
 
 		// Assert
 		Assert.Throws<InvalidOperationException>(a0);
+		Assert.Throws<InvalidOperationException>(a1);
 	}
 
 	[Fact]
