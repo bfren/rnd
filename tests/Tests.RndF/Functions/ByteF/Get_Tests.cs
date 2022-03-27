@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace RndF.Rnd_Tests.ByteF_Tests;
@@ -28,17 +28,17 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 10000;
-		var numbers = new List<byte[]>();
+		var bytes = new List<byte[]>();
 
 		// Act
 		for (var i = 0; i < iterations; i++)
 		{
-			numbers.Add(Rnd.ByteF.Get(4));
+			bytes.Add(Rnd.ByteF.Get(4));
 		}
 
-		var unique = numbers.Distinct();
+		var result = bytes.Distinct().Count();
 
 		// Assert
-		Assert.Equal(unique.Count(), numbers.Count);
+		Assert.Equal(bytes.Count, result);
 	}
 }
