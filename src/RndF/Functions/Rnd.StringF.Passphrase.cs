@@ -40,7 +40,7 @@ public static partial class Rnd
 		/// <param name="separator">Word separator</param>
 		/// <param name="upperFirst">Whether or not to make the first letter of each word upper case</param>
 		/// <param name="includeNumber">Whether or not to include a number with one of the words</param>
-		internal static Maybe<string> Passphrase(
+		public static Maybe<string> Passphrase(
 			string[] wordList,
 			int numberOfWords,
 			char separator,
@@ -86,7 +86,15 @@ public static partial class Rnd
 				// Add a number to the first word (the list will be shuffled later)
 				if (includeNumber && i == 0)
 				{
-					word += NumberF.GetInt64(0, 9);
+					var num = NumberF.GetInt64(0, 9);
+					word = Flip switch
+					{
+						true =>
+							$"{word}{num}",
+
+						false =>
+							$"{num}{word}"
+					};
 				}
 
 				// Add the word to the list

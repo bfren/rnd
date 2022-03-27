@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using MaybeF;
 
 namespace RndF;
 
@@ -29,8 +28,8 @@ public static partial class Rnd
 	/// Generate a random passphrase with eight dictionary words all starting with an uppercase
 	/// letter, and one number
 	/// </summary>
-	public static Maybe<string> Pass =>
-		StringF.Passphrase();
+	public static string Pass =>
+		StringF.Passphrase().Unwrap(r => throw new InvalidOperationException(r.ToString()));
 
 	/// <summary>
 	/// Generate a random string 6 characters long, containing uppercase and lowercase letters,
