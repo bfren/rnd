@@ -21,3 +21,6 @@ dotnet_diagnostic.IDE0058.severity = none
 
 # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0130.severity = none
+
+# RCS1118: Mark local variable as const.
+dotnet_diagnostic.RCS1118.severity = none

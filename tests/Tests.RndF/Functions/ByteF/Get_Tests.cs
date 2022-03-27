@@ -27,7 +27,7 @@ public class Get_Tests
 	public void Returns_Different_Bytes_Each_Time()
 	{
 		// Arrange
-		const int iterations = 10000;
+		var iterations = 10000;
 		var numbers = new List<byte[]>();
 
 		// Act

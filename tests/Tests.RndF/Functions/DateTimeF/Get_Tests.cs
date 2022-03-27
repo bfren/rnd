@@ -8,7 +8,7 @@ public class Get_Tests
 	private static void Never_Returns_Number_Out_Of_Bounds(Func<DateTime, int> value, int min, int max)
 	{
 		// Arrange
-		const int iterations = 100000;
+		var iterations = 100000;
 		var numbers = new List<int>();
 
 		// Act

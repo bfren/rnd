@@ -205,7 +205,7 @@ public class Passphrase_Tests
 	public void Returns_Different_Phrase_Each_Time()
 	{
 		// Arrange
-		const int iterations = 10000;
+		var iterations = 10000;
 		var phrases = new List<string>();
 
 		// Act
