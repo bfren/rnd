@@ -53,19 +53,19 @@ public static partial class Rnd
 			// Number of words must be at least 2
 			if (numberOfWords < 2)
 			{
-				return F.None<string, R.NumberOfWordsMustBeAtLeastTwoReason>();
+				return F.None<string, M.NumberOfWordsMustBeAtLeastTwoMsg>();
 			}
 
 			// Get word list
 			if (wordList.Length == 0)
 			{
-				return F.None<string, R.EmptyWordListReason>();
+				return F.None<string, M.EmptyWordListMsg>();
 			}
 
 			// Number of words cannot be higher than the word list
 			if (numberOfWords > wordList.Length)
 			{
-				return F.None<string>(new R.NumberOfWordsCannotBeMoreThanWordListReason(wordList.Length));
+				return F.None<string>(new M.NumberOfWordsCannotBeMoreThanWordListMsg(wordList.Length));
 			}
 
 			// Get the right number of words
@@ -123,18 +123,18 @@ public static partial class Rnd
 			}
 		}
 
-		/// <summary>Reasons</summary>
-		public static class R
+		/// <summary>Messages</summary>
+		public static class M
 		{
 			/// <summary>Number of words must be at least 2</summary>
-			public sealed record class NumberOfWordsMustBeAtLeastTwoReason : IReason;
+			public sealed record class NumberOfWordsMustBeAtLeastTwoMsg : IMsg;
 
 			/// <summary>Number of words must be less than length of word list</summary>
 			/// <param name="Maximum">The maximum number of words</param>
-			public sealed record class NumberOfWordsCannotBeMoreThanWordListReason(int Maximum) : IReason;
+			public sealed record class NumberOfWordsCannotBeMoreThanWordListMsg(int Maximum) : IMsg;
 
 			/// <summary>The word list was empty</summary>
-			public sealed record class EmptyWordListReason() : IReason;
+			public sealed record class EmptyWordListMsg : IMsg;
 		}
 	}
 }
