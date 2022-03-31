@@ -1,12 +1,14 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
+using RndF.Exceptions;
+
 namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetDouble_Tests
 {
 	[Fact]
-	public void Min_GreaterThan_Max_Throws_ArgumentOutOfRangeException()
+	public void Min_GreaterThan_Max_Throws_MinimumMoreThanMaximumException()
 	{
 		// Arrange
 		var min = 3d;
@@ -16,12 +18,12 @@ public class GetDouble_Tests
 		var action = void () => Rnd.NumberF.GetDouble(min, max);
 
 		// Assert
-		var ex = Assert.Throws<ArgumentOutOfRangeException>(action);
-		Assert.Equal($"Minimium value must be less than the maximum value. (Parameter 'min'){Environment.NewLine}Actual value was 3.", ex.Message);
+		var ex = Assert.Throws<MinimumMoreThanMaximumException>(action);
+		Assert.Equal("GetDouble(): Minimium value '3' must be less than maximum value '2'.", ex.Message);
 	}
 
 	[Fact]
-	public void Min_LessThan_Zero_Throws_ArgumentException()
+	public void Min_LessThan_Zero_Throws_MinimumLessThanZeroException()
 	{
 		// Arrange
 		var min = double.MinValue;
@@ -30,8 +32,8 @@ public class GetDouble_Tests
 		var action = void () => Rnd.NumberF.GetDouble(min: min, max: Rnd.Int);
 
 		// Assert
-		var ex = Assert.Throws<ArgumentException>(action);
-		Assert.Equal("Minimum value must be at least 0. (Parameter 'min')", ex.Message);
+		var ex = Assert.Throws<MinimumLessThanZeroException>(action);
+		Assert.Equal($"GetDouble(): Minimum value '{min}' must be at least 0.", ex.Message);
 	}
 
 	[Fact]

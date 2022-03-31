@@ -37,7 +37,7 @@ public static partial class Rnd
 			// Check arguments
 			if (min >= max)
 			{
-				throw MinimumMoreThanMaximumException.Create(nameof(GetDouble), min, max);
+				throw MinimumMoreThanMaximumException.Create(nameof(GetSingle), min, max);
 			}
 
 			if (min < 0)
