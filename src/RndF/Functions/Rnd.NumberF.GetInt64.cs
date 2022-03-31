@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
+using RndF.Exceptions;
 
 namespace RndF;
 
@@ -36,19 +37,19 @@ public static partial class Rnd
 		/// </remarks>
 		/// <param name="min">Minimum acceptable value (must be at least <see langword="0"/>)</param>
 		/// <param name="max">Maximum acceptable value</param>
-		/// <exception cref="ArgumentOutOfRangeException"></exception>
-		/// <exception cref="ArgumentException"></exception>
+		/// <exception cref="MinimumMoreThanMaximumException"></exception>
+		/// <exception cref="MinimumLessThanZeroException"></exception>
 		public static long GetInt64(long min, long max)
 		{
 			// Check arguments
 			if (min >= max)
 			{
-				throw new ArgumentOutOfRangeException(nameof(min), min, MinimumMustBeLessThanMaximum);
+				throw MinimumMoreThanMaximumException.Create(nameof(GetInt64), min, max);
 			}
 
 			if (min < 0)
 			{
-				throw new ArgumentException(MinimumMustBeAtLeastZero, nameof(min));
+				throw MinimumLessThanZeroException.Create(nameof(GetInt64), min);
 			}
 
 			// Get the range between the specified minimum and maximum values

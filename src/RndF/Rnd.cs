@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
+using RndF.Exceptions;
 
 namespace RndF;
 
@@ -29,7 +30,7 @@ public static partial class Rnd
 	/// letter, and one number
 	/// </summary>
 	public static string Pass =>
-		StringF.Passphrase().Unwrap(r => throw new InvalidOperationException(r.ToString()));
+		StringF.Passphrase().Unwrap(r => throw new InvalidPassphraseException(r));
 
 	/// <summary>
 	/// Generate a random string 6 characters long, containing uppercase and lowercase letters,
@@ -124,9 +125,9 @@ public static partial class Rnd
 	/// <summary>Random number functions</summary>
 	public static partial class NumberF
 	{
-		private const string MinimumMustBeLessThanMaximum = "Minimium value must be less than the maximum value.";
+		internal static string MinimumMustBeLessThanMaximum { get; } = "{0}(): Minimium value {1} must be less than maximum value {2}.";
 
-		private const string MinimumMustBeAtLeastZero = "Minimum value must be at least 0.";
+		internal static string MinimumMustBeAtLeastZero { get; } = "{0}(): Minimum value {1} must be at least 0.";
 	}
 
 	/// <summary>Random string functions</summary>

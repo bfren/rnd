@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
+using RndF.Exceptions;
 
 namespace RndF;
 
@@ -36,13 +37,13 @@ public static partial class Rnd
 		/// </remarks>
 		/// <param name="min">Minimum acceptable value</param>
 		/// <param name="max">Maximum acceptable value</param>
-		/// <exception cref="ArgumentOutOfRangeException"></exception>
+		/// <exception cref="MinimumMoreThanMaximumException"></exception>
 		public static ulong GetUInt64(ulong min, ulong max)
 		{
 			// Check arguments
 			if (min >= max)
 			{
-				throw new ArgumentOutOfRangeException(nameof(min), min, MinimumMustBeLessThanMaximum);
+				throw MinimumMoreThanMaximumException.Create(nameof(GetDouble), min, max);
 			}
 
 			// Get the range between the specified minimum and maximum values
