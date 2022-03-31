@@ -1,7 +1,7 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using static RndF.Rnd.StringF.R;
+using static RndF.Rnd.StringF.M;
 
 namespace RndF.Rnd_Tests.StringF_Tests;
 
@@ -72,7 +72,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var none = result.AssertNone();
-		Assert.IsType<NumberOfWordsMustBeAtLeastTwoReason>(none);
+		Assert.IsType<NumberOfWordsMustBeAtLeastTwoMsg>(none);
 	}
 
 	[Fact]
@@ -86,7 +86,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var none = result.AssertNone();
-		Assert.IsType<EmptyWordListReason>(none);
+		Assert.IsType<EmptyWordListMsg>(none);
 	}
 
 	[Fact]
@@ -99,7 +99,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var none = result.AssertNone();
-		Assert.IsType<NumberOfWordsCannotBeMoreThanWordListReason>(none);
+		Assert.IsType<NumberOfWordsCannotBeMoreThanWordListMsg>(none);
 	}
 
 	[Theory]
