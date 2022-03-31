@@ -1,6 +1,8 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
+using RndF.Exceptions;
+
 namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetInt64_Tests
@@ -16,8 +18,8 @@ public class GetInt64_Tests
 		var action = void () => Rnd.NumberF.GetInt64(min, max);
 
 		// Assert
-		var ex = Assert.Throws<ArgumentOutOfRangeException>(action);
-		Assert.Equal($"Minimium value must be less than the maximum value. (Parameter 'min'){Environment.NewLine}Actual value was 3.", ex.Message);
+		var ex = Assert.Throws<MinimumMoreThanMaximumException>(action);
+		Assert.Equal("GetInt64(): Minimium value '3' must be less than maximum value '2'.", ex.Message);
 	}
 
 	[Fact]
@@ -30,8 +32,8 @@ public class GetInt64_Tests
 		var action = void () => Rnd.NumberF.GetInt64(min: min, max: Rnd.Lng);
 
 		// Assert
-		var ex = Assert.Throws<ArgumentException>(action);
-		Assert.Equal("Minimum value must be at least 0. (Parameter 'min')", ex.Message);
+		var ex = Assert.Throws<MinimumLessThanZeroException>(action);
+		Assert.Equal($"GetInt64(): Minimum value '{min}' must be at least 0.", ex.Message);
 	}
 
 	[Fact]

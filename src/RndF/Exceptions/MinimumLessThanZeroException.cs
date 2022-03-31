@@ -35,6 +35,6 @@ public sealed class MinimumLessThanZeroException : Exception
 	/// <typeparam name="T">Number type</typeparam>
 	/// <param name="method">Method name</param>
 	/// <param name="min">Requested minimum value</param>
-	public static MinimumMoreThanMaximumException Create<T>(string method, T min) =>
+	public static MinimumLessThanZeroException Create<T>(string method, T min) =>
 		new(string.Format(CultureInfo.InvariantCulture, Rnd.NumberF.MinimumMustBeAtLeastZero, method, min));
 }
