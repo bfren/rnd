@@ -3,7 +3,7 @@
 
 namespace RndF.Functions.StringF_Tests.CharacterClasses_Tests;
 
-public class None_Tests
+public class NoClasses_Tests
 {
 	[Fact]
 	public void No_Classes_Enabled()
@@ -11,7 +11,7 @@ public class None_Tests
 		// Arrange
 
 		// Act
-		var result = Rnd.StringF.CharacterClasses.None;
+		var result = Rnd.StringF.CharacterClasses.NoClasses;
 
 		// Assert
 		Assert.False(result.Lower);

@@ -14,7 +14,7 @@ public class Get_Tests
 		// Act
 		var r0 = Rnd.StringF.Get(length);
 		var r1 = Rnd.StringF.Get(length, chars: c => c with { Lower = true });
-		var r2 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.All);
+		var r2 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.AllClasses);
 
 		// Assert
 		Assert.Equal(length, r0.Length);
@@ -29,8 +29,8 @@ public class Get_Tests
 		var length = 3;
 
 		// Act
-		var a0 = void () => Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.All);
-		var a1 = void () => Rnd.StringF.Get(length, Rnd.StringF.CharacterClasses.All);
+		var a0 = void () => Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.AllClasses);
+		var a1 = void () => Rnd.StringF.Get(length, Rnd.StringF.CharacterClasses.AllClasses);
 
 		// Assert
 		Assert.Throws<InvalidOperationException>(a0);
@@ -44,8 +44,8 @@ public class Get_Tests
 		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
 
 		// Act
-		var a0 = void () => Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.None);
-		var a1 = void () => Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.None);
+		var a0 = void () => Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.NoClasses);
+		var a1 = void () => Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.NoClasses);
 
 		// Assert
 		Assert.Throws<InvalidOperationException>(a0);
@@ -72,8 +72,8 @@ public class Get_Tests
 		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
 
 		// Act
-		var r0 = Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.Default);
-		var r1 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.Default);
+		var r0 = Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.DefaultClasses);
+		var r1 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.DefaultClasses);
 
 		// Assert
 		Assert.True(r0.All(c => Rnd.StringF.LowercaseChars.Contains(c) || Rnd.StringF.UppercaseChars.Contains(c)));
@@ -147,8 +147,8 @@ public class Get_Tests
 		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
 
 		// Act
-		var r0 = Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.All);
-		var r1 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.All);
+		var r0 = Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.AllClasses);
+		var r1 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.AllClasses);
 
 		// Assert
 		Assert.False(r0.All(Rnd.StringF.LowercaseChars.Contains));
