@@ -3,21 +3,20 @@
 
 namespace RndF.Functions.StringF_Tests.CharacterClasses_Tests;
 
-public class All_Tests
+public class DefaultClasses_Tests
 {
 	[Fact]
-	public void All_Classes_Enabled()
+	public void Upper_And_Lower_Classes_Enabled()
 	{
 		// Arrange
-		var chars = Rnd.StringF.CharacterClasses.NoClasses;
 
 		// Act
-		var result = chars.All;
+		var result = Rnd.StringF.CharacterClasses.DefaultClasses;
 
 		// Assert
 		Assert.True(result.Lower);
 		Assert.True(result.Upper);
-		Assert.True(result.Numbers);
-		Assert.True(result.Special);
+		Assert.False(result.Numbers);
+		Assert.False(result.Special);
 	}
 }

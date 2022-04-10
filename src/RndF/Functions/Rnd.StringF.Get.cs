@@ -69,11 +69,11 @@ public static partial class Rnd
 		}
 
 		/// <summary>
-		/// Create a random string using default character groups - see <see cref="CharacterClasses.Default"/>
+		/// Create a random string using default character groups - see <see cref="CharacterClasses.DefaultClasses"/>
 		/// </summary>
 		/// <param name="length">The length of the new random string</param>
 		public static string Get(int length) =>
-			Get(length, CharacterClasses.Default);
+			Get(length, CharacterClasses.DefaultClasses);
 
 		/// <summary>
 		/// Create a random string using specified character groups (none are enabled by default)
@@ -84,7 +84,7 @@ public static partial class Rnd
 		/// <param name="length">The length of the new random string</param>
 		/// <param name="chars">The character classes to include</param>
 		public static string Get(int length, SelectCharacterClasses chars) =>
-			Get(length, chars(CharacterClasses.None));
+			Get(length, chars(CharacterClasses.NoClasses));
 
 		/// <summary>
 		/// Create a random string using specified character groups
@@ -177,16 +177,20 @@ public static partial class Rnd
 			bool Special
 		)
 		{
+			/// <inheritdoc cref="AllClasses"/>
+			public CharacterClasses All =>
+				AllClasses;
+
 			/// <summary>
 			/// Returns all character classes
 			/// </summary>
-			internal static CharacterClasses All =>
+			internal static CharacterClasses AllClasses =>
 				new(true, true, true, true);
 
 			/// <summary>
 			/// Returns no character classes
 			/// </summary>
-			internal static CharacterClasses None =>
+			internal static CharacterClasses NoClasses =>
 				new(false, false, false, false);
 
 			/// <summary>
@@ -196,7 +200,7 @@ public static partial class Rnd
 			///		<see cref="Numbers"/> = false
 			///		<see cref="Special"/> = false
 			/// </summary>
-			internal static CharacterClasses Default =>
+			internal static CharacterClasses DefaultClasses =>
 				new(true, true, false, false);
 
 			/// <summary>
