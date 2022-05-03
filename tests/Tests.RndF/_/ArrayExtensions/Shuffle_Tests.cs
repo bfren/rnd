@@ -1,4 +1,4 @@
-﻿// Rnd: Unit Tests
+// Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 namespace RndF.ArrayExtensions_Tests;
@@ -16,5 +16,17 @@ public class Shuffle_Tests
 
 		// Assert
 		Assert.NotEqual(array, result);
+	}
+
+	[Fact]
+	public void Null_Input__Returns_Empty_Array()
+	{
+		// Arrange
+
+		// Act
+		var result = ArrayExtensions.Shuffle<int>(null!);
+
+		// Assert
+		Assert.Empty(result);
 	}
 }

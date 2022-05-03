@@ -16,6 +16,13 @@ public static partial class Rnd
 		/// <param name="length">The length of the byte array</param>
 		public static byte[] Get(int length)
 		{
+			// Return empty array
+			if (length == 0)
+			{
+				return Array.Empty<byte>();
+			}
+
+			// Fill with random bytes
 			Span<byte> b = stackalloc byte[length];
 			RandomNumberGenerator.Fill(b);
 			return b.ToArray();

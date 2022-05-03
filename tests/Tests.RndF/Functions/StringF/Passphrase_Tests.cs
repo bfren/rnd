@@ -59,11 +59,38 @@ public class Passphrase_Tests
 		Assert.Contains(some, char.IsNumber);
 	}
 
+	[Fact]
+	public void Null_Word_List_Returns_None_With_WordListCannotBeNullMsg()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.StringF.Passphrase(null!, 3, '-', true, true);
+
+		// Assert
+		var none = result.AssertNone();
+		Assert.IsType<WordListCannotBeNullMsg>(none);
+	}
+
+	[Fact]
+	public void Empty_Word_List_Returns_None_With_WordListCannotBeEmptyMsg()
+	{
+		// Arrange
+		var empty = Array.Empty<string>();
+
+		// Act
+		var result = Rnd.StringF.Passphrase(empty, 3, '-', true, true);
+
+		// Assert
+		var none = result.AssertNone();
+		Assert.IsType<WordListCannotBeEmptyMsg>(none);
+	}
+
 	[Theory]
 	[InlineData(-1)]
 	[InlineData(0)]
 	[InlineData(1)]
-	public void NumberOfWords_Less_Than_Two_Returns_None_With_NumberOfWordsMustBeAtLeastTwoReason(int input)
+	public void NumberOfWords_Less_Than_Two_Returns_None_With_NumberOfWordsMustBeAtLeastTwoMsg(int input)
 	{
 		// Arrange
 
@@ -76,21 +103,7 @@ public class Passphrase_Tests
 	}
 
 	[Fact]
-	public void Empty_Word_List_Returns_None_With_EmptyWordListReason()
-	{
-		// Arrange
-		var empty = Array.Empty<string>();
-
-		// Act
-		var result = Rnd.StringF.Passphrase(empty, 3, '-', true, true);
-
-		// Assert
-		var none = result.AssertNone();
-		Assert.IsType<EmptyWordListMsg>(none);
-	}
-
-	[Fact]
-	public void NumberOfWords_Higher_Than_Word_List_Count_Returns_None_With_NumberOfWordsCannotBeMoreThanWordListReason()
+	public void NumberOfWords_Higher_Than_Word_List_Count_Returns_None_With_NumberOfWordsCannotBeMoreThanWordListMsg()
 	{
 		// Arrange
 

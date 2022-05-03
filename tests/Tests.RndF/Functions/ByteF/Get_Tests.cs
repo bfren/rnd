@@ -6,6 +6,7 @@ namespace RndF.Rnd_Tests.ByteF_Tests;
 public class Get_Tests
 {
 	[Theory]
+	[InlineData(0)]
 	[InlineData(2)]
 	[InlineData(4)]
 	[InlineData(8)]
