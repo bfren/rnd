@@ -83,8 +83,11 @@ public static partial class Rnd
 		/// </remarks>
 		/// <param name="length">The length of the new random string</param>
 		/// <param name="chars">The character classes to include</param>
-		public static string Get(int length, SelectCharacterClasses chars) =>
-			Get(length, chars(CharacterClasses.NoClasses));
+		public static string Get(int length, SelectCharacterClasses chars)
+		{
+			ArgumentNullException.ThrowIfNull(chars);
+			return Get(length, chars(CharacterClasses.NoClasses));
+		}
 
 		/// <summary>
 		/// Create a random string using specified character groups

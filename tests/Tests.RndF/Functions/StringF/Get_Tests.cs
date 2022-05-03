@@ -38,6 +38,19 @@ public class Get_Tests
 	}
 
 	[Fact]
+	public void Null_Options_Throws_ArgumentNullException()
+	{
+		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+
+		// Act
+		var action = void () => Rnd.StringF.Get(length, chars: null!);
+
+		// Assert
+		Assert.Throws<ArgumentNullException>(action);
+	}
+
+	[Fact]
 	public void Invalid_Options_Throws_InvalidOperationException()
 	{
 		// Arrange
