@@ -125,9 +125,11 @@ public static partial class Rnd
 	/// <summary>Random number functions</summary>
 	public static partial class NumberF
 	{
-		internal static string MinimumMustBeLessThanMaximum { get; } = "{0}(): Minimium value '{1}' must be less than maximum value '{2}'.";
+		internal static string MinimumMustBeLessThanMaximum =>
+			"{0}(): Minimium value '{1}' must be less than maximum value '{2}'.";
 
-		internal static string MinimumMustBeAtLeastZero { get; } = "{0}(): Minimum value '{1}' must be at least 0.";
+		internal static string MinimumMustBeAtLeastZero =>
+			"{0}(): Minimum value '{1}' must be at least 0.";
 	}
 
 	/// <summary>Random string functions</summary>
