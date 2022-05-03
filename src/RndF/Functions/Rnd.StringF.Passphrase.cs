@@ -50,16 +50,22 @@ public static partial class Rnd
 			bool includeNumber
 		)
 		{
+			// Word list cannot be null
+			if (wordList is null)
+			{
+				return F.None<string, M.WordListCannotBeNullMsg>();
+			}
+
+			// Check word list length
+			if (wordList.Length == 0)
+			{
+				return F.None<string, M.WordListCannotBeEmptyMsg>();
+			}
+
 			// Number of words must be at least 2
 			if (numberOfWords < 2)
 			{
 				return F.None<string, M.NumberOfWordsMustBeAtLeastTwoMsg>();
-			}
-
-			// Get word list
-			if (wordList.Length == 0)
-			{
-				return F.None<string, M.EmptyWordListMsg>();
 			}
 
 			// Number of words cannot be higher than the word list
@@ -126,15 +132,18 @@ public static partial class Rnd
 		/// <summary>Messages</summary>
 		public static class M
 		{
+			/// <summary>WordList cannot be null</summary>
+			public sealed record class WordListCannotBeNullMsg : IMsg;
+
+			/// <summary>The word list cannot be empty</summary>
+			public sealed record class WordListCannotBeEmptyMsg : IMsg;
+
 			/// <summary>Number of words must be at least 2</summary>
 			public sealed record class NumberOfWordsMustBeAtLeastTwoMsg : IMsg;
 
 			/// <summary>Number of words must be less than length of word list</summary>
 			/// <param name="Maximum">The maximum number of words</param>
 			public sealed record class NumberOfWordsCannotBeMoreThanWordListMsg(int Maximum) : IMsg;
-
-			/// <summary>The word list was empty</summary>
-			public sealed record class EmptyWordListMsg : IMsg;
 		}
 	}
 }
