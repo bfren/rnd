@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Linq;
 
 namespace RndF;
 
@@ -39,11 +38,7 @@ public static partial class Rnd
 			}
 
 			// Split the input string into a list of words
-			var list = from w in input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-					   select w;
-
-			// Return as an array
-			return list.ToArray();
+			return input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 		}
 	}
 }
