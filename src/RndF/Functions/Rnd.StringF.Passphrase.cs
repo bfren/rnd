@@ -91,8 +91,9 @@ public static partial class Rnd
 					word = word[0].ToString().ToUpperInvariant() + word[1..];
 				}
 
-				// Add a number to the first word (the list will be shuffled later)
-				if (includeNumber && i == 0)
+				// Add a number to the first word and every fifth word after that
+				// (the list will be shuffled later)
+				if (includeNumber && (i % 5 == 0))
 				{
 					var num = NumberF.GetInt64(0, 9);
 					word = Flip switch
