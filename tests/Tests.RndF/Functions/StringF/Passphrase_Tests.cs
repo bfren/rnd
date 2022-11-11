@@ -43,7 +43,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var some = result.AssertSome();
-		Assert.NotEqual(some, some.ToLower());
+		Assert.NotEqual(some, some.ToLowerInvariant());
 	}
 
 	[Fact]
@@ -160,7 +160,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var some = result.AssertSome();
-		Assert.NotEqual(some, some.ToLower());
+		Assert.NotEqual(some, some.ToLowerInvariant());
 	}
 
 	[Fact]
@@ -174,7 +174,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var some = result.AssertSome();
-		Assert.Equal(some, some.ToLower());
+		Assert.Equal(some, some.ToLowerInvariant());
 	}
 
 	[Fact]
