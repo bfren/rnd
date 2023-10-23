@@ -209,7 +209,7 @@ public class Passphrase_Tests
 	public void Does_Not_Repeat_Words()
 	{
 		// Arrange
-		var length = 7776;
+		var length = 7774;
 		var sep = '|';
 
 		// Act
