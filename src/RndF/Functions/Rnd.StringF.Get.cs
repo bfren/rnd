@@ -190,7 +190,7 @@ public static partial class Rnd
 		/// <param name="Lower">If true (default) lowercase letters will be included</param>
 		/// <param name="Upper">If true (default) uppercase letters will be included</param>
 		/// <param name="Numbers">If true numbers will be included</param>
-		/// <param name="Numbers">If true hexadecimal characters will be included</param>
+		/// <param name="Hexadecimal">If true hexadecimal characters will be included</param>
 		/// <param name="Special">If true special characters will be included</param>
 		public sealed record class CharacterClasses(
 			bool Lower,
