@@ -64,7 +64,7 @@ public static partial class Rnd
 			}
 
 			HexadecimalChars = new(NumberChars);
-			for (var i = 97; i < 103; i++)
+			for (var i = 97; i <= 102; i++)
 			{
 				HexadecimalChars.Add(Convert.ToChar(i));
 			}
