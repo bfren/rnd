@@ -31,6 +31,11 @@ public static partial class Rnd
 		public static List<char> NumberChars { get; }
 
 		/// <summary>
+		/// List of hexademical characters
+		/// </summary>
+		public static List<char> HexadecimalChars { get; }
+
+		/// <summary>
 		/// List of special characters
 		/// </summary>
 		public static List<char> SpecialChars { get; }
@@ -40,22 +45,28 @@ public static partial class Rnd
 		/// </summary>
 		static StringF()
 		{
-			LowercaseChars = new List<char>();
+			LowercaseChars = new();
 			for (var i = 97; i <= 122; i++)
 			{
 				LowercaseChars.Add(Convert.ToChar(i));
 			}
 
-			UppercaseChars = new List<char>();
+			UppercaseChars = new();
 			for (var i = 65; i <= 90; i++)
 			{
 				UppercaseChars.Add(Convert.ToChar(i));
 			}
 
-			NumberChars = new List<char>();
+			NumberChars = new();
 			for (var i = 48; i <= 57; i++)
 			{
 				NumberChars.Add(Convert.ToChar(i));
+			}
+
+			HexadecimalChars = new(NumberChars);
+			for (var i = 91; i < 97; i++)
+			{
+				HexadecimalChars.Add(Convert.ToChar(i));
 			}
 
 			// Don't include % so we don't confuse SQL databases
@@ -130,6 +141,13 @@ public static partial class Rnd
 				appendOneOf(NumberChars);
 			}
 
+			// Add hexadecimal characters
+			if (classes.Hexadecimal)
+			{
+				useChars.AddRange(HexadecimalChars);
+				appendOneOf(HexadecimalChars);
+			}
+
 			// Add special characters
 			if (classes.Special)
 			{
@@ -172,11 +190,13 @@ public static partial class Rnd
 		/// <param name="Lower">If true (default) lowercase letters will be included</param>
 		/// <param name="Upper">If true (default) uppercase letters will be included</param>
 		/// <param name="Numbers">If true numbers will be included</param>
+		/// <param name="Numbers">If true hexadecimal characters will be included</param>
 		/// <param name="Special">If true special characters will be included</param>
 		public sealed record class CharacterClasses(
 			bool Lower,
 			bool Upper,
 			bool Numbers,
+			bool Hexadecimal,
 			bool Special
 		)
 		{
@@ -188,29 +208,30 @@ public static partial class Rnd
 			/// Returns all character classes
 			/// </summary>
 			internal static CharacterClasses AllClasses =>
-				new(true, true, true, true);
+				new(true, true, true, false, true);
 
 			/// <summary>
 			/// Returns no character classes
 			/// </summary>
 			internal static CharacterClasses NoClasses =>
-				new(false, false, false, false);
+				new(false, false, false, false, false);
 
 			/// <summary>
 			/// Returns default character classes:
 			///		<see cref="Lower"/> = true
 			///		<see cref="Upper"/> = true
 			///		<see cref="Numbers"/> = false
+			///		<see cref="Hexadecimal"/> = false
 			///		<see cref="Special"/> = false
 			/// </summary>
 			internal static CharacterClasses DefaultClasses =>
-				new(true, true, false, false);
+				new(true, true, false, false, false);
 
 			/// <summary>
 			/// Returns true if at least one character class is enabled
 			/// </summary>
 			internal bool IsValid =>
-				Lower || Upper || Numbers || Special;
+				Lower || Upper || Numbers || Hexadecimal || Special;
 		}
 	}
 }
