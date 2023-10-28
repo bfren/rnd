@@ -101,7 +101,7 @@ public class Get_Tests
 
 		// Act
 		var r0 = Rnd.StringF.Get(length, chars: c => c with { Lower = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(true, false, false, false));
+		var r1 = Rnd.StringF.Get(length, classes: new(true, false, false, false, false));
 
 		// Assert
 		Assert.True(r0.All(Rnd.StringF.LowercaseChars.Contains));
@@ -116,7 +116,7 @@ public class Get_Tests
 
 		// Act
 		var r0 = Rnd.StringF.Get(length, chars: c => c with { Upper = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, true, false, false));
+		var r1 = Rnd.StringF.Get(length, classes: new(false, true, false, false, false));
 
 		// Assert
 		Assert.True(r0.All(Rnd.StringF.UppercaseChars.Contains));
@@ -131,11 +131,26 @@ public class Get_Tests
 
 		// Act
 		var r0 = Rnd.StringF.Get(length, chars: c => c with { Numbers = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, false, true, false));
+		var r1 = Rnd.StringF.Get(length, classes: new(false, false, true, false, false));
 
 		// Assert
 		Assert.True(r0.All(Rnd.StringF.NumberChars.Contains));
 		Assert.True(r1.All(Rnd.StringF.NumberChars.Contains));
+	}
+
+	[Fact]
+	public void With_Classes_Returns_Only_Hexadecimal_Characters()
+	{
+		// Arrange
+		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+
+		// Act
+		var r0 = Rnd.StringF.Get(length, chars: c => c with { Hexadecimal = true });
+		var r1 = Rnd.StringF.Get(length, classes: new(false, false, false, true, false));
+
+		// Assert
+		Assert.True(r0.All(Rnd.StringF.HexadecimalChars.Contains));
+		Assert.True(r1.All(Rnd.StringF.HexadecimalChars.Contains));
 	}
 
 	[Fact]
@@ -146,7 +161,7 @@ public class Get_Tests
 
 		// Act
 		var r0 = Rnd.StringF.Get(length, chars: c => c with { Special = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, false, false, true));
+		var r1 = Rnd.StringF.Get(length, classes: new(false, false, false, false, true));
 
 		// Assert
 		Assert.True(r0.All(Rnd.StringF.SpecialChars.Contains));
