@@ -10,18 +10,18 @@ public static partial class Rnd
 	public static partial class StringF
 	{
 		/// <summary>
-		/// Retrieve EFF's short word list, with unique three-character prefixes<br/>
+		/// Retrieve a modified form of EFF's short word list, with unique three-character prefixes<br/>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
-		internal static readonly Lazy<string[]> ShortWordList = new(
+		public static readonly Lazy<string[]> ShortWordList = new(
 			() => GetWordList(Properties.Resources.eff_short_word_list)
 		);
 
 		/// <summary>
-		/// Retrieve EFF's long word list, with higher entropy for use with fewer words<br/>
+		/// Retrieve a modified form of EFF's long word list, with higher entropy for use with fewer words<br/>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
-		internal static readonly Lazy<string[]> LongWordList = new(
+		public static readonly Lazy<string[]> LongWordList = new(
 			() => GetWordList(Properties.Resources.eff_long_word_list)
 		);
 

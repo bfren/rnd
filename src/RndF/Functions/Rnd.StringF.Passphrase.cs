@@ -16,7 +16,7 @@ public static partial class Rnd
 		internal const char DefaultSeparator = '-';
 
 		/// <summary>
-		/// Generate a random passphrase using the EFF short word list<br/>
+		/// Generate a random passphrase using a modified form of the EFF short word list<br/>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
 		public static Maybe<string> Passphrase() =>
@@ -27,7 +27,7 @@ public static partial class Rnd
 			Passphrase(numberOfWords, DefaultSeparator, true, true);
 
 		/// <summary>
-		/// Generate a random passphrase using the EFF long word list<br/>
+		/// Generate a random passphrase using a modified form of the EFF long word list<br/>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases
 		/// </summary>
 		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
@@ -35,7 +35,7 @@ public static partial class Rnd
 			Passphrase(LongWordList.Value, numberOfWords, separator, upperFirst, includeNumber);
 
 		/// <summary>
-		/// Generate a random passphrase
+		/// Generate a random passphrase using the specified <paramref name="wordList"/>
 		/// </summary>
 		/// <param name="wordList">List of words to use for the passphrase</param>
 		/// <param name="numberOfWords">The number of words in the passphrase (minimum: 2)</param>
