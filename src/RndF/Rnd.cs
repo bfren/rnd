@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
+using System.Text;
 using RndF.Exceptions;
 
 namespace RndF;
@@ -125,11 +126,19 @@ public static partial class Rnd
 	/// <summary>Random number functions</summary>
 	public static partial class NumberF
 	{
+#if NET8_0_OR_GREATER
+		internal static CompositeFormat MinimumMustBeLessThanMaximum =>
+			CompositeFormat.Parse("{0}(): Minimium value '{1}' must be less than maximum value '{2}'.");
+
+		internal static CompositeFormat MinimumMustBeAtLeastZero =>
+			CompositeFormat.Parse("{0}(): Minimum value '{1}' must be at least 0.");
+#else
 		internal static string MinimumMustBeLessThanMaximum =>
 			"{0}(): Minimium value '{1}' must be less than maximum value '{2}'.";
 
 		internal static string MinimumMustBeAtLeastZero =>
 			"{0}(): Minimum value '{1}' must be at least 0.";
+#endif
 	}
 
 	/// <summary>Random string functions</summary>
