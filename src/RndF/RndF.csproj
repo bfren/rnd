@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<Description>Cryptographically secure random value generators for Integer, DateTime, String (and Passphrase), Guid, and Byte types.</Description>
-		<PackageId>Rnd</PackageId>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="MaybeF" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-	</ItemGroup>
+  <PropertyGroup>
+    <Description>Cryptographically secure random value generators for Integer, DateTime, String (and Passphrase), Guid, and Byte types.</Description>
+    <PackageId>Rnd</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MaybeF" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
