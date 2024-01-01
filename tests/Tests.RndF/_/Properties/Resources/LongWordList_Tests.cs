@@ -8,7 +8,7 @@ namespace RndF.Properties.Resources_Tests;
 
 public class LongWordList_Tests
 {
-	public static string LongWordListHash { get; } = "8LHYwYHniob52MlvYxxzakhiCGtc4qsqiyzysicSgtg=";
+	public static string LongWordListHash { get; } = "wUeur6MfNcSX1TflzJSCoz4w1dVKdi211KbJI1sEhEU=";
 
 	[Fact]
 	public void Returns_Correct_Values()
