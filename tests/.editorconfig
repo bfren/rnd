@@ -16,6 +16,9 @@ dotnet_diagnostic.CA1305.severity = none
 # CA1707: Identifiers should not contain underscores
 dotnet_diagnostic.CA1707.severity = none
 
+# CA1868: Unnecessary call to 'Contains(item)'
+dotnet_diagnostic.CA1868.severity = none
+
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = none
 
