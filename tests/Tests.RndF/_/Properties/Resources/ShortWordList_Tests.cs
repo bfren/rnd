@@ -8,7 +8,7 @@ namespace RndF.Properties.Resources_Tests;
 
 public class ShortWordList_Tests
 {
-	public static string ShortWordListHash { get; } = "mjyYz1lv5HzWbGmP4RH977p4gkai3w9Y+YywslzAyVI=";
+	public static string ShortWordListHash { get; } = "vfU56xafgYeDBBWYcvGcjd4izEn8nJaItRXsSmd8tjU=";
 
 	[Fact]
 	public void Returns_Correct_Values()
