@@ -11,21 +11,22 @@ public static partial class Rnd
 	public static partial class ByteF
 	{
 		/// <summary>
-		/// Return an array of cryptographically secure random bytes
+		/// Return an array of cryptographically secure random bytes.
 		/// </summary>
-		/// <param name="length">The length of the byte array</param>
+		/// <param name="length">The length of the byte array.</param>
+		/// <returns>Array of random bytes.</returns>
 		public static byte[] Get(int length)
 		{
 			// Return empty array
 			if (length == 0)
 			{
-				return Array.Empty<byte>();
+				return [];
 			}
 
-			// Fill with random bytes
-			Span<byte> b = stackalloc byte[length];
-			RandomNumberGenerator.Fill(b);
-			return b.ToArray();
+			// Get random bytes
+			Span<byte> bytes = stackalloc byte[length];
+			RandomNumberGenerator.Fill(bytes);
+			return bytes.ToArray();
 		}
 	}
 }

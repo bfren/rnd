@@ -2,36 +2,25 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using MaybeF;
+using System.Globalization;
 
 namespace RndF.Exceptions;
 
 /// <summary>
-/// See <see cref="Rnd.Pass"/>
+/// Used when something goes wrong while generating a Passphrase.
 /// </summary>
-public sealed class InvalidPassphraseException : Exception
+/// <param name="message">Exception message.</param>
+public sealed class InvalidPassphraseException(string message) : Exception(message)
 {
-	/// <summary>
-	/// Create exception
-	/// </summary>
-	public InvalidPassphraseException() { }
+	internal static InvalidPassphraseException PassphraseNotLongEnough(int minimum) =>
+		new(string.Format(CultureInfo.InvariantCulture, Rnd.StringF.PassphraseNotLongEnough, minimum));
 
-	/// <summary>
-	/// Create exception with reason
-	/// </summary>
-	/// <param name="reason"></param>
-	public InvalidPassphraseException(IMsg reason) : this(reason.ToString() ?? string.Empty) { }
+	internal static InvalidPassphraseException PassphraseTooLong(int maximum) =>
+		new(string.Format(CultureInfo.InvariantCulture, Rnd.StringF.PassphraseTooLong, maximum));
 
-	/// <summary>
-	/// Create exception with message
-	/// </summary>
-	/// <param name="message"></param>
-	public InvalidPassphraseException(string message) : base(message) { }
+	internal static InvalidPassphraseException WordListCannotBeEmpty() =>
+		new(Rnd.StringF.WordListCannotBeEmpty);
 
-	/// <summary>
-	/// Create exception with message and inner exception
-	/// </summary>
-	/// <param name="message"></param>
-	/// <param name="inner"></param>
-	public InvalidPassphraseException(string message, Exception inner) : base(message, inner) { }
+	internal static InvalidPassphraseException WordListCannotBeNull() =>
+		new(Rnd.StringF.WordListCannotBeNull);
 }
