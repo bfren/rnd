@@ -1,62 +1,61 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using RndF.Exceptions;
-
 namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetInt32_Tests
 {
-	[Fact]
-	public void Min_GreaterThan_Max_Throws_ArgumentOutOfRangeException()
+	public class without_args
 	{
-		// Arrange
-		var min = 3;
-		var max = 2;
+		[Fact]
+		public void never_returns_out_of_bounds() =>
+			Helpers.CheckBounds(() => Rnd.NumberF.GetInt32(), 0, int.MaxValue);
 
-		// Act
-		var action = void () => Rnd.NumberF.GetInt32(min, max);
-
-		// Assert
-		var ex = Assert.Throws<MinimumMoreThanMaximumException>(action);
-		Assert.Equal("GetInt32(): Minimium value '3' must be less than maximum value '2'.", ex.Message);
+		[Fact]
+		public void returns_random_number() =>
+			Helpers.EnsureRandom(Rnd.NumberF.GetInt32);
 	}
 
-	[Fact]
-	public void Min_LessThan_Zero_Throws_ArgumentException()
+	public class with_max
 	{
-		// Arrange
-		var min = int.MinValue;
+		public static TheoryData<int> Max =>
+			new() { { Rnd.Int } };
 
-		// Act
-		var action = void () => Rnd.NumberF.GetInt32(min: min, max: Rnd.Int);
-
-		// Assert
-		var ex = Assert.Throws<MinimumLessThanZeroException>(action);
-		Assert.Equal($"GetInt32(): Minimum value '{min}' must be at least 0.", ex.Message);
+		[Theory]
+		[MemberData(nameof(Max))]
+		public void never_returns_out_of_bounds(int max) =>
+			Helpers.CheckBounds(max => Rnd.NumberF.GetInt32(max), 0, max);
 	}
 
-	[Fact]
-	public void Never_Returns_Number_Out_Of_Bounds()
+	public class with_min_and_max
 	{
-		// Arrange
-		var iterations = 1000000;
-		var min = 1;
-		var max = 10;
-		var numbers = new List<int>();
-
-		// Act
-		for (var i = 0; i < iterations; i++)
+		public class when_min_is_more_than_max
 		{
-			numbers.Add(Rnd.NumberF.GetInt32(min, max));
+			[Fact]
+			public void throws_MaximumNotMoreThanMinimumException() =>
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetInt32), () => Rnd.Int, Rnd.NumberF.GetInt32);
 		}
 
-		// Assert
-		Assert.True(numbers.Min() >= min);
-		Assert.True(numbers.Max() <= max);
-	}
+		public class when_min_is_less_than_zero
+		{
+			[Fact]
+			public void throws_MinimumLessThanZeroException() =>
+				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetInt32), () => Rnd.Int * -1, () => Rnd.Int, Rnd.NumberF.GetInt32);
+		}
 
-	[Fact]
-	public void Returns_Different_Number_Each_Time() =>
-		Get_Tests.Returns_Different_Number_With_Acceptable_Duplicate_Rate(Rnd.NumberF.GetInt32);
+		public static TheoryData<int, int> MinAndMax
+		{
+			get
+			{
+				var min = Rnd.Int;
+				var max = min + 1 + Rnd.Int;
+				return new() { { min, max } };
+			}
+		}
+
+		[Theory]
+		[MemberData(nameof(MinAndMax))]
+		public void never_returns_out_of_bounds(int min, int max) =>
+			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetInt32(min, max), min, max);
+	}
 }

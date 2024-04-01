@@ -5,28 +5,58 @@ namespace RndF.ArrayExtensions_Tests;
 
 public class Shuffle_Tests
 {
-	[Fact]
-	public void Array_ReturnsShuffledArray()
+	public class when_input_is_null
 	{
-		// Arrange
-		var array = Enumerable.Range(0, 100).ToArray();
+		[Fact]
+		public void returns_empty_array()
+		{
+			// Arrange
 
-		// Act
-		var result = array.Shuffle();
+			// Act
+			var result = ArrayExtensions.Shuffle<int>(null!);
 
-		// Assert
-		Assert.NotEqual(array, result);
+			// Assert
+			Assert.Empty(result);
+		}
 	}
 
-	[Fact]
-	public void Null_Input__Returns_Empty_Array()
+	public class when_input_is_array()
 	{
-		// Arrange
+		public class and_contains_fewer_than_two_elements()
+		{
+			public static TheoryData<int, int> Data =>
+				new()
+				{
+				{ Rnd.Int, 0 },
+				{ Rnd.Int, 1 }
+				};
 
-		// Act
-		var result = ArrayExtensions.Shuffle<int>(null!);
+			[Theory]
+			[MemberData(nameof(Data))]
+			public void returns_original_array(int start, int count)
+			{
+				// Arrange
+				var array = Enumerable.Range(start, count).ToArray();
 
-		// Assert
-		Assert.Empty(result);
+				// Act
+				var result = array.Shuffle();
+
+				// Assert
+				Assert.Same(array, result);
+			}
+		}
+
+		[Fact]
+		public void returns_shuffled_array()
+		{
+			// Arrange
+			var array = Enumerable.Range(Rnd.Int, 100).ToArray();
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.NotEqual(array, result);
+		}
 	}
 }

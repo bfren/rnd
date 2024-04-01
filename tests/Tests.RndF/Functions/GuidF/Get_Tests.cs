@@ -3,10 +3,10 @@
 
 namespace RndF.Rnd_Tests.GuidF_Tests;
 
-public class Get_Tests
+public class get_Tests
 {
 	[Fact]
-	public void Returns_Different_Bytes_Each_Time()
+	public void returns_random_guid()
 	{
 		// Arrange
 		var iterations = 10000;

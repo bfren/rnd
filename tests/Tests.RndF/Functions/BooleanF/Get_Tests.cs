@@ -6,7 +6,7 @@ namespace RndF.Rnd_Tests.BooleanF_Tests;
 public class Get_Tests
 {
 	[Fact]
-	public void Returns_True_Or_False()
+	public void returns_only_true_or_false()
 	{
 		// Arrange
 		var iterations = 100;

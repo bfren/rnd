@@ -5,50 +5,36 @@ namespace RndF.Rnd_Tests.DateTimeF_Tests;
 
 public class Get_Tests
 {
-	private static void Never_Returns_Number_Out_Of_Bounds(Func<DateTime, int> value, int min, int max)
-	{
-		// Arrange
-		var iterations = 100000;
-		var values = new List<int>();
-
-		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			var dt = Rnd.DateTimeF.Get();
-			values.Add(value(dt));
-		}
-
-		// Assert
-		Assert.True(values.Min() >= min);
-		Assert.True(values.Max() <= max);
-	}
+	[Fact]
+	public void never_returns_out_of_bounds_year() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Year, 1, Rnd.DateTimeF.YearMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Year_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Year, 1, 9999);
+	public void never_returns_out_of_bounds_month() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Month, 1, Rnd.DateTimeF.MonthMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Month_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Month, 1, 12);
+	public void never_returns_out_of_bounds_day() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Day, 1, Rnd.DateTimeF.DayMaxExclusive + 3);
 
 	[Fact]
-	public void Never_Returns_Day_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Day, 1, 28);
+	public void never_returns_out_of_bounds_hour() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Hour, 0, Rnd.DateTimeF.HourMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Hour_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Hour, 0, 23);
+	public void never_returns_out_of_bounds_minute() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Minute, 0, Rnd.DateTimeF.MinuteMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Minute_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Minute, 0, 59);
+	public void never_returns_out_of_bounds_second() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Second, 0, Rnd.DateTimeF.SecondMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Second_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Second, 0, 59);
+	public void never_returns_out_of_bounds_millisecond() =>
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Millisecond, 0, Rnd.DateTimeF.MillisecondMaxExclusive);
 
 	[Fact]
-	public void Returns_UTC_DateTime()
+	public void returns_utc()
 	{
 		// Arrange
 

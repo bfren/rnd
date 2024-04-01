@@ -1,48 +1,54 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using RndF.Exceptions;
-
 namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetUInt64_Tests
 {
-	[Fact]
-	public void Min_GreaterThan_Max_Throws_ArgumentOutOfRangeException()
+	public class without_args
 	{
-		// Arrange
-		var min = 3UL;
-		var max = 2UL;
+		[Fact]
+		public void never_returns_out_of_bounds() =>
+			Helpers.CheckBounds(() => Rnd.NumberF.GetUInt64(), 0UL, ulong.MaxValue);
 
-		// Act
-		var action = void () => Rnd.NumberF.GetUInt64(min, max);
-
-		// Assert
-		var ex = Assert.Throws<MinimumMoreThanMaximumException>(action);
-		Assert.Equal("GetDouble(): Minimium value '3' must be less than maximum value '2'.", ex.Message);
+		[Fact]
+		public void returns_random_number() =>
+			Helpers.EnsureRandom(Rnd.NumberF.GetUInt64);
 	}
 
-	[Fact]
-	public void Never_Returns_Number_Out_Of_Bounds()
+	public class with_max
 	{
-		// Arrange
-		var iterations = 1000000;
-		var min = 1UL;
-		var max = 10UL;
-		var numbers = new List<ulong>();
+		public static TheoryData<ulong> Max =>
+			new() { { Rnd.ULng } };
 
-		// Act
-		for (var i = 0; i < iterations; i++)
+		[Theory]
+		[MemberData(nameof(Max))]
+		public void never_returns_out_of_bounds(ulong max) =>
+			Helpers.CheckBounds(max => Rnd.NumberF.GetUInt64(max), 0UL, max);
+	}
+
+	public class with_min_and_max
+	{
+		public class when_min_is_more_than_max
 		{
-			numbers.Add(Rnd.NumberF.GetUInt64(min, max));
+			[Fact]
+			public void throws_MaximumNotMoreThanMinimumException() =>
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt64), () => Rnd.ULng, Rnd.NumberF.GetUInt64);
 		}
 
-		// Assert
-		Assert.True(numbers.Min() >= min);
-		Assert.True(numbers.Max() <= max);
-	}
+		public static TheoryData<ulong, ulong> MinAndMax
+		{
+			get
+			{
+				var min = Rnd.ULng;
+				var max = min + 1 + Rnd.ULng;
+				return new() { { min, max } };
+			}
+		}
 
-	[Fact]
-	public void Returns_Different_Number_Each_Time() =>
-		Get_Tests.Returns_Different_Number_With_Acceptable_Duplicate_Rate(Rnd.NumberF.GetUInt64);
+		[Theory]
+		[MemberData(nameof(MinAndMax))]
+		public void never_returns_out_of_bounds(ulong min, ulong max) =>
+			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt64(min, max), min, max);
+	}
 }

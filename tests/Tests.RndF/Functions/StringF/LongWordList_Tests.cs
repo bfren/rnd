@@ -6,7 +6,7 @@ namespace RndF.Rnd_Tests.StringF_Tests;
 public class LongWordList_Tests
 {
 	[Fact]
-	public void Returns_Long_List()
+	public void returns_correct_list()
 	{
 		// Arrange
 		var longList = Properties.Resources.eff_long_word_list;

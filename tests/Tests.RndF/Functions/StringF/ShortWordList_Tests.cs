@@ -6,7 +6,7 @@ namespace RndF.Rnd_Tests.StringF_Tests;
 public class ShortWordList_Tests
 {
 	[Fact]
-	public void Returns_Short_List()
+	public void returns_correct_list()
 	{
 		// Arrange
 		var shortList = Properties.Resources.eff_short_word_list;

@@ -5,37 +5,19 @@ namespace RndF.Rnd_Tests.TimeF_Tests;
 
 public class Get_Tests
 {
-	private static void Never_Returns_Number_Out_Of_Bounds(Func<TimeOnly, int> value, int min, int max)
-	{
-		// Arrange
-		var iterations = 100000;
-		var values = new List<int>();
-
-		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			var t = Rnd.TimeF.Get();
-			values.Add(value(t));
-		}
-
-		// Assert
-		Assert.True(values.Min() >= min);
-		Assert.True(values.Max() <= max);
-	}
+	[Fact]
+	public void never_returns_out_of_bounds_hour() =>
+		Helpers.CheckBounds(Rnd.TimeF.Get, t => t.Hour, 0, Rnd.DateTimeF.HourMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Hour_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Hour, 0, 23);
+	public void never_returns_out_of_bounds_minute() =>
+		Helpers.CheckBounds(Rnd.TimeF.Get, t => t.Minute, 0, Rnd.DateTimeF.MinuteMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Minute_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Minute, 0, 59);
+	public void never_returns_out_of_bounds_second() =>
+		Helpers.CheckBounds(Rnd.TimeF.Get, t => t.Second, 0, Rnd.DateTimeF.SecondMaxExclusive);
 
 	[Fact]
-	public void Never_Returns_Second_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Second, 0, 59);
-
-	[Fact]
-	public void Never_Returns_Millisecond_Out_Of_Bounds() =>
-		Never_Returns_Number_Out_Of_Bounds(dt => dt.Millisecond, 0, 999);
+	public void never_returns_out_of_bounds_millisecond() =>
+		Helpers.CheckBounds(Rnd.TimeF.Get, t => t.Millisecond, 0, Rnd.DateTimeF.MillisecondMaxExclusive);
 }

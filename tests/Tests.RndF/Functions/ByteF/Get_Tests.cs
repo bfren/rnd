@@ -13,7 +13,7 @@ public class Get_Tests
 	[InlineData(16)]
 	[InlineData(32)]
 	[InlineData(64)]
-	public void Returns_Byte_Array_Of_Length(int length)
+	public void returns_byte_array_of_correct_length(int length)
 	{
 		// Arrange
 
@@ -25,7 +25,7 @@ public class Get_Tests
 	}
 
 	[Fact]
-	public void Returns_Different_Bytes_Each_Time()
+	public void returns_random_bytes()
 	{
 		// Arrange
 		var iterations = 10000;

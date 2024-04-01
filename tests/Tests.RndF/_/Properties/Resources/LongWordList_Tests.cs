@@ -6,12 +6,12 @@ using System.Text;
 
 namespace RndF.Properties.Resources_Tests;
 
-public class LongWordList_Tests
+public class eff_long_word_list_Tests
 {
 	public static string LongWordListHash { get; } = "wUeur6MfNcSX1TflzJSCoz4w1dVKdi211KbJI1sEhEU=";
 
 	[Fact]
-	public void Returns_Correct_Values()
+	public void returns_correct_values()
 	{
 		// Arrange
 		var list = Resources.eff_long_word_list.ReplaceLineEndings(string.Empty);

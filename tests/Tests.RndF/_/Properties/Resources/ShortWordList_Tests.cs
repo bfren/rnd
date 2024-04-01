@@ -6,12 +6,12 @@ using System.Text;
 
 namespace RndF.Properties.Resources_Tests;
 
-public class ShortWordList_Tests
+public class eff_short_word_list_Tests
 {
 	public static string ShortWordListHash { get; } = "vfU56xafgYeDBBWYcvGcjd4izEn8nJaItRXsSmd8tjU=";
 
 	[Fact]
-	public void Returns_Correct_Values()
+	public void returns_correct_values()
 	{
 		// Arrange
 		var list = Resources.eff_short_word_list.ReplaceLineEndings(string.Empty);

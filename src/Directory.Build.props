@@ -61,7 +61,7 @@
     <PackageLicenseFile>$(LicenceFile)</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/bfren/rnd/wiki</PackageProjectUrl>
     <PackageReadmeFile>$(ReadmeFile)</PackageReadmeFile>
-    <PackageTags>C#;Random;Random Date/Time Generator;Random GUID Generator;Random Number Generator;Random String Generator</PackageTags>
+    <PackageTags>C#;Random;Random Date/Time Generator;Random GUID Generator;Random Number Generator;Random Passphrase Generator;Random String Generator;Array Shuffle</PackageTags>
     <RepositoryUrl>https://github.com/bfren/rnd</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Version>$(RndVersion)</Version>
@@ -79,8 +79,8 @@
 	-->
   <Import Project="$(LocalPackPath)" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'"/>
   <PropertyGroup Label="Local Package Validation" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">
-    <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>8.4.9</PackageValidationBaselineVersion>
+    <EnablePackageValidation>false</EnablePackageValidation>
+    <PackageValidationBaselineVersion>9.0.0</PackageValidationBaselineVersion>
   </PropertyGroup>
   <Target Name="PackAndPushToLocalNuget" AfterTargets="DispatchToInnerBuilds" Condition="Exists('$(LocalPackPath)') and '$(Configuration)'=='Release'">
     <Exec Command="dotnet pack &quot;$(ProjectFileName)&quot; -p:PackageVersion=$(RndVersion) --no-build --configuration Release"/>
