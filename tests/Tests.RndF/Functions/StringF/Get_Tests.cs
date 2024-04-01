@@ -1,193 +1,145 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
+using RndF.Exceptions;
+using static RndF.Rnd.StringF;
+
 namespace RndF.Rnd_Tests.StringF_Tests;
 
 public class Get_Tests
 {
-	[Fact]
-	public void Valid_Length_Returns_String()
+	public class with_length
 	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+		public class length_less_than_two
+		{
+			public static TheoryData<int> Length =>
+				new() { { -1 }, { 0 }, { 1 } };
 
-		// Act
-		var r0 = Rnd.StringF.Get(length);
-		var r1 = Rnd.StringF.Get(length, chars: c => c with { Lower = true });
-		var r2 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.AllClasses);
+			[Theory]
+			[MemberData(nameof(Length))]
+			public void throws_InvalidCharsException(int length)
+			{
+				// Arrange
 
-		// Assert
-		Assert.Equal(length, r0.Length);
-		Assert.Equal(length, r1.Length);
-		Assert.Equal(length, r2.Length);
+				// Act
+				void act() => Get(length);
+
+				// Assert
+				var ex = Assert.Throws<InvalidCharsException>(act);
+				Assert.Equal(TooManyClasses, ex.Message);
+			}
+		}
+
+		[Fact]
+		public void returns_string_of_correct_length()
+		{
+			// Arrange
+			var length = Rnd.NumberF.GetInt32(min: 2, max: 40);
+
+			// Act
+			var result = Get(length);
+
+			// Assert
+			Assert.Equal(length, result.Length);
+		}
+
+		[Fact]
+		public void returns_string_containing_only_letters()
+		{
+			// Arrange
+			var length = Rnd.NumberF.GetInt32(min: 200, max: 400);
+
+			// Act
+			var result = Get(length);
+
+			// Assert
+			Assert.All(result,
+				c => Assert.True(LowercaseChars.Contains(c) || UppercaseChars.Contains(c))
+			);
+		}
 	}
 
-	[Fact]
-	public void Invalid_Length_Throws_InvalidOperationException()
+	public class with_length_and_classes
 	{
-		// Arrange
-		var length = 3;
+		public class length_less_than_classes_length
+		{
+			public static TheoryData<int, Chars> LengthAndClasses =>
+				new()
+				{
+					{ 1, Chars.Letters },
+					{ 2, Chars.Number | Chars.Special | Chars.Hexademical },
+					{ 3, Chars.All }
+				};
 
-		// Act
-		var a0 = void () => Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.AllClasses);
-		var a1 = void () => Rnd.StringF.Get(length, Rnd.StringF.CharacterClasses.AllClasses);
+			[Theory]
+			[MemberData(nameof(LengthAndClasses))]
+			public void throws_InvalidCharsException(int length, Chars classes)
+			{
+				// Arrange
 
-		// Assert
-		Assert.Throws<InvalidOperationException>(a0);
-		Assert.Throws<InvalidOperationException>(a1);
-	}
+				// Act
+				void act() => Get(length, classes);
 
-	[Fact]
-	public void Null_Options_Throws_ArgumentNullException()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+				// Assert
+				var ex = Assert.Throws<InvalidCharsException>(act);
+				Assert.Equal(TooManyClasses, ex.Message);
+			}
+		}
 
-		// Act
-		var action = void () => Rnd.StringF.Get(length, chars: null!);
+		public class classes_none
+		{
+			[Fact]
+			public void throws_InvalidCharsException()
+			{
+				// Arrange
+				var length = Rnd.NumberF.GetInt32(min: 2, max: 40);
 
-		// Assert
-		Assert.Throws<ArgumentNullException>(action);
-	}
+				// Act
+				void act() => Get(length, Chars.None);
 
-	[Fact]
-	public void Invalid_Options_Throws_InvalidOperationException()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+				// Assert
+				var ex = Assert.Throws<InvalidCharsException>(act);
+				Assert.Equal(NotEnoughClasses, ex.Message);
+			}
+		}
 
-		// Act
-		var a0 = void () => Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.NoClasses);
-		var a1 = void () => Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.NoClasses);
+		[Fact]
+		public void returns_string_of_correct_length()
+		{
+			// Arrange
+			var length = Rnd.NumberF.GetInt32(min: 2, max: 40);
 
-		// Assert
-		Assert.Throws<InvalidOperationException>(a0);
-		Assert.Throws<InvalidOperationException>(a1);
-	}
+			// Act
+			var result = Get(length);
 
-	[Fact]
-	public void Without_Classes_Returns_Only_Lowercase_And_Uppercase()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+			// Assert
+			Assert.Equal(length, result.Length);
+		}
 
-		// Act
-		var result = Rnd.StringF.Get(length);
+		public static TheoryData<Chars, char[]> ClassesAndChars =>
+			new()
+			{
+			{ Chars.Number, Helpers.Chars.Numbers },
+			{ Chars.Lower, Helpers.Chars.Lowercase },
+			{ Chars.Upper, Helpers.Chars.Uppercase },
+			{ Chars.Special, Helpers.Chars.Special },
+			{ Chars.Hexademical, Helpers.Chars.Hexadecimal },
+			{ Chars.Letters, Helpers.Chars.Letters},
+			{ Chars.All, Helpers.Chars.All }
+			};
 
-		// Assert
-		Assert.True(result.All(c => Rnd.StringF.LowercaseChars.Contains(c) || Rnd.StringF.UppercaseChars.Contains(c)));
-	}
+		[Theory]
+		[MemberData(nameof(ClassesAndChars))]
+		public void returns_string_containing_correct_classes(Chars classes, char[] allowed)
+		{
+			// Arrange
+			var length = Rnd.NumberF.GetInt32(min: 200, max: 400);
 
-	[Fact]
-	public void With_Classes_Returns_Only_Lowercase_And_Uppercase()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
+			// Act
+			var result = Get(length, classes);
 
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.DefaultClasses);
-		var r1 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.DefaultClasses);
-
-		// Assert
-		Assert.True(r0.All(c => Rnd.StringF.LowercaseChars.Contains(c) || Rnd.StringF.UppercaseChars.Contains(c)));
-		Assert.True(r1.All(c => Rnd.StringF.LowercaseChars.Contains(c) || Rnd.StringF.UppercaseChars.Contains(c)));
-	}
-
-	[Fact]
-	public void With_Classes_Returns_Only_Lowercase_Characters()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
-
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: c => c with { Lower = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(true, false, false, false, false));
-
-		// Assert
-		Assert.True(r0.All(Rnd.StringF.LowercaseChars.Contains));
-		Assert.True(r1.All(Rnd.StringF.LowercaseChars.Contains));
-	}
-
-	[Fact]
-	public void With_Classes_Returns_Only_Uppercase_Characters()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
-
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: c => c with { Upper = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, true, false, false, false));
-
-		// Assert
-		Assert.True(r0.All(Rnd.StringF.UppercaseChars.Contains));
-		Assert.True(r1.All(Rnd.StringF.UppercaseChars.Contains));
-	}
-
-	[Fact]
-	public void With_Classes_Returns_Only_Numeric_Characters()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
-
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: c => c with { Numbers = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, false, true, false, false));
-
-		// Assert
-		Assert.True(r0.All(Rnd.StringF.NumberChars.Contains));
-		Assert.True(r1.All(Rnd.StringF.NumberChars.Contains));
-	}
-
-	[Fact]
-	public void With_Classes_Returns_Only_Hexadecimal_Characters()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
-
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: c => c with { Hexadecimal = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, false, false, true, false));
-
-		// Assert
-		Assert.True(r0.All(Rnd.StringF.HexadecimalChars.Contains));
-		Assert.True(r1.All(Rnd.StringF.HexadecimalChars.Contains));
-	}
-
-	[Fact]
-	public void With_Classes_Returns_Only_Special_Characters()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
-
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: c => c with { Special = true });
-		var r1 = Rnd.StringF.Get(length, classes: new(false, false, false, false, true));
-
-		// Assert
-		Assert.True(r0.All(Rnd.StringF.SpecialChars.Contains));
-		Assert.True(r1.All(Rnd.StringF.SpecialChars.Contains));
-	}
-
-	[Fact]
-	public void With_Classes_Returns_String_With_All_Characters()
-	{
-		// Arrange
-		var length = Rnd.NumberF.GetInt32(min: 20, max: 40);
-
-		// Act
-		var r0 = Rnd.StringF.Get(length, chars: _ => Rnd.StringF.CharacterClasses.AllClasses);
-		var r1 = Rnd.StringF.Get(length, classes: Rnd.StringF.CharacterClasses.AllClasses);
-
-		// Assert
-		Assert.False(r0.All(Rnd.StringF.LowercaseChars.Contains));
-		Assert.False(r0.All(Rnd.StringF.UppercaseChars.Contains));
-		Assert.False(r0.All(Rnd.StringF.NumberChars.Contains));
-		Assert.False(r0.All(Rnd.StringF.SpecialChars.Contains));
-		Assert.True(r0.All(Rnd.StringF.AllChars.Contains));
-		Assert.False(r1.All(Rnd.StringF.LowercaseChars.Contains));
-		Assert.False(r1.All(Rnd.StringF.UppercaseChars.Contains));
-		Assert.False(r1.All(Rnd.StringF.NumberChars.Contains));
-		Assert.False(r1.All(Rnd.StringF.SpecialChars.Contains));
-		Assert.True(r1.All(Rnd.StringF.AllChars.Contains));
+			// Assert
+			Assert.All(result, c => Assert.Contains(c, allowed));
+		}
 	}
 }

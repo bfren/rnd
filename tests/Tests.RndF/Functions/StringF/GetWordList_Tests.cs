@@ -5,77 +5,80 @@ namespace RndF.Rnd_Tests.StringF_Tests;
 
 public class GetWordList_Tests
 {
+	public class input_is_null_or_empty
+	{
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		public void returns_empty_array(string? input)
+		{
+			// Arrange
+
+			// Act
+			var result = Rnd.StringF.GetWordList(input!);
+
+			// Assert
+			Assert.Empty(result);
+		}
+	}
+
 	[Fact]
-	public void Empty_Input_Returns_Empty_Array()
+	public void splits_words_by_comma()
 	{
 		// Arrange
-		var input = string.Empty;
+		var w0 = Rnd.Str;
+		var w1 = Rnd.Str;
+		var w2 = Rnd.Str;
+		var input = $"{w0},{w1},{w2}";
 
 		// Act
 		var result = Rnd.StringF.GetWordList(input);
 
 		// Assert
-		Assert.Empty(result);
-		Assert.IsType<string[]>(result);
-	}
-
-	[Fact]
-	public void Trims_Each_Word()
-	{
-		// Arrange
-		var w0 = Rnd.Str + " ";
-		var w1 = Rnd.Str + Environment.NewLine;
-		var w2 = " " + Rnd.Str;
-		var words = $"{w0},{w1},{w2}";
-
-		// Act
-		var result = Rnd.StringF.GetWordList(words);
-
-		// Assert
 		Assert.Collection(result,
-			x => Assert.Equal(w0.Trim(), x),
-			x => Assert.Equal(w1.Trim(), x),
-			x => Assert.Equal(w2.Trim(), x)
+			w => Assert.Equal(w0, w),
+			w => Assert.Equal(w1, w),
+			w => Assert.Equal(w2, w)
 		);
 	}
 
 	[Fact]
-	public void Removes_Empty_Entries()
+	public void removes_empty_entries()
 	{
 		// Arrange
 		var w0 = Rnd.Str;
 		var w1 = Rnd.Str;
 		var w2 = Rnd.Str;
-		var words = $"{w0},,{w1}, ,{w2}";
+		var input = $",{w0},,{w1},,,{w2},";
 
 		// Act
-		var result = Rnd.StringF.GetWordList(words);
+		var result = Rnd.StringF.GetWordList(input);
 
 		// Assert
 		Assert.Collection(result,
-			x => Assert.Equal(w0.Trim(), x),
-			x => Assert.Equal(w1.Trim(), x),
-			x => Assert.Equal(w2.Trim(), x)
+			w => Assert.Equal(w0, w),
+			w => Assert.Equal(w1, w),
+			w => Assert.Equal(w2, w)
 		);
 	}
 
 	[Fact]
-	public void Returns_Array_Of_Words()
+	public void trims_each_word()
 	{
 		// Arrange
 		var w0 = Rnd.Str;
 		var w1 = Rnd.Str;
 		var w2 = Rnd.Str;
-		var words = $"{w0},{w1},{w2}";
+		var input = $"  {w0} ,{w1}{Environment.NewLine}, {w2} ";
 
 		// Act
-		var result = Rnd.StringF.GetWordList(words);
+		var result = Rnd.StringF.GetWordList(input);
 
 		// Assert
 		Assert.Collection(result,
-			x => Assert.Equal(w0, x),
-			x => Assert.Equal(w1, x),
-			x => Assert.Equal(w2, x)
+			w => Assert.Equal(w0, w),
+			w => Assert.Equal(w1, w),
+			w => Assert.Equal(w2, w)
 		);
 	}
 }
