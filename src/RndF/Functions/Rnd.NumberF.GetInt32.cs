@@ -11,40 +11,44 @@ public static partial class Rnd
 	public static partial class NumberF
 	{
 		/// <summary>
-		/// Returns a random positive integer between <see langword="0"/> and <see cref="int.MaxValue"/> inclusive
+		/// Returns a random positive integer between <see langword="0"/> and <see cref="int.MaxValue"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons
+		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons.
 		/// </remarks>
+		/// <returns>Random number.</returns>
 		public static int GetInt32() =>
 			GetInt32(0, int.MaxValue);
 
 		/// <summary>
-		/// Returns a random positive integer between <see langword="0"/> and <paramref name="max"/> inclusive
+		/// Returns a random positive integer between <see langword="0"/> and <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons
+		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons.
 		/// </remarks>
-		/// <param name="max">Maximum acceptable value</param>
+		/// <param name="max">Maximum acceptable value.</param>
+		/// <returns>Random number.</returns>
+		/// <exception cref="MaximumLessThanMinimumException"/>
 		public static int GetInt32(int max) =>
 			GetInt32(0, max);
 
 		/// <summary>
-		/// Returns a random positive integer between <paramref name="min"/> and <paramref name="max"/> inclusive
+		/// Returns a random positive integer between <paramref name="min"/> and <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetInt64(long, long)"/> for memory allocation reasons
+		/// Don't share code with <see cref="GetInt64(long, long)"/> for memory allocation reasons.
 		/// </remarks>
-		/// <param name="min">Minimum acceptable value (must be at least <see langword="0"/>)</param>
-		/// <param name="max">Maximum acceptable value</param>
-		/// <exception cref="MinimumMoreThanMaximumException"></exception>
-		/// <exception cref="MinimumLessThanZeroException"></exception>
+		/// <param name="min">Minimum acceptable value (must be at least <see langword="0"/>).</param>
+		/// <param name="max">Maximum acceptable value.</param>
+		/// <returns>Random number.</returns>
+		/// <exception cref="MaximumLessThanMinimumException"/>
+		/// <exception cref="MinimumLessThanZeroException"/>
 		public static int GetInt32(int min, int max)
 		{
 			// Check arguments
 			if (min >= max)
 			{
-				throw MinimumMoreThanMaximumException.Create(nameof(GetInt32), min, max);
+				throw MaximumLessThanMinimumException.Create(nameof(GetInt32), min, max);
 			}
 
 			if (min < 0)

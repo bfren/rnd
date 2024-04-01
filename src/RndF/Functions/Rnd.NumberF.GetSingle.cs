@@ -11,33 +11,37 @@ public static partial class Rnd
 	{
 		/// <summary>
 		/// Returns a random positive single-precision floating number between <see langword="0"/> and
-		/// <see cref="float.MaxValue"/> inclusive
+		/// <see cref="float.MaxValue"/> inclusive.
 		/// </summary>
+		/// <returns>Random number.</returns>
 		public static float GetSingle() =>
 			GetSingle(0, float.MaxValue);
 
 		/// <summary>
 		/// Returns a random positive single-precision floating number between <see langword="0"/> and
-		/// <paramref name="max"/> inclusive
+		/// <paramref name="max"/> inclusive.
 		/// </summary>
-		/// <param name="max">Maximum acceptable value</param>
+		/// <param name="max">Maximum acceptable value.</param>
+		/// <returns>Random number.</returns>
+		/// <exception cref="MaximumLessThanMinimumException"/>
 		public static float GetSingle(float max) =>
 			GetSingle(0, max);
 
 		/// <summary>
 		/// Returns a random positive single-precision floating number between <paramref name="min"/> and
-		/// <paramref name="max"/> inclusive
+		/// <paramref name="max"/> inclusive.
 		/// </summary>
-		/// <param name="min">Minimum acceptable value</param>
-		/// <param name="max">Maximum acceptable value</param>
-		/// <exception cref="MinimumMoreThanMaximumException"></exception>
-		/// <exception cref="MinimumLessThanZeroException"></exception>
+		/// <param name="min">Minimum acceptable value.</param>
+		/// <param name="max">Maximum acceptable value.</param>
+		/// <returns>Random number.</returns>
+		/// <exception cref="MaximumLessThanMinimumException"/>
+		/// <exception cref="MinimumLessThanZeroException"/>
 		public static float GetSingle(float min, float max)
 		{
 			// Check arguments
 			if (min >= max)
 			{
-				throw MinimumMoreThanMaximumException.Create(nameof(GetSingle), min, max);
+				throw MaximumLessThanMinimumException.Create(nameof(GetSingle), min, max);
 			}
 
 			if (min < 0)

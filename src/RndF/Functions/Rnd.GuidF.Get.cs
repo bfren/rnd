@@ -10,8 +10,9 @@ public static partial class Rnd
 	public static partial class GuidF
 	{
 		/// <summary>
-		/// Return a secure random Guid
+		/// Return a secure random Guid.
 		/// </summary>
+		/// <returns>Random GUID.</returns>
 		public static Guid Get() =>
 			new(ByteF.Get(16));
 	}
