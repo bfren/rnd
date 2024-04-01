@@ -2,24 +2,22 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Text;
-using RndF.Exceptions;
 
 namespace RndF;
 
 /// <summary>
-/// Random generator functions - very useful for testing
+/// Random generator functions - very useful for testing.
 /// </summary>
 public static partial class Rnd
 {
 	/// <summary>
-	/// 'Flip a coin' - generate a random true / false
+	/// 'Flip a coin' - generate a random true / false.
 	/// </summary>
 	public static bool Flip =>
 		BooleanF.Get();
 
 	/// <summary>
-	/// Generate a random Guid
+	/// Generate a random Guid.
 	/// </summary>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static Guid Guid =>
@@ -28,14 +26,14 @@ public static partial class Rnd
 
 	/// <summary>
 	/// Generate a random passphrase with eight dictionary words all starting with an uppercase
-	/// letter, and one number
+	/// letter, and one number.
 	/// </summary>
 	public static string Pass =>
-		StringF.Passphrase().Unwrap(r => throw new InvalidPassphraseException(r));
+		StringF.Passphrase();
 
 	/// <summary>
 	/// Generate a random string 6 characters long, containing uppercase and lowercase letters,
-	/// but no numbers or special characters
+	/// but no numbers or special characters.
 	/// </summary>
 	public static string Str =>
 		StringF.Get(6);
@@ -65,19 +63,19 @@ public static partial class Rnd
 	#region Numbers
 
 	/// <summary>
-	/// Generate a random double-precision floating-point number between 0 and 10000
+	/// Generate a random double-precision floating-point number between 0 and 10000.
 	/// </summary>
 	public static double Dbl =>
 		NumberF.GetDouble(max: 10000d);
 
 	/// <summary>
-	/// Generate a random single-precision floating-point number between 0 and 10000
+	/// Generate a random single-precision floating-point number between 0 and 10000.
 	/// </summary>
 	public static float Flt =>
 		NumberF.GetSingle(max: 10000f);
 
 	/// <summary>
-	/// Generate a random 32-bit integer between 0 and 10000
+	/// Generate a random 32-bit integer between 0 and 10000.
 	/// </summary>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static int Int =>
@@ -85,13 +83,13 @@ public static partial class Rnd
 #pragma warning restore CA1720 // Identifier contains type name
 
 	/// <summary>
-	/// Generate a random 64-bit integer between 0 and 10000
+	/// Generate a random 64-bit integer between 0 and 10000.
 	/// </summary>
 	public static long Lng =>
 		NumberF.GetInt64(max: 10000L);
 
 	/// <summary>
-	/// Generate a random 32-bit unsigned integer between 0 and 10000
+	/// Generate a random 32-bit unsigned integer between 0 and 10000.
 	/// </summary>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static uint UInt =>
@@ -99,53 +97,10 @@ public static partial class Rnd
 #pragma warning restore CA1720 // Identifier contains type name
 
 	/// <summary>
-	/// Generate a random 64-bit unsigned integer between 0 and 10000
+	/// Generate a random 64-bit unsigned integer between 0 and 10000.
 	/// </summary>
 	public static ulong ULng =>
 		NumberF.GetUInt64(max: 10000UL);
 
 	#endregion Numbers
-
-	#region Classes
-
-	/// <summary>Random boolean functions</summary>
-	public static partial class BooleanF { }
-
-	/// <summary>Random Byte functions</summary>
-	public static partial class ByteF { }
-
-	/// <summary>Random Date functions</summary>
-	public static partial class DateF { }
-
-	/// <summary>Random DateTime functions</summary>
-	public static partial class DateTimeF { }
-
-	/// <summary>Random Guid functions</summary>
-	public static partial class GuidF { }
-
-	/// <summary>Random number functions</summary>
-	public static partial class NumberF
-	{
-#if NET8_0_OR_GREATER
-		internal static CompositeFormat MinimumMustBeLessThanMaximum =>
-			CompositeFormat.Parse("{0}(): Minimium value '{1}' must be less than maximum value '{2}'.");
-
-		internal static CompositeFormat MinimumMustBeAtLeastZero =>
-			CompositeFormat.Parse("{0}(): Minimum value '{1}' must be at least 0.");
-#else
-		internal static string MinimumMustBeLessThanMaximum =>
-			"{0}(): Minimium value '{1}' must be less than maximum value '{2}'.";
-
-		internal static string MinimumMustBeAtLeastZero =>
-			"{0}(): Minimum value '{1}' must be at least 0.";
-#endif
-	}
-
-	/// <summary>Random string functions</summary>
-	public static partial class StringF { }
-
-	/// <summary>Random Time functions</summary>
-	public static partial class TimeF { }
-
-	#endregion Classes
 }
