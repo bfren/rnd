@@ -1,8 +1,8 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System;
 using System.Collections.Generic;
+using RndF.Exceptions;
 
 namespace RndF;
 
@@ -11,227 +11,90 @@ public static partial class Rnd
 	public static partial class StringF
 	{
 		/// <summary>
-		/// List of all characters
+		/// Create a random string using default character groups - see <see cref="Chars.Letters"/>.
 		/// </summary>
-		public static List<char> AllChars { get; }
-
-		/// <summary>
-		/// List of lowercase characters
-		/// </summary>
-		public static List<char> LowercaseChars { get; }
-
-		/// <summary>
-		/// List of uppercase characters
-		/// </summary>
-		public static List<char> UppercaseChars { get; }
-
-		/// <summary>
-		/// List of numeric characters
-		/// </summary>
-		public static List<char> NumberChars { get; }
-
-		/// <summary>
-		/// List of hexademical characters
-		/// </summary>
-		public static List<char> HexadecimalChars { get; }
-
-		/// <summary>
-		/// List of special characters
-		/// </summary>
-		public static List<char> SpecialChars { get; }
-
-		/// <summary>
-		/// Fill character lists
-		/// </summary>
-		static StringF()
-		{
-			LowercaseChars = new();
-			for (var i = 97; i <= 122; i++)
-			{
-				LowercaseChars.Add(Convert.ToChar(i));
-			}
-
-			UppercaseChars = new();
-			for (var i = 65; i <= 90; i++)
-			{
-				UppercaseChars.Add(Convert.ToChar(i));
-			}
-
-			NumberChars = new();
-			for (var i = 48; i <= 57; i++)
-			{
-				NumberChars.Add(Convert.ToChar(i));
-			}
-
-			HexadecimalChars = new(NumberChars);
-			for (var i = 97; i <= 102; i++)
-			{
-				HexadecimalChars.Add(Convert.ToChar(i));
-			}
-
-			// Don't include % so we don't confuse SQL databases
-			SpecialChars = new List<char>(new[] { '!', '#', '@', '+', '-', '*', '^', '=', ':', ';', '£', '$', '~', '`', '¬', '|' });
-
-			AllChars = new List<char>();
-			AllChars.AddRange(LowercaseChars);
-			AllChars.AddRange(UppercaseChars);
-			AllChars.AddRange(NumberChars);
-			AllChars.AddRange(SpecialChars);
-		}
-
-		/// <summary>
-		/// Create a random string using default character groups - see <see cref="CharacterClasses.DefaultClasses"/>
-		/// </summary>
-		/// <param name="length">The length of the new random string</param>
+		/// <param name="length">The length of the new random string.</param>
+		/// <returns>Random string.</returns>
+		/// <exception cref="InvalidCharsException"/>
 		public static string Get(int length) =>
-			Get(length, CharacterClasses.DefaultClasses);
+			Get(length, Chars.Letters);
 
 		/// <summary>
-		/// Create a random string using specified character groups (none are enabled by default)
+		/// Create a random string using specified character groups.
 		/// </summary>
 		/// <remarks>
-		/// If you don't enable any character classes, you will get an exception
+		/// Lowercase letters will always be used.
 		/// </remarks>
-		/// <param name="length">The length of the new random string</param>
-		/// <param name="chars">The character classes to include</param>
-		public static string Get(int length, SelectCharacterClasses chars)
-		{
-			ArgumentNullException.ThrowIfNull(chars);
-			return Get(length, chars(CharacterClasses.NoClasses));
-		}
-
-		/// <summary>
-		/// Create a random string using specified character groups
-		/// Lowercase letters will always be used
-		/// </summary>
-		/// <param name="length">The length of the new random string</param>
-		/// <param name="classes">The character classes to include</param>
-		/// <exception cref="InvalidOperationException"></exception>
-		internal static string Get(int length, CharacterClasses classes)
+		/// <param name="length">The length of the new random string.</param>
+		/// <param name="classes">The character classes to include.</param>
+		/// <returns>Random string.</returns>
+		/// <exception cref="InvalidCharsException"/>
+		public static string Get(int length, Chars classes)
 		{
 			// Setup
 			var random = new List<char>();
 
-			if (!classes.IsValid)
+			void appendOneOf(char[] list) =>
+				random.Add(list[NumberF.GetInt32(max: list.Length - 1)]);
+
+			// Check whether or not we have a valid selection of character classes
+			if (classes == Chars.None)
 			{
-				throw new InvalidOperationException("You must include at least one character class.");
+				throw InvalidCharsException.NotEnoughClasses();
 			}
 
 			// Array of characters to use
 			var useChars = new List<char>();
 
-			// Add lowercase characters
-			if (classes.Lower)
-			{
-				useChars.AddRange(LowercaseChars);
-				appendOneOf(LowercaseChars);
-			}
-
-			// Add uppercase characters
-			if (classes.Upper)
-			{
-				useChars.AddRange(UppercaseChars);
-				appendOneOf(UppercaseChars);
-			}
-
 			// Add numbers
-			if (classes.Numbers)
+			if ((classes & Chars.Number) == Chars.Number)
 			{
 				useChars.AddRange(NumberChars);
 				appendOneOf(NumberChars);
 			}
 
-			// Add hexadecimal characters
-			if (classes.Hexadecimal)
+			// Add lowercase letters
+			if ((classes & Chars.Lower) == Chars.Lower)
 			{
-				useChars.AddRange(HexadecimalChars);
-				appendOneOf(HexadecimalChars);
+				useChars.AddRange(LowercaseChars);
+				appendOneOf(LowercaseChars);
+			}
+
+			// Add uppercase letters
+			if ((classes & Chars.Upper) == Chars.Upper)
+			{
+				useChars.AddRange(UppercaseChars);
+				appendOneOf(UppercaseChars);
 			}
 
 			// Add special characters
-			if (classes.Special)
+			if ((classes & Chars.Special) == Chars.Special)
 			{
 				useChars.AddRange(SpecialChars);
 				appendOneOf(SpecialChars);
 			}
 
+			// Add hexadecimal characters
+			if ((classes & Chars.Hexademical) == Chars.Hexademical)
+			{
+				useChars.AddRange(HexadecimalChars);
+				appendOneOf(HexadecimalChars);
+			}
+
 			// If the array is now bigger than the requested length, throw an exception
 			if (random.Count > length)
 			{
-				throw new InvalidOperationException("Using requested character groups results in a string longer than the one requested.");
+				throw InvalidCharsException.TooManyClasses();
 			}
 
 			// Generate the rest of the random characters
 			while (random.Count < length)
 			{
-				appendOneOf(useChars);
+				appendOneOf([.. useChars]);
 			}
 
 			// Return random string
 			return new(random.ToArray().Shuffle());
-
-			// Append one of the characters in list to the random string
-			void appendOneOf(List<char> list)
-			{
-				var index = NumberF.GetInt32(max: list.Count - 1);
-				random.Add(list[index]);
-			}
-		}
-
-		/// <summary>
-		/// Return the character classes to use for a random string - see <see cref="Get(int, SelectCharacterClasses)"/>
-		/// </summary>
-		/// <param name="chars"></param>
-		public delegate CharacterClasses SelectCharacterClasses(CharacterClasses chars);
-
-		/// <summary>
-		/// Character classes - at least one character class must be included
-		/// </summary>
-		/// <param name="Lower">If true (default) lowercase letters will be included</param>
-		/// <param name="Upper">If true (default) uppercase letters will be included</param>
-		/// <param name="Numbers">If true numbers will be included</param>
-		/// <param name="Hexadecimal">If true hexadecimal characters will be included</param>
-		/// <param name="Special">If true special characters will be included</param>
-		public sealed record class CharacterClasses(
-			bool Lower,
-			bool Upper,
-			bool Numbers,
-			bool Hexadecimal,
-			bool Special
-		)
-		{
-			/// <inheritdoc cref="AllClasses"/>
-			public CharacterClasses All =>
-				AllClasses;
-
-			/// <summary>
-			/// Returns all character classes
-			/// </summary>
-			internal static CharacterClasses AllClasses =>
-				new(true, true, true, false, true);
-
-			/// <summary>
-			/// Returns no character classes
-			/// </summary>
-			internal static CharacterClasses NoClasses =>
-				new(false, false, false, false, false);
-
-			/// <summary>
-			/// Returns default character classes:
-			///		<see cref="Lower"/> = true
-			///		<see cref="Upper"/> = true
-			///		<see cref="Numbers"/> = false
-			///		<see cref="Hexadecimal"/> = false
-			///		<see cref="Special"/> = false
-			/// </summary>
-			internal static CharacterClasses DefaultClasses =>
-				new(true, true, false, false, false);
-
-			/// <summary>
-			/// Returns true if at least one character class is enabled
-			/// </summary>
-			internal bool IsValid =>
-				Lower || Upper || Numbers || Hexadecimal || Special;
 		}
 	}
 }
