@@ -10,10 +10,10 @@ Cryptographically secure random value generators for Integer, DateTime, String (
 
 View the [Wiki](https://github.com/bfren/rnd/wiki) for documentation.
 
-## Licence
+## Licence ##
 
 > [MIT](https://mit.bfren.dev/2021)
 
-## Copyright
+## Copyright ##
 
 > Copyright (c) 2021-2024 [bfren](https://bfren.dev) (unless otherwise stated)
