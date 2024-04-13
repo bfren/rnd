@@ -20,9 +20,9 @@ public class Shuffle_Tests
 		}
 	}
 
-	public class when_input_is_array()
+	public class when_input_is_array
 	{
-		public class and_contains_fewer_than_two_elements()
+		public class and_contains_fewer_than_two_elements
 		{
 			public static TheoryData<int, int> Data =>
 				new()
