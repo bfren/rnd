@@ -1,6 +1,10 @@
-# Rnd: Random Generators (C#)
+# Rnd: Random Generators (C#) #
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/bfren/rnd?include_prereleases&label=Release) [![Nuget](https://img.shields.io/nuget/dt/rnd?label=Downloads)](https://www.nuget.org/packages/rnd/) [![GitHub](https://img.shields.io/github/license/bfren/rnd?label=Licence)](https://mit.bfren.dev/2021)<br/>[![Test](https://github.com/bfren/rnd/actions/workflows/test.yml/badge.svg)](https://github.com/bfren/rnd/actions/workflows/test.yml) [![Publish](https://github.com/bfren/rnd/actions/workflows/publish.yml/badge.svg)](https://github.com/bfren/rnd/actions/workflows/publish.yml)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/bfren/rnd?include_prereleases&label=Release)
+[![Nuget](https://img.shields.io/nuget/dt/rnd?label=Downloads)](https://www.nuget.org/packages/rnd/)
+[![GitHub](https://img.shields.io/github/license/bfren/rnd?label=Licence)](https://mit.bfren.dev/2021)<br/>
+[![Test](https://github.com/bfren/rnd/actions/workflows/test.yml/badge.svg)](https://github.com/bfren/rnd/actions/workflows/test.yml)
+[![Publish](https://github.com/bfren/rnd/actions/workflows/publish.yml/badge.svg)](https://github.com/bfren/rnd/actions/workflows/publish.yml)
 
 Cryptographically secure random value generators for Integer, DateTime, String (and Passphrase), Guid, and Byte types.
 
