@@ -11,7 +11,7 @@ public static partial class Rnd
 	public static partial class DateTimeF
 	{
 		/// <summary>
-		/// Return a random DateTime between 0001-01-01 00:00 and 9999-12-31 23:59.
+		/// Return a random DateTime between 0001-01-01 00:00:00.000 and 9999-12-31 23:59:59.999.
 		/// </summary>
 		/// <returns>Random date/time.</returns>
 		public static DateTime Get() =>

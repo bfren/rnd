@@ -10,51 +10,35 @@ namespace RndF;
 /// </summary>
 public static partial class Rnd
 {
-	/// <summary>
-	/// 'Flip a coin' - generate a random true / false.
-	/// </summary>
+	/// <inheritdoc cref="BooleanF.Get()"/>
 	public static bool Flip =>
 		BooleanF.Get();
 
-	/// <summary>
-	/// Generate a random Guid.
-	/// </summary>
+	/// <inheritdoc cref="GuidF.Get"/>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static Guid Guid =>
 		GuidF.Get();
 #pragma warning restore CA1720 // Identifier contains type name
 
-	/// <summary>
-	/// Generate a random passphrase with eight dictionary words all starting with an uppercase
-	/// letter, and one number.
-	/// </summary>
+	/// <inheritdoc cref="StringF.Passphrase()"/>
 	public static string Pass =>
 		StringF.Passphrase();
 
-	/// <summary>
-	/// Generate a random string 6 characters long, containing uppercase and lowercase letters,
-	/// but no numbers or special characters.
-	/// </summary>
+	/// <inheritdoc cref="StringF.Get(int)"/>
 	public static string Str =>
 		StringF.Get(6);
 
 	#region DateTime
 
-	/// <summary>
-	/// Generate a random Date between the year 1 and the year 9999
-	/// </summary>
+	/// <inheritdoc cref="DateF.Get"/>
 	public static DateOnly Date =>
 		DateF.Get();
 
-	/// <summary>
-	/// Generate a random DateTime (UTC) between the year 1 and the year 9999
-	/// </summary>
+	/// <inheritdoc cref="DateTimeF.Get"/>
 	public static DateTime DateTime =>
 		DateTimeF.Get();
 
-	/// <summary>
-	/// Generate a random Time between 00:00 and 23:59
-	/// </summary>
+	/// <inheritdoc cref="TimeF.Get"/>
 	public static TimeOnly Time =>
 		TimeF.Get();
 
@@ -62,43 +46,31 @@ public static partial class Rnd
 
 	#region Numbers
 
-	/// <summary>
-	/// Generate a random double-precision floating-point number between 0 and 10000.
-	/// </summary>
+	/// <inheritdoc cref="NumberF.GetDouble()"/>
 	public static double Dbl =>
 		NumberF.GetDouble(max: 10000d);
 
-	/// <summary>
-	/// Generate a random single-precision floating-point number between 0 and 10000.
-	/// </summary>
+	/// <inheritdoc cref="NumberF.GetSingle()"/>
 	public static float Flt =>
 		NumberF.GetSingle(max: 10000f);
 
-	/// <summary>
-	/// Generate a random 32-bit integer between 0 and 10000.
-	/// </summary>
+	/// <inheritdoc cref="NumberF.GetInt32()"/>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static int Int =>
 		NumberF.GetInt32(max: 10000);
 #pragma warning restore CA1720 // Identifier contains type name
 
-	/// <summary>
-	/// Generate a random 64-bit integer between 0 and 10000.
-	/// </summary>
+	/// <inheritdoc cref="NumberF.GetInt64()"/>
 	public static long Lng =>
 		NumberF.GetInt64(max: 10000L);
 
-	/// <summary>
-	/// Generate a random 32-bit unsigned integer between 0 and 10000.
-	/// </summary>
+	/// <inheritdoc cref="NumberF.GetUInt32()"/>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static uint UInt =>
 		NumberF.GetUInt32(max: 10000u);
 #pragma warning restore CA1720 // Identifier contains type name
 
-	/// <summary>
-	/// Generate a random 64-bit unsigned integer between 0 and 10000.
-	/// </summary>
+	/// <inheritdoc cref="NumberF.GetUInt64()"/>
 	public static ulong ULng =>
 		NumberF.GetUInt64(max: 10000UL);
 
