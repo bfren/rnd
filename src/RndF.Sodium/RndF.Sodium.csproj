@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Cryptographically secure random value generators for Integer, DateTime, String (and Passphrase), Guid, and Byte types.</Description>
+    <PackageId>Rnd.Sodium</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Sodium.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RndF\RndF.csproj" />
+  </ItemGroup>
+</Project>

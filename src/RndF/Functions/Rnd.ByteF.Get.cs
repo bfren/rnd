@@ -1,9 +1,6 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System;
-using System.Security.Cryptography;
-
 namespace RndF;
 
 public static partial class Rnd
@@ -24,9 +21,7 @@ public static partial class Rnd
 			}
 
 			// Get random bytes
-			Span<byte> bytes = stackalloc byte[length];
-			RandomNumberGenerator.Fill(bytes);
-			return bytes.ToArray();
+			return Generator.GetBytes(length);
 		}
 	}
 }
