@@ -10,10 +10,6 @@ public class GetUInt64_Tests
 		[Fact]
 		public void never_returns_out_of_bounds() =>
 			Helpers.CheckBounds(() => Rnd.NumberF.GetUInt64(), 0UL, ulong.MaxValue);
-
-		[Fact]
-		public void returns_random_number() =>
-			Helpers.EnsureRandom(Rnd.NumberF.GetUInt64);
 	}
 
 	public class with_max

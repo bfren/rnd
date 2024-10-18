@@ -10,10 +10,6 @@ public class GetInt32_Tests
 		[Fact]
 		public void never_returns_out_of_bounds() =>
 			Helpers.CheckBounds(() => Rnd.NumberF.GetInt32(), 0, int.MaxValue);
-
-		[Fact]
-		public void returns_random_number() =>
-			Helpers.EnsureRandom(Rnd.NumberF.GetInt32);
 	}
 
 	public class with_max

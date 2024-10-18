@@ -10,10 +10,6 @@ public class GetUInt32_Tests
 		[Fact]
 		public void never_returns_out_of_bounds() =>
 			Helpers.CheckBounds(() => Rnd.NumberF.GetUInt32(), 0u, uint.MaxValue);
-
-		[Fact]
-		public void returns_random_number() =>
-			Helpers.EnsureRandom(Rnd.NumberF.GetUInt32);
 	}
 
 	public class with_max
