@@ -3,6 +3,9 @@
 
 namespace RndF;
 
+/// <summary>
+/// Abstraction for Random Number Generators.
+/// </summary>
 public interface IRng
 {
 	/// <summary>
