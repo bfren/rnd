@@ -14,7 +14,7 @@ public static partial class Rnd
 		/// Returns a random positive integer between <see langword="0"/> and <see cref="int.MaxValue"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons.
+		/// Don't share code with other GetIntxx() methods for memory allocation reasons.
 		/// </remarks>
 		/// <returns>Random number.</returns>
 		public static int GetInt32() =>
@@ -24,7 +24,7 @@ public static partial class Rnd
 		/// Returns a random positive integer between <see langword="0"/> and <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetInt32(int, int)"/> for memory allocation reasons.
+		/// Don't share code with other GetIntxx() methods for memory allocation reasons.
 		/// </remarks>
 		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
@@ -36,7 +36,7 @@ public static partial class Rnd
 		/// Returns a random positive integer between <paramref name="min"/> and <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetInt64(long, long)"/> for memory allocation reasons.
+		/// Don't share code with other GetIntxx() methods for memory allocation reasons.
 		/// </remarks>
 		/// <param name="min">Minimum acceptable value (must be at least <see langword="0"/>).</param>
 		/// <param name="max">Maximum acceptable value.</param>

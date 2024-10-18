@@ -14,7 +14,7 @@ public static partial class Rnd
 		/// Returns a random positive integer between <see langword="0"/> and <see cref="uint.MaxValue"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetUInt64(ulong, ulong)"/> for memory allocation reasons.
+		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
 		/// </remarks>
 		/// <returns>Random number.</returns>
 		public static uint GetUInt32() =>
@@ -24,7 +24,7 @@ public static partial class Rnd
 		/// Returns a random positive integer between <see langword="0"/> and <see cref="uint.MaxValue"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetUInt64(ulong, ulong)"/> for memory allocation reasons.
+		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
 		/// </remarks>
 		/// <param name="max">Maximum acceptable value</param>
 		/// <returns>Random number.</returns>
@@ -36,7 +36,7 @@ public static partial class Rnd
 		/// Returns a random positive integer between <paramref name="min"/> and <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <remarks>
-		/// Don't share code with <see cref="GetUInt64(ulong, ulong)"/> for memory allocation reasons.
+		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
 		/// </remarks>
 		/// <param name="min">Minimum acceptable value.</param>
 		/// <param name="max">Maximum acceptable value.</param>
