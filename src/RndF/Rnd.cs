@@ -10,6 +10,11 @@ namespace RndF;
 /// </summary>
 public static partial class Rnd
 {
+	/// <summary>
+	/// Random Number Generator
+	/// </summary>
+	public static IRng Generator { get; set; } = new DefaultRng();
+
 	/// <inheritdoc cref="BooleanF.Get()"/>
 	public static bool Flip =>
 		BooleanF.Get();
