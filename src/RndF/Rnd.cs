@@ -54,6 +54,10 @@ public static partial class Rnd
 	public static float Flt =>
 		NumberF.GetSingle(max: 10000f);
 
+	/// <inheritdoc cref="NumberF.GetInt16()"/>
+	public static short Sht =>
+		NumberF.GetInt16(max: 10000);
+
 	/// <inheritdoc cref="NumberF.GetInt32()"/>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static int Int =>
@@ -63,6 +67,10 @@ public static partial class Rnd
 	/// <inheritdoc cref="NumberF.GetInt64()"/>
 	public static long Lng =>
 		NumberF.GetInt64(max: 10000L);
+
+	/// <inheritdoc cref="NumberF.GetUInt16()"/>
+	public static ushort USht =>
+		NumberF.GetUInt16(max: 10000);
 
 	/// <inheritdoc cref="NumberF.GetUInt32()"/>
 #pragma warning disable CA1720 // Identifier contains type name
