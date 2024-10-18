@@ -73,6 +73,12 @@ public static partial class Rnd
 	public static long Lng =>
 		NumberF.GetInt64(max: 10000L);
 
+	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
+#pragma warning disable CA1720 // Identifier contains type name
+	public static nint Ptr =>
+		NumberF.GetIntPtr(max: 10000);
+#pragma warning restore CA1720 // Identifier contains type name
+
 	/// <inheritdoc cref="NumberF.GetUInt16()"/>
 	public static ushort USht =>
 		NumberF.GetUInt16(max: 10000);
@@ -86,6 +92,12 @@ public static partial class Rnd
 	/// <inheritdoc cref="NumberF.GetUInt64()"/>
 	public static ulong ULng =>
 		NumberF.GetUInt64(max: 10000UL);
+
+	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
+#pragma warning disable CA1720 // Identifier contains type name
+	public static nuint UPtr =>
+		NumberF.GetUIntPtr(max: 10000);
+#pragma warning restore CA1720 // Identifier contains type name
 
 	#endregion Numbers
 }
