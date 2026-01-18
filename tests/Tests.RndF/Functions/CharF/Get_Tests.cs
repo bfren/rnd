@@ -15,7 +15,7 @@ internal class Get_Tests
 	public class with_min
 	{
 		public static TheoryData<ushort> Min =>
-			new() { { Rnd.NumberF.GetUInt16(char.MinValue, char.MaxValue) } };
+			new() { { Rnd.CharF.Get() } };
 
 		[Theory]
 		[MemberData(nameof(Min))]
@@ -26,7 +26,7 @@ internal class Get_Tests
 	public class with_max
 	{
 		public static TheoryData<ushort> Max =>
-			new() { { Rnd.NumberF.GetUInt16(char.MinValue, char.MaxValue) } };
+			new() { { Rnd.CharF.Get() } };
 
 		[Theory]
 		[MemberData(nameof(Max))]
@@ -47,14 +47,14 @@ internal class Get_Tests
 		{
 			get
 			{
-				var v0 = Rnd.NumberF.GetUInt16(min: char.MinValue, max: char.MaxValue);
-				var v1 = Rnd.NumberF.GetUInt16(min: char.MinValue, max: char.MaxValue);
+				var v0 = Rnd.CharF.Get();
+				var v1 = Rnd.CharF.Get();
 				return (v0, v1) switch
 				{
 					_ when v0 < v1 =>
-						new TheoryData<ushort, ushort>() { { v0, v1 } },
+						new() { { v0, v1 } },
 					_ =>
-						new TheoryData<ushort, ushort>() { { v1, v0 } }
+						new() { { v1, v0 } }
 				};
 			}
 		}
