@@ -19,6 +19,12 @@ public static partial class Rnd
 	public static bool Flip =>
 		BooleanF.Get();
 
+	/// <inheritdoc cref="CharF.Get(ushort, ushort)"/>
+#pragma warning disable CA1720 // Identifier contains type name
+	public static char Char =>
+		CharF.Get(48, 122);
+#pragma warning restore CA1720 // Identifier contains type name
+
 	/// <inheritdoc cref="GuidF.Get"/>
 #pragma warning disable CA1720 // Identifier contains type name
 	public static Guid Guid =>
