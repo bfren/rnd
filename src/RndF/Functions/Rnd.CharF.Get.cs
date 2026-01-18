@@ -14,7 +14,14 @@ public static partial class Rnd
 		/// Return a random character.
 		/// </summary>
 		/// <returns>Random character.</returns>
-		public static char Get(ushort min = char.MinValue, ushort max = char.MaxValue)
+		public static char Get() =>
+			Get(char.MinValue, char.MaxValue);
+
+		/// <summary>
+		/// Return a random character.
+		/// </summary>
+		/// <returns>Random character.</returns>
+		public static char Get(ushort min, ushort max)
 		{
 			if (min > char.MaxValue)
 			{

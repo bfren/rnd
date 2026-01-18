@@ -12,28 +12,6 @@ internal class Get_Tests
 			Helpers.CheckBounds(() => (ushort)Rnd.CharF.Get(), char.MinValue, char.MaxValue);
 	}
 
-	public class with_min
-	{
-		public static TheoryData<ushort> Min =>
-			new() { { Rnd.CharF.Get() } };
-
-		[Theory]
-		[MemberData(nameof(Min))]
-		public void never_returns_out_of_bounds(ushort min) =>
-			Helpers.CheckBounds(x => Rnd.CharF.Get(min: x), min, char.MaxValue);
-	}
-
-	public class with_max
-	{
-		public static TheoryData<ushort> Max =>
-			new() { { Rnd.CharF.Get() } };
-
-		[Theory]
-		[MemberData(nameof(Max))]
-		public void never_returns_out_of_bounds(ushort max) =>
-			Helpers.CheckBounds(x => Rnd.CharF.Get(max: x), char.MinValue, max);
-	}
-
 	public class with_min_and_max
 	{
 		public class when_min_is_more_than_max
