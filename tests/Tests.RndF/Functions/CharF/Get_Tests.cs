@@ -3,18 +3,18 @@
 
 namespace RndF.Functions.CharF;
 
-internal class Get_Tests
+internal sealed class Get_Tests
 {
-	public class without_args
+	public sealed class without_args
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
 			Helpers.CheckBounds(() => (ushort)Rnd.CharF.Get(), char.MinValue, char.MaxValue);
 	}
 
-	public class with_min_and_max
+	public sealed class with_min_and_max
 	{
-		public class when_min_is_more_than_max
+		public sealed class when_min_is_more_than_max
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
