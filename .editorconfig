@@ -466,6 +466,9 @@ dotnet_style_qualification_for_property = false:warning
 dotnet_style_qualification_for_method = false:warning
 dotnet_style_qualification_for_event = false:warning
 
+# accessibility modifiers should not be required for interfaces
+dotnet_style_require_accessibility_modifiers = for_non_interface_members
+
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:warning
 
