@@ -2,7 +2,7 @@
 # Updated: 2021-11-15
 # See https://github.com/RehanSaeed/EditorConfig/releases for release notes.
 # See https://github.com/RehanSaeed/EditorConfig for updates to this file.
-# See http://EditorConfig.org for more information about .editorconfig files.
+# See https://EditorConfig.org for more information about .editorconfig files.
 
 ##########################################
 # Common Settings
@@ -450,6 +450,11 @@ dotnet_naming_rule.parameters_rule.severity             = warning
 ##########################################
 # Overrides
 ##########################################
+
+[*]
+
+end_of_line = crlf
+insert_final_newline = true
 
 [*.{cs,csx,cake,vb,vbx}]
 
