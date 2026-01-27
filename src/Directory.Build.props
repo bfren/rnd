@@ -47,7 +47,7 @@
 
   <!-- Read Version File -->
   <PropertyGroup Label="Version">
-    <RndVersion>$([System.IO.File]::ReadAllText('$(VersionPath)'))</RndVersion>
+    <RndVersion>$([System.IO.File]::ReadAllText('$(VersionPath)').Trim())</RndVersion>
   </PropertyGroup>
 
   <!-- Package Configuration -->
