@@ -100,7 +100,7 @@ public static partial class Rnd
 	/// <inheritdoc cref="NumberF.GetUInt64()"/>
 	public static ulong UInt64 =>
 		NumberF.GetUInt64(max: 10000UL);
-	public static Int128 UInt128 =>
+	public static UInt128 UInt128 =>
 		NumberF.GetUInt128(max: 10000);
 
 	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
