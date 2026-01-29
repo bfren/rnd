@@ -15,7 +15,7 @@ public class GetUInt16_Tests
 	public class with_max
 	{
 		public static TheoryData<ushort> Max =>
-			new() { { Rnd.USht } };
+			new() { { Rnd.UInt16 } };
 
 		[Theory]
 		[MemberData(nameof(Max))]
@@ -29,15 +29,15 @@ public class GetUInt16_Tests
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt16), () => Rnd.USht, Rnd.NumberF.GetUInt16);
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt16), () => Rnd.UInt16, Rnd.NumberF.GetUInt16);
 		}
 
 		public static TheoryData<ushort, ushort> MinAndMax
 		{
 			get
 			{
-				var min = Rnd.USht;
-				var max = (ushort)(min + 1 + Rnd.USht);
+				var min = Rnd.UInt16;
+				var max = (ushort)(min + 1 + Rnd.UInt16);
 				return new() { { min, max } };
 			}
 		}

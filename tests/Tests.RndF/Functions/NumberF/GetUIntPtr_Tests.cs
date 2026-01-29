@@ -15,7 +15,7 @@ public class GetUIntPtr_Tests
 	public class with_max
 	{
 		public static TheoryData<nuint> Max =>
-			new() { { Rnd.UPtr } };
+			new() { { Rnd.UIntPtr } };
 
 		[Theory]
 #pragma warning disable xUnit1044 // Avoid using TheoryData type arguments that are not serializable
@@ -31,15 +31,15 @@ public class GetUIntPtr_Tests
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUIntPtr), () => Rnd.UPtr, Rnd.NumberF.GetUIntPtr);
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUIntPtr), () => Rnd.UIntPtr, Rnd.NumberF.GetUIntPtr);
 		}
 
 		public static TheoryData<nuint, nuint> MinAndMax
 		{
 			get
 			{
-				var min = Rnd.UPtr;
-				var max = min + 1 + Rnd.UPtr;
+				var min = Rnd.UIntPtr;
+				var max = min + 1 + Rnd.UIntPtr;
 				return new() { { min, max } };
 			}
 		}

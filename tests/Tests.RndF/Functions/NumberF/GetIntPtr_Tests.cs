@@ -15,7 +15,7 @@ public class GetIntPtr_Tests
 	public class with_max
 	{
 		public static TheoryData<nint> Max =>
-			new() { { Rnd.Ptr } };
+			new() { { Rnd.IntPtr } };
 
 		[Theory]
 #pragma warning disable xUnit1044 // Avoid using TheoryData type arguments that are not serializable
@@ -31,22 +31,22 @@ public class GetIntPtr_Tests
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetIntPtr), () => Rnd.Ptr, Rnd.NumberF.GetIntPtr);
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetIntPtr), () => Rnd.IntPtr, Rnd.NumberF.GetIntPtr);
 		}
 
 		public class when_min_is_less_than_zero
 		{
 			[Fact]
 			public void throws_MinimumLessThanZeroException() =>
-				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetIntPtr), () => Rnd.Ptr * -1, () => Rnd.Ptr, Rnd.NumberF.GetIntPtr);
+				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetIntPtr), () => Rnd.IntPtr * -1, () => Rnd.IntPtr, Rnd.NumberF.GetIntPtr);
 		}
 
 		public static TheoryData<nint, nint> MinAndMax
 		{
 			get
 			{
-				var min = Rnd.Ptr;
-				var max = min + 1 + Rnd.Ptr;
+				var min = Rnd.IntPtr;
+				var max = min + 1 + Rnd.IntPtr;
 				return new() { { min, max } };
 			}
 		}
