@@ -75,9 +75,17 @@ public static partial class Rnd
 	public static int Int32 =>
 		NumberF.GetInt32(max: 10000);
 
+	/// <inheritdoc cref="Int32"/>
+	public static int Int =>
+		Int32;
+
 	/// <inheritdoc cref="NumberF.GetInt64()"/>
 	public static long Int64 =>
 		NumberF.GetInt64(max: 10000L);
+
+	/// <inheritdoc cref="Int64"/>
+	public static long Lng =>
+		Int64;
 
 	/// <inheritdoc cref="NumberF.GetInt128()"/>
 	public static Int128 Int128 =>
