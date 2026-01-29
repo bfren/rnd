@@ -43,8 +43,8 @@ public class GetInt64_Tests
 		{
 			get
 			{
-				var min = Rnd.Int32;
-				var max = min + 1 + Rnd.Int32;
+				var min = Rnd.Int64;
+				var max = min + 1 + Rnd.Int64;
 				return new() { { min, max } };
 			}
 		}

@@ -43,8 +43,8 @@ public class GetInt128_Tests
 		{
 			get
 			{
-				var min = Rnd.Int32;
-				var max = min + 1 + Rnd.Int32;
+				var min = Rnd.Int128;
+				var max = min + 1 + Rnd.Int128;
 				return new() { { min, max } };
 			}
 		}

@@ -36,8 +36,8 @@ public class GetUInt128_Tests
 		{
 			get
 			{
-				var min = Rnd.UInt64;
-				var max = min + 1 + Rnd.UInt64;
+				var min = Rnd.UInt128;
+				var max = min + 1 + Rnd.UInt128;
 				return new() { { min, max } };
 			}
 		}
