@@ -10,6 +10,8 @@ namespace RndF;
 /// </summary>
 public static partial class Rnd
 {
+#pragma warning disable CA1720 // Identifier contains type name
+
 	/// <summary>
 	/// Random Number Generator
 	/// </summary>
@@ -20,16 +22,12 @@ public static partial class Rnd
 		BooleanF.Get();
 
 	/// <inheritdoc cref="CharF.Get(ushort, ushort)"/>
-#pragma warning disable CA1720 // Identifier contains type name
 	public static char Char =>
 		CharF.Get(48, 122);
-#pragma warning restore CA1720 // Identifier contains type name
 
 	/// <inheritdoc cref="GuidF.Get"/>
-#pragma warning disable CA1720 // Identifier contains type name
 	public static Guid Guid =>
 		GuidF.Get();
-#pragma warning restore CA1720 // Identifier contains type name
 
 	/// <inheritdoc cref="StringF.Passphrase()"/>
 	public static string Pass =>
@@ -54,8 +52,6 @@ public static partial class Rnd
 		TimeF.Get();
 
 	#endregion DateTime
-
-#pragma warning disable CA1720 // Identifier contains type name
 
 	#region Numbers
 
