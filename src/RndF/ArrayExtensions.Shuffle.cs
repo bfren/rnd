@@ -32,15 +32,7 @@ public static partial class ArrayExtensions
 
 		// Copy to new array so the original is not affected
 		T[] shuffled = [.. @this];
-#if NET8_0_OR_GREATER
 		RandomNumberGenerator.Shuffle(shuffled.AsSpan());
-#else
-		for (var i = shuffled.Length; i > 1; i--)
-		{
-			var j = Rnd.NumberF.GetInt32(max: i - 1);
-			(shuffled[i - 1], shuffled[j]) = (shuffled[j], shuffled[i - 1]);
-		}
-#endif
 
 		// Original array remains the same
 		return shuffled;
