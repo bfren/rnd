@@ -57,11 +57,11 @@ public static partial class Rnd
 			}
 
 			// Get the range between the specified minimum and maximum values
-			var range = max - min;
+			var range = (double)(max - min);
 
 			// Now add a random amount of the range to the minimum value - it will never exceed maximum value
-			var add = Math.Round((double)range * Get());
-			return (Int128)((double)min + add);
+			var add = (Int128)Math.Round(range * Get());
+			return min + add;
 		}
 	}
 }
