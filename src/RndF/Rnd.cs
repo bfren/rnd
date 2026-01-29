@@ -68,6 +68,8 @@ public static partial class Rnd
 		NumberF.GetSingle(max: 10000f);
 
 	/// <inheritdoc cref="NumberF.GetInt16()"/>
+
+	/// <inheritdoc cref="NumberF.GetInt16()"/>
 	public static short Int16 =>
 		NumberF.GetInt16(max: 10000);
 
@@ -98,6 +100,8 @@ public static partial class Rnd
 	/// <inheritdoc cref="NumberF.GetUInt64()"/>
 	public static ulong UInt64 =>
 		NumberF.GetUInt64(max: 10000UL);
+	public static Int128 UInt128 =>
+		NumberF.GetUInt128(max: 10000);
 
 	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
 	public static nuint UIntPtr =>
