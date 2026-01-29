@@ -15,7 +15,7 @@ public class GetUInt64_Tests
 	public class with_max
 	{
 		public static TheoryData<ulong> Max =>
-			new() { { Rnd.UInt64 } };
+			[Rnd.UInt64];
 
 		[Theory]
 		[MemberData(nameof(Max))]

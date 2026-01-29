@@ -15,7 +15,7 @@ public class GetSingle_Tests
 	public class with_max
 	{
 		public static TheoryData<float> Max =>
-			new() { { Rnd.Flt } };
+			[Rnd.Flt];
 
 		[Theory]
 		[MemberData(nameof(Max))]

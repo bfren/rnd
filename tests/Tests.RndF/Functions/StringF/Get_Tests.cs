@@ -13,7 +13,7 @@ public class Get_Tests
 		public class length_less_than_two
 		{
 			public static TheoryData<int> Length =>
-				new() { { -1 }, { 0 }, { 1 } };
+				[-1, 0, 1];
 
 			[Theory]
 			[MemberData(nameof(Length))]
@@ -64,12 +64,11 @@ public class Get_Tests
 		public class length_less_than_classes_length
 		{
 			public static TheoryData<int, Chars> LengthAndClasses =>
-				new()
-				{
-					{ 1, Chars.Letters },
-					{ 2, Chars.Number | Chars.Special | Chars.Hexademical },
-					{ 3, Chars.All }
-				};
+				[
+					(1, Chars.Letters),
+					(2, Chars.Number | Chars.Special | Chars.Hexademical),
+					(3, Chars.All)
+				];
 
 			[Theory]
 			[MemberData(nameof(LengthAndClasses))]
@@ -117,16 +116,15 @@ public class Get_Tests
 		}
 
 		public static TheoryData<Chars, char[]> ClassesAndChars =>
-			new()
-			{
-			{ Chars.Number, Helpers.Chars.Numbers },
-			{ Chars.Lower, Helpers.Chars.Lowercase },
-			{ Chars.Upper, Helpers.Chars.Uppercase },
-			{ Chars.Special, Helpers.Chars.Special },
-			{ Chars.Hexademical, Helpers.Chars.Hexadecimal },
-			{ Chars.Letters, Helpers.Chars.Letters},
-			{ Chars.All, Helpers.Chars.All }
-			};
+			[
+				(Chars.Number, Helpers.Chars.Numbers),
+				(Chars.Lower, Helpers.Chars.Lowercase),
+				(Chars.Upper, Helpers.Chars.Uppercase),
+				(Chars.Special, Helpers.Chars.Special),
+				(Chars.Hexademical, Helpers.Chars.Hexadecimal),
+				(Chars.Letters, Helpers.Chars.Letters),
+				(Chars.All, Helpers.Chars.All)
+			];
 
 		[Theory]
 		[MemberData(nameof(ClassesAndChars))]

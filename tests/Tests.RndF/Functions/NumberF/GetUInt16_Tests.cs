@@ -15,7 +15,7 @@ public class GetUInt16_Tests
 	public class with_max
 	{
 		public static TheoryData<ushort> Max =>
-			new() { { Rnd.UInt16 } };
+			[Rnd.UInt16];
 
 		[Theory]
 		[MemberData(nameof(Max))]

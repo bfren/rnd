@@ -15,7 +15,7 @@ public class GetInt16_Tests
 	public class with_max
 	{
 		public static TheoryData<short> Max =>
-			new() { { Rnd.Int16 } };
+			[Rnd.Int16];
 
 		[Theory]
 		[MemberData(nameof(Max))]

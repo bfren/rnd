@@ -15,7 +15,7 @@ public class GetInt128_Tests
 	public class with_max
 	{
 		public static TheoryData<Int128> Max =>
-			new() { { Rnd.Int32 } };
+			[Rnd.Int128];
 
 		[Theory]
 		[MemberData(nameof(Max))]
