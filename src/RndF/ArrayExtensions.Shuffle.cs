@@ -1,10 +1,8 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-#if NET8_0_OR_GREATER
 using System;
 using System.Security.Cryptography;
-#endif
 
 namespace RndF;
 
