@@ -10,6 +10,8 @@ namespace RndF;
 /// </summary>
 public static partial class Rnd
 {
+#pragma warning disable CA1720 // Identifier contains type name
+
 	/// <summary>
 	/// Random Number Generator
 	/// </summary>
@@ -20,16 +22,12 @@ public static partial class Rnd
 		BooleanF.Get();
 
 	/// <inheritdoc cref="CharF.Get(ushort, ushort)"/>
-#pragma warning disable CA1720 // Identifier contains type name
 	public static char Char =>
 		CharF.Get(48, 122);
-#pragma warning restore CA1720 // Identifier contains type name
 
 	/// <inheritdoc cref="GuidF.Get"/>
-#pragma warning disable CA1720 // Identifier contains type name
 	public static Guid Guid =>
 		GuidF.Get();
-#pragma warning restore CA1720 // Identifier contains type name
 
 	/// <inheritdoc cref="StringF.Passphrase()"/>
 	public static string Pass =>
@@ -55,8 +53,6 @@ public static partial class Rnd
 
 	#endregion DateTime
 
-#pragma warning disable CA1720 // Identifier contains type name
-
 	#region Numbers
 
 	/// <inheritdoc cref="NumberF.GetDouble()"/>
@@ -71,15 +67,11 @@ public static partial class Rnd
 	public static short Int16 =>
 		NumberF.GetInt16(max: 10000);
 
-	[Obsolete("Use " + nameof(Int16))]
-	public static short Sht =>
-		Int16;
-
 	/// <inheritdoc cref="NumberF.GetInt32()"/>
 	public static int Int32 =>
 		NumberF.GetInt32(max: 10000);
 
-	[Obsolete("Use " + nameof(Int32))]
+	/// <inheritdoc cref="Int32"/>
 	public static int Int =>
 		Int32;
 
@@ -87,49 +79,37 @@ public static partial class Rnd
 	public static long Int64 =>
 		NumberF.GetInt64(max: 10000L);
 
-	[Obsolete("Use " + nameof(Int64))]
+	/// <inheritdoc cref="Int64"/>
 	public static long Lng =>
 		Int64;
+
+	/// <inheritdoc cref="NumberF.GetInt128()"/>
+	public static Int128 Int128 =>
+		NumberF.GetInt128(max: 10000L);
 
 	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
 	public static nint IntPtr =>
 		NumberF.GetIntPtr(max: 10000);
 
-	[Obsolete("Use " + nameof(IntPtr))]
-	public static nint Ptr =>
-		IntPtr;
-
 	/// <inheritdoc cref="NumberF.GetUInt16()"/>
 	public static ushort UInt16 =>
 		NumberF.GetUInt16(max: 10000);
-
-	[Obsolete("Use " + nameof(UInt16))]
-	public static ushort USht =>
-		UInt16;
 
 	/// <inheritdoc cref="NumberF.GetUInt32()"/>
 	public static uint UInt32 =>
 		NumberF.GetUInt32(max: 10000u);
 
-	[Obsolete("Use " + nameof(UInt32))]
-	public static uint UInt =>
-		UInt32;
-
 	/// <inheritdoc cref="NumberF.GetUInt64()"/>
 	public static ulong UInt64 =>
 		NumberF.GetUInt64(max: 10000UL);
 
-	[Obsolete("Use " + nameof(UInt64))]
-	public static ulong ULng =>
-		UInt64;
+	/// <inheritdoc cref="NumberF.GetUInt128()"/>
+	public static UInt128 UInt128 =>
+		NumberF.GetUInt128(max: 10000);
 
 	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
 	public static nuint UIntPtr =>
 		NumberF.GetUIntPtr(max: 10000);
-
-	[Obsolete("Use " + nameof(UIntPtr))]
-	public static nuint UPtr =>
-		UIntPtr;
 
 	#endregion Numbers
 
