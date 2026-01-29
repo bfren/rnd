@@ -15,7 +15,8 @@ public static partial class Rnd
 	/// <summary>
 	/// Random Number Generator
 	/// </summary>
-	public static IRng Generator { get; set; } = new DefaultRng();
+	public static IRng Generator { get; set; } =
+		new DefaultRng();
 
 	/// <inheritdoc cref="BooleanF.Get()"/>
 	public static bool Flip =>
@@ -55,13 +56,17 @@ public static partial class Rnd
 
 	#region Numbers
 
-	/// <inheritdoc cref="NumberF.GetDouble()"/>
-	public static double Dbl =>
-		NumberF.GetDouble(max: 10000d);
-
 	/// <inheritdoc cref="NumberF.GetSingle()"/>
-	public static float Flt =>
+	public static float Single =>
 		NumberF.GetSingle(max: 10000f);
+
+	/// <inheritdoc cref="Single"/>
+	public static float Flt =>
+		Single;
+
+	/// <inheritdoc cref="NumberF.GetDouble()"/>
+	public static double Double =>
+		NumberF.GetDouble(max: 10000d);
 
 	/// <inheritdoc cref="NumberF.GetInt16()"/>
 	public static short Int16 =>

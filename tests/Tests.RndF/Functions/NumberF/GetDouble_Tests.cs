@@ -15,7 +15,7 @@ public class GetDouble_Tests
 	public class with_max
 	{
 		public static TheoryData<double> Max =>
-			[Rnd.Dbl];
+			[Rnd.Double];
 
 		[Theory]
 		[MemberData(nameof(Max))]
@@ -29,22 +29,22 @@ public class GetDouble_Tests
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetDouble), () => Rnd.Dbl, Rnd.NumberF.GetDouble);
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetDouble), () => Rnd.Double, Rnd.NumberF.GetDouble);
 		}
 
 		public class when_min_is_less_than_zero
 		{
 			[Fact]
 			public void throws_MinimumLessThanZeroException() =>
-				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetDouble), () => Rnd.Dbl * -1, () => Rnd.Dbl, Rnd.NumberF.GetDouble);
+				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetDouble), () => Rnd.Double * -1, () => Rnd.Double, Rnd.NumberF.GetDouble);
 		}
 
 		public static TheoryData<double, double> MinAndMax
 		{
 			get
 			{
-				var min = Rnd.Dbl;
-				var max = min + 1 + Rnd.Dbl;
+				var min = Rnd.Double;
+				var max = min + 1 + Rnd.Double;
 				return new() { { min, max } };
 			}
 		}
