@@ -15,7 +15,7 @@ public class GetUIntPtr_Tests
 	public class with_max
 	{
 		public static TheoryData<nuint> Max =>
-			new() { { Rnd.UIntPtr } };
+			[Rnd.UIntPtr];
 
 		[Theory]
 #pragma warning disable xUnit1044 // Avoid using TheoryData type arguments that are not serializable

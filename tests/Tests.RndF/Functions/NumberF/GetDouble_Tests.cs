@@ -15,7 +15,7 @@ public class GetDouble_Tests
 	public class with_max
 	{
 		public static TheoryData<double> Max =>
-			new() { { Rnd.Dbl } };
+			[Rnd.Dbl];
 
 		[Theory]
 		[MemberData(nameof(Max))]

@@ -15,7 +15,7 @@ public class GetInt64_Tests
 	public class with_max
 	{
 		public static TheoryData<long> Max =>
-			new() { { Rnd.Int32 } };
+			[Rnd.Int64];
 
 		[Theory]
 		[MemberData(nameof(Max))]
@@ -43,8 +43,8 @@ public class GetInt64_Tests
 		{
 			get
 			{
-				var min = Rnd.Int32;
-				var max = min + 1 + Rnd.Int32;
+				var min = Rnd.Int64;
+				var max = min + 1 + Rnd.Int64;
 				return new() { { min, max } };
 			}
 		}

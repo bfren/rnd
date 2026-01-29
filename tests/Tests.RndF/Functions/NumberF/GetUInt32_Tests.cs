@@ -15,7 +15,7 @@ public class GetUInt32_Tests
 	public class with_max
 	{
 		public static TheoryData<uint> Max =>
-			new() { { Rnd.UInt32 } };
+			[Rnd.UInt32];
 
 		[Theory]
 		[MemberData(nameof(Max))]

@@ -15,7 +15,7 @@ public class GetUInt128_Tests
 	public class with_max
 	{
 		public static TheoryData<UInt128> Max =>
-			new() { { Rnd.UInt64 } };
+			[Rnd.UInt128];
 
 		[Theory]
 		[MemberData(nameof(Max))]
@@ -36,8 +36,8 @@ public class GetUInt128_Tests
 		{
 			get
 			{
-				var min = Rnd.UInt64;
-				var max = min + 1 + Rnd.UInt64;
+				var min = Rnd.UInt128;
+				var max = min + 1 + Rnd.UInt128;
 				return new() { { min, max } };
 			}
 		}
