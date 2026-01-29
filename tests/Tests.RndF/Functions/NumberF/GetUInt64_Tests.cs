@@ -15,7 +15,7 @@ public class GetUInt64_Tests
 	public class with_max
 	{
 		public static TheoryData<ulong> Max =>
-			new() { { Rnd.ULng } };
+			new() { { Rnd.UInt64 } };
 
 		[Theory]
 		[MemberData(nameof(Max))]
@@ -29,15 +29,15 @@ public class GetUInt64_Tests
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt64), () => Rnd.ULng, Rnd.NumberF.GetUInt64);
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt64), () => Rnd.UInt64, Rnd.NumberF.GetUInt64);
 		}
 
 		public static TheoryData<ulong, ulong> MinAndMax
 		{
 			get
 			{
-				var min = Rnd.ULng;
-				var max = min + 1 + Rnd.ULng;
+				var min = Rnd.UInt64;
+				var max = min + 1 + Rnd.UInt64;
 				return new() { { min, max } };
 			}
 		}

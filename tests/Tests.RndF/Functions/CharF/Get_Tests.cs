@@ -18,7 +18,7 @@ internal sealed class Get_Tests
 		{
 			[Fact]
 			public void throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.CharF.Get), () => (char)Rnd.USht, (min, max) => Rnd.CharF.Get(min, max));
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.CharF.Get), () => (char)Rnd.UInt16, (min, max) => Rnd.CharF.Get(min, max));
 		}
 
 		public static TheoryData<ushort, ushort> MinAndMax

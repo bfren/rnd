@@ -25,11 +25,10 @@ public class Shuffle_Tests
 		public class and_contains_fewer_than_two_elements
 		{
 			public static TheoryData<int, int> Data =>
-				new()
-				{
-				{ Rnd.Int, 0 },
-				{ Rnd.Int, 1 }
-				};
+				[
+					(Rnd.Int32, 0),
+					(Rnd.Int32, 1)
+				];
 
 			[Theory]
 			[MemberData(nameof(Data))]
@@ -50,7 +49,7 @@ public class Shuffle_Tests
 		public void returns_shuffled_array()
 		{
 			// Arrange
-			var array = Enumerable.Range(Rnd.Int, 100).ToArray();
+			var array = Enumerable.Range(Rnd.Int32, 100).ToArray();
 
 			// Act
 			var result = array.Shuffle();
