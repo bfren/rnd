@@ -18,6 +18,60 @@ public class Properties_Tests
 	}
 
 	[Fact]
+	public void generator_can_be_set_to_custom_rng()
+	{
+		// Arrange
+		var original = Rnd.Generator;
+		var custom = new TestRng();
+
+		try
+		{
+			// Act
+			Rnd.Generator = custom;
+
+			// Assert
+			Assert.Same(custom, Rnd.Generator);
+		}
+		finally
+		{
+			Rnd.Generator = original;
+		}
+	}
+
+	[Fact]
+	public void custom_rng_is_used_by_byte_generation()
+	{
+		// Arrange
+		var original = Rnd.Generator;
+		var custom = new TestRng();
+
+		try
+		{
+			Rnd.Generator = custom;
+
+			// Act
+			var result = Rnd.ByteF.Get(4);
+
+			// Assert
+			Assert.Equal([0xAB, 0xAB, 0xAB, 0xAB], result);
+		}
+		finally
+		{
+			Rnd.Generator = original;
+		}
+	}
+
+	private sealed class TestRng : IRng
+	{
+		public byte[] GetBytes(int length)
+		{
+			var bytes = new byte[length];
+			Array.Fill(bytes, (byte)0xAB);
+			return bytes;
+		}
+	}
+
+	[Fact]
 	public void flip_returns_boolean()
 	{
 		// Arrange
@@ -313,6 +367,74 @@ public class Properties_Tests
 		for (var i = 0; i < iterations; i++)
 		{
 			values.Add(Rnd.UInt16);
+		}
+
+		// Assert
+		Assert.True(values.All(v => v <= 10000));
+	}
+
+	[Fact]
+	public void int128_returns_value_in_range()
+	{
+		// Arrange
+		var iterations = 1000;
+		var values = new List<Int128>();
+
+		// Act
+		for (var i = 0; i < iterations; i++)
+		{
+			values.Add(Rnd.Int128);
+		}
+
+		// Assert
+		Assert.True(values.All(v => v >= 0 && v <= 10000));
+	}
+
+	[Fact]
+	public void uint128_returns_value_in_range()
+	{
+		// Arrange
+		var iterations = 1000;
+		var values = new List<UInt128>();
+
+		// Act
+		for (var i = 0; i < iterations; i++)
+		{
+			values.Add(Rnd.UInt128);
+		}
+
+		// Assert
+		Assert.True(values.All(v => v <= 10000));
+	}
+
+	[Fact]
+	public void intptr_returns_value_in_range()
+	{
+		// Arrange
+		var iterations = 1000;
+		var values = new List<nint>();
+
+		// Act
+		for (var i = 0; i < iterations; i++)
+		{
+			values.Add(Rnd.IntPtr);
+		}
+
+		// Assert
+		Assert.True(values.All(v => v >= 0 && v <= 10000));
+	}
+
+	[Fact]
+	public void uintptr_returns_value_in_range()
+	{
+		// Arrange
+		var iterations = 1000;
+		var values = new List<nuint>();
+
+		// Act
+		for (var i = 0; i < iterations; i++)
+		{
+			values.Add(Rnd.UIntPtr);
 		}
 
 		// Assert
