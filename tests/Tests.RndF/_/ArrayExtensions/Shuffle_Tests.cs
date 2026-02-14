@@ -57,5 +57,74 @@ public class Shuffle_Tests
 			// Assert
 			Assert.NotEqual(array, result);
 		}
+
+		[Fact]
+		public void does_not_modify_original_array()
+		{
+			// Arrange
+			var array = Enumerable.Range(0, 100).ToArray();
+			var original = array.ToArray();
+
+			// Act
+			array.Shuffle();
+
+			// Assert
+			Assert.Equal(original, array);
+		}
+
+		[Fact]
+		public void shuffles_string_array()
+		{
+			// Arrange
+			var array = new[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliet" };
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.NotSame(array, result);
+			Assert.Equal(array.Length, result.Length);
+			Assert.Equal(array.OrderBy(x => x), result.OrderBy(x => x));
+		}
+
+		[Fact]
+		public void shuffles_object_array()
+		{
+			// Arrange
+			var array = Enumerable.Range(0, 50).Select(i => new { Id = i, Name = $"item-{i}" }).ToArray();
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.NotSame(array, result);
+			Assert.Equal(array.Length, result.Length);
+			Assert.All(result, item => Assert.Contains(item, array));
+		}
+
+		[Fact]
+		public void preserves_all_elements()
+		{
+			// Arrange
+			var array = Enumerable.Range(0, 1000).ToArray();
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.Equal(array.OrderBy(x => x), result.OrderBy(x => x));
+		}
+
+		[Fact]
+		public void returns_null_string_input_as_empty_array()
+		{
+			// Arrange
+
+			// Act
+			var result = ArrayExtensions.Shuffle<string>(null!);
+
+			// Assert
+			Assert.Empty(result);
+		}
 	}
 }

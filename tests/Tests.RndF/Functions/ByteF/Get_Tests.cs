@@ -42,4 +42,16 @@ public class Get_Tests
 		// Assert
 		Assert.Equal(bytes.Count, result);
 	}
+
+	[Fact]
+	public void negative_length_throws_overflow_exception()
+	{
+		// Arrange
+
+		// Act
+		void act() => Rnd.ByteF.Get(-1);
+
+		// Assert
+		Assert.Throws<OverflowException>(act);
+	}
 }

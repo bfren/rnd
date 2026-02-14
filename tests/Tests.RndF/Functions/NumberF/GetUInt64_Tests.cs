@@ -46,5 +46,13 @@ public class GetUInt64_Tests
 		[MemberData(nameof(MinAndMax))]
 		public void never_returns_out_of_bounds(ulong min, ulong max) =>
 			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt64(min, max), min, max);
+
+		[Fact]
+		public void near_max_value_stays_in_bounds() =>
+			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt64(min, max), ulong.MaxValue - 100, ulong.MaxValue);
+
+		[Fact]
+		public void narrow_range_stays_in_bounds() =>
+			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt64(min, max), 500UL, 501UL);
 	}
 }

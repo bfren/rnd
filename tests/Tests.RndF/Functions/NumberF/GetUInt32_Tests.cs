@@ -46,5 +46,13 @@ public class GetUInt32_Tests
 		[MemberData(nameof(MinAndMax))]
 		public void never_returns_out_of_bounds(uint min, uint max) =>
 			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt32(min, max), min, max);
+
+		[Fact]
+		public void near_max_value_stays_in_bounds() =>
+			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt32(min, max), uint.MaxValue - 100, uint.MaxValue);
+
+		[Fact]
+		public void narrow_range_stays_in_bounds() =>
+			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt32(min, max), 500u, 501u);
 	}
 }

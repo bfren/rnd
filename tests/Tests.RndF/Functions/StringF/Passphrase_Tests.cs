@@ -234,4 +234,63 @@ public class Passphrase_Tests
 		// Assert
 		Assert.InRange(result, phrases.Count - 1, phrases.Count);
 	}
+
+	[Fact]
+	public void IncludeNumber_Adds_Number_To_Every_Fifth_Word()
+	{
+		// Arrange - use 10 words so indices 0 and 5 get numbers (i % 5 == 0)
+		var wordList = new[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliet" };
+
+		// Act
+		var result = Rnd.StringF.Passphrase(wordList, 10, '-', false, true);
+		var words = result.Split('-');
+
+		// Assert - exactly 2 words should contain a digit (indices 0 and 5 before shuffle)
+		var wordsWithNumbers = words.Count(w => w.Any(char.IsDigit));
+		Assert.Equal(2, wordsWithNumbers);
+	}
+
+	[Fact]
+	public void IncludeNumber_With_Five_Words_Adds_Number_To_One_Word()
+	{
+		// Arrange - only index 0 gets a number (i % 5 == 0)
+		var wordList = new[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel" };
+
+		// Act
+		var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, true);
+		var words = result.Split('-');
+
+		// Assert - exactly 1 word should contain a digit
+		var wordsWithNumbers = words.Count(w => w.Any(char.IsDigit));
+		Assert.Equal(1, wordsWithNumbers);
+	}
+
+	[Fact]
+	public void Custom_Word_List_Uses_Only_Provided_Words()
+	{
+		// Arrange
+		var wordList = new[] { "cat", "dog", "fox", "bat", "owl" };
+
+		// Act
+		var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, false);
+		var words = result.Split('-');
+
+		// Assert
+		Assert.All(words, w => Assert.Contains(w, wordList));
+	}
+
+	[Fact]
+	public void NumberOfWords_Equal_To_Word_List_Length_Uses_All_Words()
+	{
+		// Arrange
+		var wordList = new[] { "cat", "dog", "fox", "bat", "owl" };
+
+		// Act
+		var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, false);
+		var words = result.Split('-');
+
+		// Assert
+		Assert.Equal(5, words.Length);
+		Assert.Equal(5, words.Distinct().Count());
+	}
 }
