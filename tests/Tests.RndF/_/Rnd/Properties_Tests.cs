@@ -102,7 +102,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(c => c >= (char)48 && c <= (char)122));
+		Assert.True(values.All(c => c is >= ((char)48) and <= ((char)122)));
 	}
 
 	[Fact]
@@ -169,8 +169,8 @@ public class Properties_Tests
 		var result = Rnd.DateTime;
 
 		// Assert
-		Assert.True(result >= System.DateTime.MinValue);
-		Assert.True(result <= System.DateTime.MaxValue);
+		Assert.True(result >= DateTime.MinValue);
+		Assert.True(result <= DateTime.MaxValue);
 	}
 
 	[Fact]
@@ -200,7 +200,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0 && v <= 10000));
+		Assert.True(values.All(v => v is >= 0 and <= 10000));
 	}
 
 	[Fact]
@@ -217,7 +217,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0 && v <= 10000));
+		Assert.True(values.All(v => v is >= 0 and <= 10000));
 	}
 
 	[Fact]
@@ -234,7 +234,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0 && v <= 10000L));
+		Assert.True(values.All(v => v is >= 0 and <= 10000L));
 	}
 
 	[Fact]
@@ -251,7 +251,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0 && v <= 10000L));
+		Assert.True(values.All(v => v is >= 0 and <= 10000L));
 	}
 
 	[Fact]
@@ -268,7 +268,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0f && v <= 10000f));
+		Assert.True(values.All(v => v is >= 0f and <= 10000f));
 	}
 
 	[Fact]
@@ -285,7 +285,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0f && v <= 10000f));
+		Assert.True(values.All(v => v is >= 0f and <= 10000f));
 	}
 
 	[Fact]
@@ -302,7 +302,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0d && v <= 10000d));
+		Assert.True(values.All(v => v is >= 0d and <= 10000d));
 	}
 
 	[Fact]
@@ -353,7 +353,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0 && v <= 10000));
+		Assert.True(values.All(v => v is >= 0 and <= 10000));
 	}
 
 	[Fact]
@@ -421,7 +421,7 @@ public class Properties_Tests
 		}
 
 		// Assert
-		Assert.True(values.All(v => v >= 0 && v <= 10000));
+		Assert.True(values.All(v => v is >= 0 and <= 10000));
 	}
 
 	[Fact]

@@ -8,111 +8,246 @@ namespace RndF.Rnd_Tests.StringF_Tests;
 
 public class Passphrase_Tests
 {
-	[Fact]
-	public void No_Options_Returns_Eight_Words()
+	public class Without_Args
 	{
-		// Arrange
+		[Fact]
+		public void Returns_Eight_Words()
+		{
+			// Arrange
 
-		// Act
-		var result = Rnd.StringF.Passphrase();
+			// Act
+			var result = Rnd.StringF.Passphrase();
 
-		// Assert
-		var some = result.Split(Rnd.StringF.DefaultSeparator);
-		Assert.Equal(8, some.Length);
+			// Assert
+			var some = result.Split(Rnd.StringF.DefaultSeparator);
+			Assert.Equal(8, some.Length);
+		}
+
+		[Fact]
+		public void Uses_Default_Separator()
+		{
+			// Arrange
+
+			// Act
+			var result = Rnd.StringF.Passphrase();
+
+			// Assert
+			Assert.Contains(Rnd.StringF.DefaultSeparator, result);
+		}
+
+		[Fact]
+		public void Makes_First_Letter_Uppercase()
+		{
+			// Arrange
+
+			// Act
+			var result = Rnd.StringF.Passphrase();
+
+			// Assert
+			Assert.NotEqual(result, result.ToLowerInvariant());
+		}
+
+		[Fact]
+		public void Includes_A_Number()
+		{
+			// Arrange
+
+			// Act
+			var result = Rnd.StringF.Passphrase();
+
+			// Assert
+			Assert.Contains(result, char.IsNumber);
+		}
 	}
 
-	[Fact]
-	public void No_Options_Uses_Default_Separator()
+	public class With_NumberOfWords_Only
 	{
-		// Arrange
+		[Fact]
+		public void Returns_Correct_Number_Of_Words()
+		{
+			// Arrange
+			var numberOfWords = Rnd.NumberF.GetInt32(10, 20);
 
-		// Act
-		var result = Rnd.StringF.Passphrase();
+			// Act
+			var result = Rnd.StringF.Passphrase(numberOfWords);
 
-		// Assert
-		Assert.Contains(Rnd.StringF.DefaultSeparator, result);
+			// Assert
+			var some = result.Split(Rnd.StringF.DefaultSeparator);
+			Assert.Equal(numberOfWords, some.Length);
+		}
+
+		[Fact]
+		public void Uses_Default_Separator()
+		{
+			// Arrange
+			var numberOfWords = Rnd.NumberF.GetInt32(10, 20);
+
+			// Act
+			var result = Rnd.StringF.Passphrase(numberOfWords);
+
+			// Assert
+			Assert.Contains(Rnd.StringF.DefaultSeparator, result);
+		}
+
+		[Fact]
+		public void Makes_First_Letter_Uppercase()
+		{
+			// Arrange
+			var numberOfWords = Rnd.NumberF.GetInt32(10, 20);
+
+			// Act
+			var result = Rnd.StringF.Passphrase(numberOfWords);
+
+			// Assert
+			Assert.NotEqual(result, result.ToLowerInvariant());
+		}
+
+		[Fact]
+		public void Includes_A_Number()
+		{
+			// Arrange
+			var numberOfWords = Rnd.NumberF.GetInt32(10, 20);
+
+			// Act
+			var result = Rnd.StringF.Passphrase(numberOfWords);
+
+			// Assert
+			Assert.Contains(result, char.IsNumber);
+		}
+
+		[Fact]
+		public void Returns_Different_Phrase_Each_Time()
+		{
+			// Arrange
+			var iterations = 10000;
+			var numberOfWords = 2;
+			var phrases = new List<string>();
+
+			// Act
+			var result = Enumerable.Range(0, iterations)
+				.Select(_ => Rnd.StringF.Passphrase(numberOfWords))
+				.Distinct().Count();
+
+			// Assert
+			Assert.InRange(result, iterations - 1, iterations);
+		}
+
+		[Theory]
+		[InlineData(-1)]
+		[InlineData(0)]
+		[InlineData(1)]
+		public void Less_Than_Two_Returns_None_With_NumberOfWordsMustBeAtLeastTwoMsg(int input)
+		{
+			// Arrange
+
+			// Act
+			var result = Record.Exception(() => Rnd.StringF.Passphrase(input));
+
+			// Assert
+			var ex = Assert.IsType<InvalidPassphraseException>(result);
+			Assert.Equal(string.Format(CultureInfo.InvariantCulture, Rnd.StringF.PassphraseNotLongEnough, Rnd.StringF.MinimumPassphraseWords), ex.Message);
+		}
+
+		[Fact]
+		public void Higher_Than_Word_List_Count_Returns_None_With_NumberOfWordsCannotBeMoreThanWordListMsg()
+		{
+			// Arrange
+			var maximum = Rnd.StringF.LongWordList.Value.Length;
+			const int tooMany = 7777;
+
+			// Act
+			var result = Record.Exception(() => Rnd.StringF.Passphrase(tooMany));
+
+			// Assert
+			var ex = Assert.IsType<InvalidPassphraseException>(result);
+			Assert.Equal(string.Format(CultureInfo.InvariantCulture, Rnd.StringF.PassphraseTooLong, maximum), ex.Message);
+		}
 	}
-
-	[Fact]
-	public void No_Options_Makes_First_Letter_Uppercase()
+	public class With_Word_List
 	{
-		// Arrange
+		[Fact]
+		public void Null_Returns_None_With_WordListCannotBeNullMsg()
+		{
+			// Arrange
 
-		// Act
-		var result = Rnd.StringF.Passphrase();
+			// Act
+			var result = Record.Exception(() => Rnd.StringF.Passphrase(null!, 3, '-', Rnd.Flip, Rnd.Flip));
 
-		// Assert
-		Assert.NotEqual(result, result.ToLowerInvariant());
-	}
+			// Assert
+			var ex = Assert.IsType<InvalidPassphraseException>(result);
+			Assert.Equal(Rnd.StringF.WordListCannotBeNull, ex.Message);
+		}
 
-	[Fact]
-	public void No_Options_Includes_A_Number()
-	{
-		// Arrange
+		[Fact]
+		public void Empty_Returns_None_With_WordListCannotBeEmptyMsg()
+		{
+			// Arrange
+			var empty = Array.Empty<string>();
 
-		// Act
-		var result = Rnd.StringF.Passphrase();
+			// Act
+			var result = Record.Exception(() => Rnd.StringF.Passphrase(empty, 3, '-', Rnd.Flip, Rnd.Flip));
 
-		// Assert
-		Assert.Contains(result, char.IsNumber);
-	}
+			// Assert
+			var ex = Assert.IsType<InvalidPassphraseException>(result);
+			Assert.Equal(Rnd.StringF.WordListCannotBeEmpty, ex.Message);
+		}
 
-	[Fact]
-	public void Null_Word_List_Returns_None_With_WordListCannotBeNullMsg()
-	{
-		// Arrange
+		[Fact]
+		public void IncludeNumber_Adds_Number_To_Every_Fifth_Word()
+		{
+			// Arrange - use 10 words so indices 0 and 5 get numbers (i % 5 == 0)
+			var wordList = Enumerable.Range(0, 10).Select(_ => Rnd.Str).ToArray();
 
-		// Act
-		static void act() => Rnd.StringF.Passphrase(null!, 3, '-', true, true);
+			// Act
+			var result = Rnd.StringF.Passphrase(wordList, 10, '-', Rnd.Flip, true).Split('-');
 
-		// Assert
-		var ex = Assert.Throws<InvalidPassphraseException>(act);
-		Assert.Equal(Rnd.StringF.WordListCannotBeNull, ex.Message);
-	}
+			// Assert - exactly 2 words should contain a digit (indices 0 and 5 before shuffle)
+			var wordsWithNumbers = result.Count(w => w.Any(char.IsDigit));
+			Assert.Equal(2, wordsWithNumbers);
+		}
 
-	[Fact]
-	public void Empty_Word_List_Returns_None_With_WordListCannotBeEmptyMsg()
-	{
-		// Arrange
-		var empty = Array.Empty<string>();
+		[Fact]
+		public void IncludeNumber_With_Five_Words_Adds_Number_To_One_Word()
+		{
+			// Arrange - only index 0 gets a number (i % 5 == 0)
+			var index0 = Rnd.Str;
+			var wordList = new[] { index0, Rnd.Str, Rnd.Str, Rnd.Str, Rnd.Str, Rnd.Str };
 
-		// Act
-		void act() => Rnd.StringF.Passphrase(empty, 3, '-', true, true);
+			// Act
+			var result = Rnd.StringF.Passphrase(wordList, 5, '-', Rnd.Flip, true).Split('-');
 
-		// Assert
-		var ex = Assert.Throws<InvalidPassphraseException>(act);
-		Assert.Equal(Rnd.StringF.WordListCannotBeEmpty, ex.Message);
-	}
+			// Assert - exactly 1 word should contain a digit
+			var wordsWithNumbers = result.Count(w => w.Any(char.IsDigit));
+			Assert.Equal(1, wordsWithNumbers);
+		}
 
-	[Theory]
-	[InlineData(-1)]
-	[InlineData(0)]
-	[InlineData(1)]
-	public void NumberOfWords_Less_Than_Two_Returns_None_With_NumberOfWordsMustBeAtLeastTwoMsg(int input)
-	{
-		// Arrange
+		[Fact]
+		public void Custom_Word_List_Uses_Only_Provided_Words()
+		{
+			// Arrange
+			var wordList = Enumerable.Range(0, 10).Select(_ => Rnd.Str).ToArray();
 
-		// Act
-		void act() => Rnd.StringF.Passphrase(input);
+			// Act
+			var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, false).Split('-');
 
-		// Assert
-		var ex = Assert.Throws<InvalidPassphraseException>(act);
-		Assert.Equal(string.Format(CultureInfo.InvariantCulture, Rnd.StringF.PassphraseNotLongEnough, Rnd.StringF.MinimumPassphraseWords), ex.Message);
-	}
+			// Assert
+			Assert.All(result, w => Assert.Contains(w, wordList));
+		}
 
-	[Fact]
-	public void NumberOfWords_Higher_Than_Word_List_Count_Returns_None_With_NumberOfWordsCannotBeMoreThanWordListMsg()
-	{
-		// Arrange
-		var maximum = Rnd.StringF.LongWordList.Value.Length;
-		const int tooMany = 7777;
+		[Fact]
+		public void NumberOfWords_Equal_To_Word_List_Length_Uses_All_Words()
+		{
+			// Arrange
+			var numberOfWords = Rnd.NumberF.GetInt32(5, 10);
+			var wordList = Enumerable.Range(0, numberOfWords).Select(_ => Rnd.Str).ToArray();
 
-		// Act
-		static void act() => Rnd.StringF.Passphrase(tooMany);
+			// Act
+			var result = Rnd.StringF.Passphrase(wordList, numberOfWords, '-', Rnd.Flip, Rnd.Flip).Split('-');
 
-		// Assert
-		var ex = Assert.Throws<InvalidPassphraseException>(act);
-		Assert.Equal(string.Format(CultureInfo.InvariantCulture, Rnd.StringF.PassphraseTooLong, maximum), ex.Message);
+			// Assert
+			Assert.Equal(numberOfWords, result.Length);
+			Assert.Equal(numberOfWords, result.Distinct().Count());
+		}
 	}
 
 	[Theory]
@@ -213,84 +348,5 @@ public class Passphrase_Tests
 		// Assert
 		var some = result.Split(sep);
 		Assert.Equal(length, some.Distinct().Count());
-	}
-
-	[Fact]
-	public void Returns_Different_Phrase_Each_Time()
-	{
-		// Arrange
-		var iterations = 10000;
-		var length = 2;
-		var phrases = new List<string>();
-
-		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			phrases.Add(Rnd.StringF.Passphrase(length));
-		}
-
-		var result = phrases.Distinct().Count();
-
-		// Assert
-		Assert.InRange(result, phrases.Count - 1, phrases.Count);
-	}
-
-	[Fact]
-	public void IncludeNumber_Adds_Number_To_Every_Fifth_Word()
-	{
-		// Arrange - use 10 words so indices 0 and 5 get numbers (i % 5 == 0)
-		var wordList = new[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india", "juliet" };
-
-		// Act
-		var result = Rnd.StringF.Passphrase(wordList, 10, '-', false, true);
-		var words = result.Split('-');
-
-		// Assert - exactly 2 words should contain a digit (indices 0 and 5 before shuffle)
-		var wordsWithNumbers = words.Count(w => w.Any(char.IsDigit));
-		Assert.Equal(2, wordsWithNumbers);
-	}
-
-	[Fact]
-	public void IncludeNumber_With_Five_Words_Adds_Number_To_One_Word()
-	{
-		// Arrange - only index 0 gets a number (i % 5 == 0)
-		var wordList = new[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel" };
-
-		// Act
-		var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, true);
-		var words = result.Split('-');
-
-		// Assert - exactly 1 word should contain a digit
-		var wordsWithNumbers = words.Count(w => w.Any(char.IsDigit));
-		Assert.Equal(1, wordsWithNumbers);
-	}
-
-	[Fact]
-	public void Custom_Word_List_Uses_Only_Provided_Words()
-	{
-		// Arrange
-		var wordList = new[] { "cat", "dog", "fox", "bat", "owl" };
-
-		// Act
-		var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, false);
-		var words = result.Split('-');
-
-		// Assert
-		Assert.All(words, w => Assert.Contains(w, wordList));
-	}
-
-	[Fact]
-	public void NumberOfWords_Equal_To_Word_List_Length_Uses_All_Words()
-	{
-		// Arrange
-		var wordList = new[] { "cat", "dog", "fox", "bat", "owl" };
-
-		// Act
-		var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, false);
-		var words = result.Split('-');
-
-		// Assert
-		Assert.Equal(5, words.Length);
-		Assert.Equal(5, words.Distinct().Count());
 	}
 }

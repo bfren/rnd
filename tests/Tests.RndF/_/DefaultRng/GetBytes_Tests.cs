@@ -46,14 +46,9 @@ public class GetBytes_Tests
 		var results = new List<byte[]>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			results.Add(rng.GetBytes(8));
-		}
-
-		var distinct = results.Distinct().Count();
+		var result = Enumerable.Range(0, iterations).Select(_ => rng.GetBytes(8)).Distinct().Count();
 
 		// Assert
-		Assert.Equal(iterations, distinct);
+		Assert.Equal(iterations, result);
 	}
 }

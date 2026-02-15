@@ -15,7 +15,7 @@ public static partial class Rnd
 		public static byte[] Get(int length)
 		{
 			// Return empty array
-			if (length == 0)
+			if (length <= 0)
 			{
 				return [];
 			}

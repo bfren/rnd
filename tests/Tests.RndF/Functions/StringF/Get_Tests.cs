@@ -22,10 +22,10 @@ public class Get_Tests
 				// Arrange
 
 				// Act
-				void act() => Get(length);
+				var result = Record.Exception(() => Get(length));
 
 				// Assert
-				var ex = Assert.Throws<InvalidCharsException>(act);
+				var ex = Assert.IsType<InvalidCharsException>(result);
 				Assert.Equal(TooManyClasses, ex.Message);
 			}
 		}
@@ -77,10 +77,10 @@ public class Get_Tests
 				// Arrange
 
 				// Act
-				void act() => Get(length, classes);
+				var result = Record.Exception(() => Get(length, classes));
 
 				// Assert
-				var ex = Assert.Throws<InvalidCharsException>(act);
+				var ex = Assert.IsType<InvalidCharsException>(result);
 				Assert.Equal(TooManyClasses, ex.Message);
 			}
 		}
@@ -94,10 +94,10 @@ public class Get_Tests
 				var length = Rnd.NumberF.GetInt32(min: 2, max: 40);
 
 				// Act
-				void act() => Get(length, Chars.None);
+				var result = Record.Exception(() => Get(length, Chars.None));
 
 				// Assert
-				var ex = Assert.Throws<InvalidCharsException>(act);
+				var ex = Assert.IsType<InvalidCharsException>(result);
 				Assert.Equal(NotEnoughClasses, ex.Message);
 			}
 		}
