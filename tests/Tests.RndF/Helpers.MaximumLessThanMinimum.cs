@@ -24,10 +24,10 @@ internal static partial class Helpers
 		};
 
 		// Act
-		void act() => g(min, max);
+		var result = Record.Exception(() => g(min, max));
 
 		// Assert
-		var ex = Assert.Throws<MaximumLessThanMinimumException>(act);
+		var ex = Assert.IsType<MaximumLessThanMinimumException>(result);
 		Assert.Equal(
 			string.Format(CultureInfo.InvariantCulture, Rnd.NumberF.MaximumMustBeGreaterThanMinimum, method, max, min),
 			ex.Message

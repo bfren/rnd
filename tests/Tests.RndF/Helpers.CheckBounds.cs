@@ -17,18 +17,15 @@ internal static partial class Helpers
 		where TValue : INumber<TValue>
 	{
 		// Arrange
-		var values = new List<TValue>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			var x = generate();
-			values.Add(getValue(x));
-		}
+		var result = Enumerable.Range(0, iterations)
+			.Select(_ => getValue(generate()))
+			.ToArray();
 
 		// Assert
-		Assert.True(values.Min()! >= minimumInclusive);
-		Assert.True(values.Max()! < maximumExclusive);
+		Assert.True(result.Min()! >= minimumInclusive);
+		Assert.True(result.Max()! < maximumExclusive);
 	}
 
 	internal static void CheckBounds<T>(
@@ -58,17 +55,14 @@ internal static partial class Helpers
 		where T : INumber<T>
 	{
 		// Arrange
-		var values = new List<T>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			var x = generate(minimumInclusive, maximumInclusive);
-			values.Add(x);
-		}
+		var result = Enumerable.Range(0, iterations)
+			.Select(_ => generate(minimumInclusive, maximumInclusive))
+			.ToArray();
 
 		// Assert
-		Assert.True(values.Min()! >= minimumInclusive);
-		Assert.True(values.Max()! <= maximumInclusive);
+		Assert.True(result.Min()! >= minimumInclusive);
+		Assert.True(result.Max()! <= maximumInclusive);
 	}
 }
