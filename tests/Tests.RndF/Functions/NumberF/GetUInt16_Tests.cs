@@ -20,7 +20,7 @@ public class GetUInt16_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(ushort max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetUInt16(max), (ushort)0, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetUInt16(min: 0, max), (ushort)0, max);
 	}
 
 	public class with_min_and_max

@@ -9,7 +9,7 @@ public class GetInt64_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetInt64(), 0L, long.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetInt64(), long.MinValue, long.MaxValue);
 	}
 
 	public class with_max
@@ -20,7 +20,7 @@ public class GetInt64_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(long max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetInt64(max), 0L, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetInt64(max), long.MinValue, max);
 	}
 
 	public class with_min_and_max

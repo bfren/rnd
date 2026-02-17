@@ -9,7 +9,7 @@ public class GetInt16_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetInt16(), 0, short.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetInt16(), short.MinValue, short.MaxValue);
 	}
 
 	public class with_max
@@ -20,7 +20,7 @@ public class GetInt16_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(short max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetInt16(max), (short)0, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetInt16(max), short.MinValue, max);
 	}
 
 	public class with_min_and_max

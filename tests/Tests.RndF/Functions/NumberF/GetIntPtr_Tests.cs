@@ -9,7 +9,7 @@ public class GetIntPtr_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetIntPtr(), 0, nint.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetIntPtr(), nint.MinValue, nint.MaxValue);
 	}
 
 	public class with_max
@@ -22,7 +22,7 @@ public class GetIntPtr_Tests
 		[MemberData(nameof(Max))]
 #pragma warning restore xUnit1044 // Avoid using TheoryData type arguments that are not serializable
 		public void never_returns_out_of_bounds(nint max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetIntPtr(max), 0, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetIntPtr(max), nint.MinValue, max);
 	}
 
 	public class with_min_and_max

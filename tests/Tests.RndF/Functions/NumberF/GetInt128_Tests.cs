@@ -9,7 +9,7 @@ public class GetInt128_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetInt128(), 0, Int128.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetInt128(), Int128.MinValue, Int128.MaxValue);
 	}
 
 	public class with_max
@@ -20,7 +20,7 @@ public class GetInt128_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(Int128 max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetInt128(max), 0, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetInt128(max), Int128.MinValue, max);
 	}
 
 	public class with_min_and_max

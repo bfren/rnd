@@ -9,7 +9,7 @@ public class GetSingle_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetSingle(), 0f, float.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetSingle(), float.MinValue, float.MaxValue);
 	}
 
 	public class with_max
@@ -20,7 +20,7 @@ public class GetSingle_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(float max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetSingle(max), 0f, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetSingle(max), float.MinValue, max);
 	}
 
 	public class with_min_and_max

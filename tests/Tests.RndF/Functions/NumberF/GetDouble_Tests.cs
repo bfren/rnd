@@ -9,7 +9,7 @@ public class GetDouble_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetDouble(), 0d, double.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetDouble(), double.MinValue, double.MaxValue);
 	}
 
 	public class with_max
@@ -20,7 +20,7 @@ public class GetDouble_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(double max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetDouble(max), 0d, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetDouble(max), double.MinValue, max);
 	}
 
 	public class with_min_and_max

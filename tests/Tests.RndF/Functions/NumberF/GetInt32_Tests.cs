@@ -9,7 +9,7 @@ public class GetInt32_Tests
 	{
 		[Fact]
 		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetInt32(), 0, int.MaxValue);
+			Helpers.CheckBounds(() => Rnd.NumberF.GetInt32(), int.MinValue, int.MaxValue);
 	}
 
 	public class with_max
@@ -20,7 +20,7 @@ public class GetInt32_Tests
 		[Theory]
 		[MemberData(nameof(Max))]
 		public void never_returns_out_of_bounds(int max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetInt32(max), 0, max);
+			Helpers.CheckBounds(max => Rnd.NumberF.GetInt32(max), int.MinValue, max);
 	}
 
 	public class with_min_and_max
