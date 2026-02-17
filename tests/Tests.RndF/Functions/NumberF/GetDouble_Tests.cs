@@ -38,6 +38,5 @@ public class GetDouble_Tests
 		[Fact]
 		public void Returns_Number_Between_Min_And_Max() =>
 			Helpers.CheckBounds(Rnd.NumberF.GetDouble, generateWithinBounds: Rnd.NumberF.GetDouble);
-
 	}
 }
