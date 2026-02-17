@@ -5,37 +5,37 @@ namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetDouble_Tests
 {
-	public class without_args
+	public class Without_Args
 	{
 		[Fact]
-		public void never_returns_out_of_bounds() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetDouble(), double.MinValue, double.MaxValue);
+		public void Returns_Number_Between_Zero_And_MaxValue() =>
+			Helpers.CheckBounds(() => Rnd.NumberF.GetDouble(), 0, double.MaxValue);
 	}
 
-	public class with_max
+	public class With_Max
 	{
 		public static TheoryData<double> Max =>
 			[Rnd.Double];
 
 		[Theory]
 		[MemberData(nameof(Max))]
-		public void never_returns_out_of_bounds(double max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetDouble(max), double.MinValue, max);
+		public void Returns_Number_Between_Zero_And_Max(double max) =>
+			Helpers.CheckBounds(max => Rnd.NumberF.GetDouble(max), 0, max);
 	}
 
-	public class with_min_and_max
+	public class With_Min_And_Max
 	{
-		public class when_min_is_more_than_max
+		public class When_Min_Is_More_Than_Max
 		{
 			[Fact]
-			public void throws_MaximumNotMoreThanMinimumException() =>
+			public void Throws_MaximumNotMoreThanMinimumException() =>
 				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetDouble), () => Rnd.Double, Rnd.NumberF.GetDouble);
 		}
 
-		public class when_min_is_less_than_zero
+		public class When_Min_Is_Less_Than_Zero
 		{
 			[Fact]
-			public void throws_MinimumLessThanZeroException() =>
+			public void Throws_MinimumLessThanZeroException() =>
 				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetDouble), () => Rnd.Double * -1, () => Rnd.Double, Rnd.NumberF.GetDouble);
 		}
 
@@ -51,7 +51,7 @@ public class GetDouble_Tests
 
 		[Theory]
 		[MemberData(nameof(MinAndMax))]
-		public void never_returns_out_of_bounds(double min, double max) =>
+		public void Returns_Number_Between_Min_And_Max(double min, double max) =>
 			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetDouble(min, max), min, max);
 
 	}

@@ -5,30 +5,30 @@ namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetUInt16_Tests
 {
-	public class without_args
+	public class Without_Args
 	{
 		[Fact]
-		public void never_returns_out_of_bounds() =>
+		public void Returns_Number_Between_Zero_And_MaxValue() =>
 			Helpers.CheckBounds(() => Rnd.NumberF.GetUInt16(), (ushort)0, ushort.MaxValue);
 	}
 
-	public class with_max
+	public class With_Max
 	{
 		public static TheoryData<ushort> Max =>
 			[Rnd.UInt16];
 
 		[Theory]
 		[MemberData(nameof(Max))]
-		public void never_returns_out_of_bounds(ushort max) =>
+		public void Returns_Number_Between_Zero_And_Max(ushort max) =>
 			Helpers.CheckBounds(max => Rnd.NumberF.GetUInt16(min: 0, max), (ushort)0, max);
 	}
 
-	public class with_min_and_max
+	public class With_Min_And_Max
 	{
-		public class when_min_is_more_than_max
+		public class When_Min_Is_More_Than_Max
 		{
 			[Fact]
-			public void throws_MaximumNotMoreThanMinimumException() =>
+			public void Throws_MaximumNotMoreThanMinimumException() =>
 				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt16), () => Rnd.UInt16, Rnd.NumberF.GetUInt16);
 		}
 
@@ -44,7 +44,7 @@ public class GetUInt16_Tests
 
 		[Theory]
 		[MemberData(nameof(MinAndMax))]
-		public void never_returns_out_of_bounds(ushort min, ushort max) =>
+		public void Returns_Number_Between_Min_And_Max(ushort min, ushort max) =>
 			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt16(min, max), min, max);
 	}
 }

@@ -5,19 +5,19 @@ namespace RndF.Functions.CharF;
 
 internal sealed class Get_Tests
 {
-	public sealed class without_args
+	public sealed class Without_Args
 	{
 		[Fact]
-		public void never_returns_out_of_bounds() =>
+		public void Returns_Number_Between_Min_And_Max() =>
 			Helpers.CheckBounds(() => (ushort)Rnd.CharF.Get(), char.MinValue, char.MaxValue);
 	}
 
-	public sealed class with_min_and_max
+	public sealed class With_Min_And_Max
 	{
-		public sealed class when_min_is_more_than_max
+		public sealed class When_Min_Is_More_Than_Max
 		{
 			[Fact]
-			public void throws_MaximumNotMoreThanMinimumException() =>
+			public void Throws_MaximumNotMoreThanMinimumException() =>
 				Helpers.MaximumLessThanMinimum(nameof(Rnd.CharF.Get), () => (char)Rnd.UInt16, (min, max) => Rnd.CharF.Get(min, max));
 		}
 
@@ -39,7 +39,7 @@ internal sealed class Get_Tests
 
 		[Theory]
 		[MemberData(nameof(MinAndMax))]
-		public void never_returns_out_of_bounds(ushort min, ushort max) =>
+		public void Returns_Char_Between_Min_And_Max(ushort min, ushort max) =>
 			Helpers.CheckBounds((x, y) => Rnd.CharF.Get(min: x, max: y), min, max);
 	}
 }

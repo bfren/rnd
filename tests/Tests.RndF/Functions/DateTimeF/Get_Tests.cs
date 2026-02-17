@@ -6,35 +6,35 @@ namespace RndF.Rnd_Tests.DateTimeF_Tests;
 public class Get_Tests
 {
 	[Fact]
-	public void never_returns_out_of_bounds_year() =>
+	public void Returns_DateTime_Between_Min_And_Max_Year() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Year, 1, Rnd.DateTimeF.YearMaxExclusive);
 
 	[Fact]
-	public void never_returns_out_of_bounds_month() =>
+	public void Returns_DateTime_Between_Min_And_Max_Month() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Month, 1, Rnd.DateTimeF.MonthMaxExclusive);
 
 	[Fact]
-	public void never_returns_out_of_bounds_day() =>
+	public void Returns_DateTime_Between_Min_And_Max_Day() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Day, 1, Rnd.DateTimeF.DayMaxExclusive + 3);
 
 	[Fact]
-	public void never_returns_out_of_bounds_hour() =>
+	public void Returns_DateTime_Between_Min_And_Max_Hour() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Hour, 0, Rnd.DateTimeF.HourMaxExclusive);
 
 	[Fact]
-	public void never_returns_out_of_bounds_minute() =>
+	public void Returns_DateTime_Between_Min_And_Max_Minute() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Minute, 0, Rnd.DateTimeF.MinuteMaxExclusive);
 
 	[Fact]
-	public void never_returns_out_of_bounds_second() =>
+	public void Returns_DateTime_Between_Min_And_Max_Second() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Second, 0, Rnd.DateTimeF.SecondMaxExclusive);
 
 	[Fact]
-	public void never_returns_out_of_bounds_millisecond() =>
+	public void Returns_DateTime_Between_Min_And_Max_Millisecond() =>
 		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Millisecond, 0, Rnd.DateTimeF.MillisecondMaxExclusive);
 
 	[Fact]
-	public void returns_utc()
+	public void Returns_UTC()
 	{
 		// Arrange
 
@@ -46,7 +46,7 @@ public class Get_Tests
 	}
 
 	[Fact]
-	public void never_exceeds_datetime_max_value()
+	public void Never_Exceeds_DateTime_MaxValue()
 	{
 		// Arrange
 		var iterations = 100000;
