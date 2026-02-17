@@ -24,18 +24,13 @@ public class Shuffle_Tests
 	{
 		public class and_contains_fewer_than_two_elements
 		{
-			public static TheoryData<int, int> Data =>
-				[
-					(Rnd.Int32, 0),
-					(Rnd.Int32, 1)
-				];
-
 			[Theory]
-			[MemberData(nameof(Data))]
-			public void returns_original_array(int start, int count)
+			[InlineData(0)]
+			[InlineData(1)]
+			public void returns_original_array(int count)
 			{
 				// Arrange
-				var array = Enumerable.Range(start, count).ToArray();
+				var array = Rnd.For(count, () => Rnd.Int);
 
 				// Act
 				var result = array.Shuffle();
@@ -56,6 +51,73 @@ public class Shuffle_Tests
 
 			// Assert
 			Assert.NotEqual(array, result);
+		}
+
+		[Fact]
+		public void does_not_modify_original_array()
+		{
+			// Arrange
+			var array = Enumerable.Range(Rnd.Int32, 100).ToArray();
+			var original = array.ToArray();
+
+			// Act
+			_ = array.Shuffle();
+
+			// Assert
+			Assert.Equal(original, array);
+		}
+
+		[Fact]
+		public void shuffles_string_array()
+		{
+			// Arrange
+			var array = Rnd.For(50, () => Rnd.Str);
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.NotEqual(array, result);
+			Assert.Equal(array.Length, result.Length);
+		}
+
+		[Fact]
+		public void shuffles_object_array()
+		{
+			// Arrange
+			var array = Rnd.For(50, x => new { Id = x, Name = $"item-{x}" });
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.NotEqual(array, result);
+			Assert.Equal(array.Length, result.Length);
+		}
+
+		[Fact]
+		public void preserves_all_elements()
+		{
+			// Arrange
+			var array = Enumerable.Range(0, 1000).ToArray();
+
+			// Act
+			var result = array.Shuffle();
+
+			// Assert
+			Assert.All(result, item => Assert.Contains(item, array));
+		}
+
+		[Fact]
+		public void returns_null_string_input_as_empty_array()
+		{
+			// Arrange
+
+			// Act
+			var result = ArrayExtensions.Shuffle<string>(null!);
+
+			// Assert
+			Assert.Empty(result);
 		}
 	}
 }

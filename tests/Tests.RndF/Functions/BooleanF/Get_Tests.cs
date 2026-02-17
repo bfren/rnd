@@ -10,15 +10,10 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 100;
-		var values = new List<bool>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			values.Add(Rnd.BooleanF.Get());
-		}
-
-		var result = values.Distinct().Count();
+		var result = Rnd.For(iterations, Rnd.BooleanF.Get)
+			.Distinct().Count();
 
 		// Assert
 		Assert.Equal(2, result);

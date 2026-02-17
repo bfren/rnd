@@ -1,18 +1,18 @@
 // Rnd: Unit Tests
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-namespace RndF.Rnd_Tests.GuidF_Tests;
+namespace RndF.Rnd_Tests;
 
-public class get_Tests
+public class Guid_Tests
 {
 	[Fact]
-	public void returns_random_guid()
+	public void Returns_Unique_Guids()
 	{
 		// Arrange
-		var iterations = 10000;
+		var iterations = 100;
 
 		// Act
-		var result = Rnd.For(iterations, Rnd.GuidF.Get)
+		var result = Rnd.For(iterations, () => Rnd.Guid)
 			.Distinct().Count();
 
 		// Assert

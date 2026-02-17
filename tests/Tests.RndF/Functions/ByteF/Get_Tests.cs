@@ -29,17 +29,24 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 10000;
-		var bytes = new List<byte[]>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			bytes.Add(Rnd.ByteF.Get(4));
-		}
-
-		var result = bytes.Distinct().Count();
+		var result = Rnd.For(iterations, () => Rnd.ByteF.Get(4))
+			.Distinct().Count();
 
 		// Assert
-		Assert.Equal(bytes.Count, result);
+		Assert.Equal(iterations, result);
+	}
+
+	[Fact]
+	public void negative_length_returns_empty_array()
+	{
+		// Arrange
+
+		// Act
+		var result = Rnd.ByteF.Get(-1);
+
+		// Assert
+		Assert.Empty(result);
 	}
 }

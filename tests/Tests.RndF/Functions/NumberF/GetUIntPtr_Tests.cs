@@ -5,50 +5,31 @@ namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetUIntPtr_Tests
 {
-	public class without_args
+	public class Without_Args
 	{
 		[Fact]
-		public void never_returns_out_of_bounds() =>
+		public void Returns_Number_Between_Zero_And_MaxValue() =>
 			Helpers.CheckBounds(() => Rnd.NumberF.GetUIntPtr(), (nuint)0, nuint.MaxValue);
 	}
 
-	public class with_max
+	public class With_Max
 	{
-		public static TheoryData<nuint> Max =>
-			[Rnd.UIntPtr];
-
-		[Theory]
-#pragma warning disable xUnit1044 // Avoid using TheoryData type arguments that are not serializable
-		[MemberData(nameof(Max))]
-#pragma warning restore xUnit1044 // Avoid using TheoryData type arguments that are not serializable
-		public void never_returns_out_of_bounds(nuint max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetUIntPtr(max), (nuint)0, max);
+		[Fact]
+		public void Returns_Number_Between_Zero_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetUIntPtr, generateWithMax: Rnd.NumberF.GetUIntPtr);
 	}
 
-	public class with_min_and_max
+	public class With_Min_And_Max
 	{
-		public class when_min_is_more_than_max
+		public class When_Min_Is_More_Than_Max
 		{
 			[Fact]
-			public void throws_MaximumNotMoreThanMinimumException() =>
+			public void Throws_MaximumNotMoreThanMinimumException() =>
 				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUIntPtr), () => Rnd.UIntPtr, Rnd.NumberF.GetUIntPtr);
 		}
 
-		public static TheoryData<nuint, nuint> MinAndMax
-		{
-			get
-			{
-				var min = Rnd.UIntPtr;
-				var max = min + 1 + Rnd.UIntPtr;
-				return new() { { min, max } };
-			}
-		}
-
-		[Theory]
-#pragma warning disable xUnit1044 // Avoid using TheoryData type arguments that are not serializable
-		[MemberData(nameof(MinAndMax))]
-#pragma warning restore xUnit1044 // Avoid using TheoryData type arguments that are not serializable
-		public void never_returns_out_of_bounds(nuint min, nuint max) =>
-			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUIntPtr(min, max), min, max);
+		[Fact]
+		public void Returns_Number_Between_Min_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetUIntPtr, generateWithinBounds: Rnd.NumberF.GetUIntPtr);
 	}
 }
