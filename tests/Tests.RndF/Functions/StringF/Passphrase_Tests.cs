@@ -121,7 +121,6 @@ public class Passphrase_Tests
 			// Arrange
 			var iterations = 10000;
 			var numberOfWords = 2;
-			var phrases = new List<string>();
 
 			// Act
 			var result = Rnd.For(iterations, () => Rnd.StringF.Passphrase(numberOfWords))

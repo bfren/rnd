@@ -10,7 +10,6 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 100;
-		var values = new List<bool>();
 
 		// Act
 		var result = Rnd.For(iterations, Rnd.BooleanF.Get)

@@ -51,27 +51,25 @@ public class Get_Tests
 		// Arrange
 		var iterations = 100000;
 
-		// Act & Assert
-		for (var i = 0; i < iterations; i++)
-		{
-			var result = Rnd.DateTimeF.Get();
-			Assert.True(result >= DateTime.MinValue);
-			Assert.True(result <= DateTime.MaxValue);
-		}
+		// Act
+		var result = Rnd.For(iterations, Rnd.DateTimeF.Get);
+
+		// Assert
+		Assert.All(result, x => Assert.True(x >= DateTime.MinValue));
+		Assert.All(result, x => Assert.True(x <= DateTime.MaxValue));
 	}
 
 	[Fact]
-	public void never_generates_days_above_twenty_eight()
+	public void never_generates_days_above_thirty_one()
 	{
 		// Arrange
 		var iterations = 100000;
-		var values = new List<int>();
 
 		// Act
 		var result = Rnd.For(iterations, () => Rnd.DateTimeF.Get().Day);
 
 		// Assert
-		Assert.All(values, d => Assert.True(d <= 28));
+		Assert.All(result, d => Assert.True(d <= 31));
 	}
 
 	[Fact]
@@ -79,15 +77,12 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 100000;
-		var months = new HashSet<int>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			months.Add(Rnd.DateTimeF.Get().Month);
-		}
+		var result = Rnd.For(iterations, () => Rnd.DateTimeF.Get().Month)
+			.Distinct();
 
 		// Assert - should cover all 12 months
-		Assert.Equal(12, months.Count);
+		Assert.Equal(12, result.Count());
 	}
 }

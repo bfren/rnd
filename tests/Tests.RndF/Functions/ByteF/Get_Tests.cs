@@ -29,7 +29,6 @@ public class Get_Tests
 	{
 		// Arrange
 		var iterations = 10000;
-		var bytes = new List<byte[]>();
 
 		// Act
 		var result = Rnd.For(iterations, () => Rnd.ByteF.Get(4))

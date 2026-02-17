@@ -87,14 +87,4 @@ internal static partial class Helpers
 		Assert.True(result.Min()! >= min);
 		Assert.True(result.Max()! <= max);
 	}
-
-	internal static void CheckBounds<T>(
-		Func<T, T, T> generate,
-		T minimumInclusive,
-		T maximumInclusive,
-		int iterations = 100000
-	)
-		where T : INumber<T>
-	{
-	}
 }
