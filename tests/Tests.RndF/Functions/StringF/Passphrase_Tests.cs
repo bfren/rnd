@@ -124,8 +124,7 @@ public class Passphrase_Tests
 			var phrases = new List<string>();
 
 			// Act
-			var result = Enumerable.Range(0, iterations)
-				.Select(_ => Rnd.StringF.Passphrase(numberOfWords))
+			var result = Rnd.For(iterations, () => Rnd.StringF.Passphrase(numberOfWords))
 				.Distinct().Count();
 
 			// Assert
@@ -196,7 +195,7 @@ public class Passphrase_Tests
 		public void IncludeNumber_Adds_Number_To_Every_Fifth_Word()
 		{
 			// Arrange - use 10 words so indices 0 and 5 get numbers (i % 5 == 0)
-			var wordList = Enumerable.Range(0, 10).Select(_ => Rnd.Str).ToArray();
+			var wordList = Rnd.For(10, () => Rnd.Str);
 
 			// Act
 			var result = Rnd.StringF.Passphrase(wordList, 10, '-', Rnd.Flip, true).Split('-');
@@ -211,7 +210,7 @@ public class Passphrase_Tests
 		{
 			// Arrange - only index 0 gets a number (i % 5 == 0)
 			var index0 = Rnd.Str;
-			var wordList = new[] { index0, Rnd.Str, Rnd.Str, Rnd.Str, Rnd.Str, Rnd.Str };
+			var wordList = Rnd.For(5, () => Rnd.Str).Prepend(index0).ToArray();
 
 			// Act
 			var result = Rnd.StringF.Passphrase(wordList, 5, '-', Rnd.Flip, true).Split('-');
@@ -225,7 +224,7 @@ public class Passphrase_Tests
 		public void Custom_Word_List_Uses_Only_Provided_Words()
 		{
 			// Arrange
-			var wordList = Enumerable.Range(0, 10).Select(_ => Rnd.Str).ToArray();
+			var wordList = Rnd.For(10, () => Rnd.Str);
 
 			// Act
 			var result = Rnd.StringF.Passphrase(wordList, 5, '-', false, false).Split('-');
@@ -239,7 +238,7 @@ public class Passphrase_Tests
 		{
 			// Arrange
 			var numberOfWords = Rnd.NumberF.GetInt32(5, 10);
-			var wordList = Enumerable.Range(0, numberOfWords).Select(_ => Rnd.Str).ToArray();
+			var wordList = Rnd.For(numberOfWords, () => Rnd.Str);
 
 			// Act
 			var result = Rnd.StringF.Passphrase(wordList, numberOfWords, '-', Rnd.Flip, Rnd.Flip).Split('-');

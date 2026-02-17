@@ -10,17 +10,12 @@ public class get_Tests
 	{
 		// Arrange
 		var iterations = 10000;
-		var values = new List<Guid>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			values.Add(Rnd.GuidF.Get());
-		}
-
-		var result = values.Distinct().Count();
+		var result = Rnd.For(iterations, Rnd.GuidF.Get)
+			.Distinct().Count();
 
 		// Assert
-		Assert.Equal(values.Count, result);
+		Assert.Equal(iterations, result);
 	}
 }

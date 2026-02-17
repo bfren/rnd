@@ -19,9 +19,7 @@ internal static partial class Helpers
 		// Arrange
 
 		// Act
-		var result = Enumerable.Range(0, iterations)
-			.Select(_ => getValue(generate()))
-			.ToArray();
+		var result = Rnd.For(iterations, () => getValue(generate()));
 
 		// Assert
 		Assert.True(result.Min()! >= minimumInclusive);
@@ -57,9 +55,7 @@ internal static partial class Helpers
 		// Arrange
 
 		// Act
-		var result = Enumerable.Range(0, iterations)
-			.Select(_ => generate(minimumInclusive, maximumInclusive))
-			.ToArray();
+		var result = Rnd.For(iterations, () => generate(minimumInclusive, maximumInclusive));
 
 		// Assert
 		Assert.True(result.Min()! >= minimumInclusive);

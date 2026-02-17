@@ -24,11 +24,13 @@ public class Shuffle_Tests
 	{
 		public class and_contains_fewer_than_two_elements
 		{
-			[Fact]
-			public void returns_original_array()
+			[Theory]
+			[InlineData(0)]
+			[InlineData(1)]
+			public void returns_original_array(int count)
 			{
 				// Arrange
-				var array = new[] { Rnd.Int };
+				var array = Rnd.For(count, () => Rnd.Int);
 
 				// Act
 				var result = array.Shuffle();
@@ -55,7 +57,7 @@ public class Shuffle_Tests
 		public void does_not_modify_original_array()
 		{
 			// Arrange
-			var array = Enumerable.Range(0, 100).ToArray();
+			var array = Enumerable.Range(Rnd.Int32, 100).ToArray();
 			var original = array.ToArray();
 
 			// Act
@@ -69,7 +71,7 @@ public class Shuffle_Tests
 		public void shuffles_string_array()
 		{
 			// Arrange
-			var array = Enumerable.Range(0, 50).Select(_ => Rnd.Str).ToArray();
+			var array = Rnd.For(50, () => Rnd.Str);
 
 			// Act
 			var result = array.Shuffle();
@@ -83,7 +85,7 @@ public class Shuffle_Tests
 		public void shuffles_object_array()
 		{
 			// Arrange
-			var array = Enumerable.Range(0, 50).Select(i => new { Id = i, Name = $"item-{i}" }).ToArray();
+			var array = Rnd.For(50, x => new { Id = x, Name = $"item-{x}" });
 
 			// Act
 			var result = array.Shuffle();

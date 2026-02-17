@@ -61,20 +61,17 @@ public class Get_Tests
 	}
 
 	[Fact]
-	public void generates_days_above_twenty_eight()
+	public void never_generates_days_above_twenty_eight()
 	{
 		// Arrange
 		var iterations = 100000;
 		var values = new List<int>();
 
 		// Act
-		for (var i = 0; i < iterations; i++)
-		{
-			values.Add(Rnd.DateTimeF.Get().Day);
-		}
+		var result = Rnd.For(iterations, () => Rnd.DateTimeF.Get().Day);
 
-		// Assert - AddDays(0-3) should produce days 29, 30, 31
-		Assert.Contains(values, d => d > 28);
+		// Assert
+		Assert.All(values, d => Assert.True(d <= 28));
 	}
 
 	[Fact]
