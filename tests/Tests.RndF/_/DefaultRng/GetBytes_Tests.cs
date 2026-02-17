@@ -43,7 +43,6 @@ public class GetBytes_Tests
 		// Arrange
 		var rng = new DefaultRng();
 		var iterations = 100;
-		var results = new List<byte[]>();
 
 		// Act
 		var result = Rnd.For(iterations, () => rng.GetBytes(8)).Distinct().Count();
