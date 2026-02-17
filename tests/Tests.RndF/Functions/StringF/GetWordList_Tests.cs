@@ -10,6 +10,7 @@ public class GetWordList_Tests
 		[Theory]
 		[InlineData(null)]
 		[InlineData("")]
+		[InlineData(" ")]
 		public void returns_empty_array(string? input)
 		{
 			// Arrange

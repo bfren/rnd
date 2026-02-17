@@ -14,13 +14,9 @@ public class GetInt32_Tests
 
 	public class With_Max
 	{
-		public static TheoryData<int> Max =>
-			[Rnd.Int32];
-
-		[Theory]
-		[MemberData(nameof(Max))]
-		public void Returns_Number_Between_Zero_And_Max(int max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetInt32(max), 0, max);
+		[Fact]
+		public void Returns_Number_Between_Zero_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetInt32, generateWithMax: Rnd.NumberF.GetInt32);
 	}
 
 	public class With_Min_And_Max
@@ -39,19 +35,8 @@ public class GetInt32_Tests
 				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetInt32), () => Rnd.Int32 * -1, () => Rnd.Int32, Rnd.NumberF.GetInt32);
 		}
 
-		public static TheoryData<int, int> MinAndMax
-		{
-			get
-			{
-				var min = Rnd.Int32;
-				var max = min + 1 + Rnd.Int32;
-				return new() { { min, max } };
-			}
-		}
-
-		[Theory]
-		[MemberData(nameof(MinAndMax))]
-		public void Returns_Number_Between_Min_And_Max(int min, int max) =>
-			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetInt32(min, max), min, max);
+		[Fact]
+		public void Returns_Number_Between_Min_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetInt32, generateWithinBounds: Rnd.NumberF.GetInt32);
 	}
 }

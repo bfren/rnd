@@ -14,13 +14,9 @@ public class GetUIntPtr_Tests
 
 	public class With_Max
 	{
-		public static TheoryData<nuint> Max =>
-			[Rnd.UIntPtr];
-
-		[Theory]
-		[MemberData(nameof(Max))]
-		public void Returns_Number_Between_Zero_And_Max(nuint max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetUIntPtr(max), (nuint)0, max);
+		[Fact]
+		public void Returns_Number_Between_Zero_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetUIntPtr, generateWithMax: Rnd.NumberF.GetUIntPtr);
 	}
 
 	public class With_Min_And_Max
@@ -32,21 +28,8 @@ public class GetUIntPtr_Tests
 				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUIntPtr), () => Rnd.UIntPtr, Rnd.NumberF.GetUIntPtr);
 		}
 
-		public static TheoryData<nuint, nuint> MinAndMax
-		{
-			get
-			{
-				var min = Rnd.UIntPtr;
-				var max = min + 1 + Rnd.UIntPtr;
-				return new() { { min, max } };
-			}
-		}
-
-		[Theory]
-#pragma warning disable xUnit1044 // Avoid using TheoryData type arguments that are not serializable
-		[MemberData(nameof(MinAndMax))]
-#pragma warning restore xUnit1044 // Avoid using TheoryData type arguments that are not serializable
-		public void Returns_Number_Between_Min_And_Max(nuint min, nuint max) =>
-			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUIntPtr(min, max), min, max);
+		[Fact]
+		public void Returns_Number_Between_Min_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetUIntPtr, generateWithinBounds: Rnd.NumberF.GetUIntPtr);
 	}
 }

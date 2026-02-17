@@ -14,13 +14,9 @@ public class GetSingle_Tests
 
 	public class With_Max
 	{
-		public static TheoryData<float> Max =>
-			[Rnd.Flt];
-
-		[Theory]
-		[MemberData(nameof(Max))]
-		public void Returns_Number_Between_Zero_And_Max(float max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetSingle(max), 0, max);
+		[Fact]
+		public void Returns_Number_Between_Zero_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetSingle, generateWithMax: Rnd.NumberF.GetSingle);
 	}
 
 	public class With_Min_And_Max
@@ -39,19 +35,8 @@ public class GetSingle_Tests
 				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetSingle), () => Rnd.Flt * -1, () => Rnd.Flt, Rnd.NumberF.GetSingle);
 		}
 
-		public static TheoryData<float, float> MinAndMax
-		{
-			get
-			{
-				var min = Rnd.Flt;
-				var max = min + 1 + Rnd.Flt;
-				return new() { { min, max } };
-			}
-		}
-
-		[Theory]
-		[MemberData(nameof(MinAndMax))]
-		public void Returns_Number_Between_Min_And_Max(float min, float max) =>
-			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetSingle(min, max), min, max);
+		[Fact]
+		public void Returns_Number_Between_Min_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetSingle, generateWithinBounds: Rnd.NumberF.GetSingle);
 	}
 }

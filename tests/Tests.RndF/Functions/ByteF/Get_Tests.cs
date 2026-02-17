@@ -32,7 +32,8 @@ public class Get_Tests
 		var bytes = new List<byte[]>();
 
 		// Act
-		var result = Rnd.For(iterations, () => Rnd.ByteF.Get(4)).Distinct().Count();
+		var result = Rnd.For(iterations, () => Rnd.ByteF.Get(4))
+			.Distinct().Count();
 
 		// Assert
 		Assert.Equal(iterations, result);

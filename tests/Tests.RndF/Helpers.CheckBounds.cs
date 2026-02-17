@@ -36,13 +36,48 @@ internal static partial class Helpers
 		CheckBounds((_, _) => generate(), minimumInclusive, maximumInclusive, iterations);
 
 	internal static void CheckBounds<T>(
-		Func<T, T> generate,
-		T minimumInclusive,
-		T maximumInclusive,
+		Func<T> generate,
+		Func<T, T> generateWithMax,
 		int iterations = 100000
 	)
-		where T : INumber<T> =>
-		CheckBounds((_, max) => generate(max), minimumInclusive, maximumInclusive, iterations);
+		where T : INumber<T>
+	{
+		// Arrange
+		var max = generate();
+
+		// Act
+		var result = Rnd.For(iterations, () => generateWithMax(max));
+
+		// Assert
+		Assert.True(result.Min()! >= T.Zero);
+		Assert.True(result.Max()! <= max);
+	}
+
+	internal static void CheckBounds<T>(
+		Func<T> generate,
+		Func<T, T, T> generateWithinBounds,
+		int iterations = 100000
+	)
+		where T : INumber<T>
+	{
+		// Arrange
+		var (v0, v1) = (generate(), generate());
+		var (min, max) = (v0 < v1) switch
+		{
+			true =>
+				(v0, v1),
+
+			false =>
+				(v1, v0)
+		};
+
+		// Act
+		var result = Rnd.For(iterations, () => generateWithinBounds(min, max));
+
+		// Assert
+		Assert.True(result.Min()! >= min);
+		Assert.True(result.Max()! <= max);
+	}
 
 	internal static void CheckBounds<T>(
 		Func<T, T, T> generate,

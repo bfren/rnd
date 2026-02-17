@@ -14,13 +14,9 @@ public class GetUInt128_Tests
 
 	public class With_Max
 	{
-		public static TheoryData<UInt128> Max =>
-			[Rnd.UInt128];
-
-		[Theory]
-		[MemberData(nameof(Max))]
-		public void Returns_Number_Between_Zero_And_Max(UInt128 max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetUInt128(max), 0UL, max);
+		[Fact]
+		public void Returns_Number_Between_Zero_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetUInt128, generateWithMax: Rnd.NumberF.GetUInt128);
 	}
 
 	public class With_Min_And_Max
@@ -32,19 +28,8 @@ public class GetUInt128_Tests
 				Helpers.MaximumLessThanMinimum(nameof(Rnd.NumberF.GetUInt128), () => Rnd.UInt128, Rnd.NumberF.GetUInt128);
 		}
 
-		public static TheoryData<UInt128, UInt128> MinAndMax
-		{
-			get
-			{
-				var min = Rnd.UInt128;
-				var max = min + 1 + Rnd.UInt128;
-				return new() { { min, max } };
-			}
-		}
-
-		[Theory]
-		[MemberData(nameof(MinAndMax))]
-		public void Returns_Number_Between_Min_And_Max(UInt128 min, UInt128 max) =>
-			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetUInt128(min, max), min, max);
+		[Fact]
+		public void Returns_Number_Between_Min_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetUInt128, generateWithinBounds: Rnd.NumberF.GetUInt128);
 	}
 }

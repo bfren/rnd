@@ -14,13 +14,9 @@ public class GetDouble_Tests
 
 	public class With_Max
 	{
-		public static TheoryData<double> Max =>
-			[Rnd.Double];
-
-		[Theory]
-		[MemberData(nameof(Max))]
-		public void Returns_Number_Between_Zero_And_Max(double max) =>
-			Helpers.CheckBounds(max => Rnd.NumberF.GetDouble(max), 0, max);
+		[Fact]
+		public void Returns_Number_Between_Zero_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetDouble, generateWithMax: Rnd.NumberF.GetDouble);
 	}
 
 	public class With_Min_And_Max
@@ -39,20 +35,9 @@ public class GetDouble_Tests
 				Helpers.MinimumLessThanZero(nameof(Rnd.NumberF.GetDouble), () => Rnd.Double * -1, () => Rnd.Double, Rnd.NumberF.GetDouble);
 		}
 
-		public static TheoryData<double, double> MinAndMax
-		{
-			get
-			{
-				var min = Rnd.Double;
-				var max = min + 1 + Rnd.Double;
-				return new() { { min, max } };
-			}
-		}
-
-		[Theory]
-		[MemberData(nameof(MinAndMax))]
-		public void Returns_Number_Between_Min_And_Max(double min, double max) =>
-			Helpers.CheckBounds((min, max) => Rnd.NumberF.GetDouble(min, max), min, max);
+		[Fact]
+		public void Returns_Number_Between_Min_And_Max() =>
+			Helpers.CheckBounds(Rnd.NumberF.GetDouble, generateWithinBounds: Rnd.NumberF.GetDouble);
 
 	}
 }
