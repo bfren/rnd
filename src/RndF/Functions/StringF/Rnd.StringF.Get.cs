@@ -88,9 +88,10 @@ public static partial class Rnd
 			}
 
 			// Generate the rest of the random characters
+			var useCharsArray = useChars.ToArray();
 			while (random.Count < length)
 			{
-				appendOneOf([.. useChars]);
+				appendOneOf(useCharsArray);
 			}
 
 			// Return random string
