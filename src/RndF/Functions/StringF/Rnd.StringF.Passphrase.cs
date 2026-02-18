@@ -84,27 +84,25 @@ public static partial class Rnd
 			}
 
 			// Get the right number of words
-			var used = new List<int>();
+			var used = new HashSet<int>(numberOfWords);
 			var words = new List<string>();
 			for (var i = 0; i < numberOfWords; i++)
 			{
 				// Get the index of a word that hasn't been used yet
 				var index = getUniqueIndex();
-				used.Add(index);
 
 				var word = wordList[index];
 
 				// Make the first letter uppercase
 				if (upperFirst)
 				{
-					word = word[0].ToString().ToUpperInvariant() + word[1..];
+					word = char.ToUpperInvariant(word[0]) + word[1..];
 				}
 
 				// Add a number to the first word and every fifth word after that
 				// (the list will be shuffled later)
 				if (includeNumber && (i % 5 == 0))
 				{
-					// We can use Unsafe().Unwrap() because the arguments 0 and 9 will not cause a Fail
 					var num = NumberF.GetInt64(0, 9);
 					word = Flip switch
 					{
@@ -132,10 +130,9 @@ public static partial class Rnd
 				int index;
 				do
 				{
-					// We can use Unsafe().Unwrap() because the wordList length has already been checked
 					index = NumberF.GetInt32(0, wordList.Length - 1);
 				}
-				while (used.Contains(index));
+				while (!used.Add(index));
 
 				return index;
 			}
