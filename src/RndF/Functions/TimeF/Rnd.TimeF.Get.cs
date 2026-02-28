@@ -11,8 +11,9 @@ public static partial class Rnd
 	public static partial class TimeF
 	{
 		/// <summary>
-		/// Return a random Time
+		/// Return a random Time.
 		/// </summary>
+		/// <returns>Random time.</returns>
 		public static TimeOnly Get() =>
 			new(
 				hour: RandomNumberGenerator.GetInt32(0, DateTimeF.HourMaxExclusive),

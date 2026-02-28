@@ -21,12 +21,12 @@ public static partial class Rnd
 			GetUInt32(0, uint.MaxValue);
 
 		/// <summary>
-		/// Returns a random positive integer between <see langword="0"/> and <see cref="uint.MaxValue"/> inclusive.
+		/// Returns a random positive integer between <see langword="0"/> and <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <remarks>
 		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
 		/// </remarks>
-		/// <param name="max">Maximum acceptable value</param>
+		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
 		/// <exception cref="MaximumLessThanMinimumException"/>
 		public static uint GetUInt32(uint max) =>
