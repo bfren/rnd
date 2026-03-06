@@ -1,7 +1,6 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using RndF.Exceptions;
@@ -85,20 +84,15 @@ public static partial class Rnd
 				throw InvalidPassphraseException.PassphraseTooLong(wordList.Length);
 			}
 
-			// Build an index array [0, 1, ..., wordList.Length-1] and shuffle it
-			var indices = new int[wordList.Length];
-			for (var i = 0; i < indices.Length; i++)
-			{
-				indices[i] = i;
-			}
-			RandomNumberGenerator.Shuffle(indices.AsSpan());
-
-			// Build a list of the correct number of words
-			var words = new List<string>(numberOfWords);
+			// Pre-allocated arrays for the correct number of words
+			var used = new HashSet<int>(numberOfWords);
+			var words = new string[numberOfWords];
 			for (var i = 0; i < numberOfWords; i++)
 			{
-				// Get the name word using the shuffled indices
-				var word = wordList[indices[i]];
+				// Get the index of a word that hasn't been used yet
+				var unique = getUniqueIndex();
+
+				var word = wordList[unique];
 
 				// Make the first letter uppercase
 				if (upperFirst)
@@ -110,7 +104,7 @@ public static partial class Rnd
 				// (the list will be shuffled later)
 				if (includeNumber && (i % 5 == 0))
 				{
-					var num = NumberF.GetInt64(0, 9);
+					var num = NumberF.GetIntPtr(0, 9);
 					word = Flip switch
 					{
 						true =>
@@ -122,14 +116,27 @@ public static partial class Rnd
 				}
 
 				// Add the word to the list
-				words.Add(word);
+				words[i] = word;
 			}
 
 			// Shuffle the words
-			var shuffled = words.ToArray().Shuffle();
+			RandomNumberGenerator.Shuffle(words);
 
-			// Return joined
-			return string.Join(separator, shuffled);
+			// Return passphrase joined by separator
+			return string.Join(separator, words);
+
+			// Get a random array index that hasn't been used before
+			int getUniqueIndex()
+			{
+				int index;
+				do
+				{
+					index = NumberF.GetInt32(0, wordList.Length - 1);
+				}
+				while (!used.Add(index));
+
+				return index;
+			}
 		}
 	}
 }
