@@ -14,6 +14,6 @@ public static partial class Rnd
 		/// </summary>
 		/// <returns>Random GUID.</returns>
 		public static Guid Get() =>
-			new(ByteF.Get(16));
+			Guid.NewGuid();
 	}
 }
