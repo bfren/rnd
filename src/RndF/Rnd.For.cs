@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Linq;
 
 namespace RndF;
 
@@ -23,6 +22,14 @@ public static partial class Rnd
 	/// <param name="count">The number of elements to return.</param>
 	/// <param name="action">Action to generate a random value.</param>
 	/// <returns>Array of random elements.</returns>
-	public static T[] For<T>(int count, Func<int, T> action) =>
-		[.. Enumerable.Range(0, count).Select(x => action(x))];
+	public static T[] For<T>(int count, Func<int, T> action)
+	{
+		// Use pre-sized array
+		var result = new T[count];
+		for (var i = 0; i < count; i++)
+		{
+			result[i] = action(i);
+		}
+		return result;
+	}
 }
