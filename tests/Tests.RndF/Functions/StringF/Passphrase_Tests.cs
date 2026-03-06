@@ -345,6 +345,7 @@ public class Passphrase_Tests
 
 		// Assert
 		var some = result.Split(sep);
+		Assert.Equal(length, some.Length);
 		Assert.Equal(length, some.Distinct().Count());
 	}
 }
