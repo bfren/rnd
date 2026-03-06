@@ -21,6 +21,7 @@
   <Folder Name="/tests/">
     <File Path="tests/.editorconfig" />
     <File Path="tests/Directory.Build.props" />
+    <Project Path="tests/Tests.RndF.Sodium/Tests.RndF.Sodium.csproj" Id="1db02e49-a615-4d0a-a32e-54ba0bd1cbb6" />
     <Project Path="tests/Tests.RndF/Tests.RndF.csproj">
       <Build Solution="Release|*" Project="false" />
     </Project>
