@@ -29,17 +29,18 @@ jobs:
     -
       name: A - Restore
       run: |
-        dotnet restore Test.csproj
+        dotnet restore RndF.slnx
     -
       name: B - Build
       run: |
-        dotnet build Test.csproj \
+        dotnet build RndF.slnx \
           --no-restore \
           --configuration Release
     -
       name: C - Test
       run: |
-        dotnet test Test.csproj \
+        dotnet test \
+          --solution RndF.slnx \
           --no-restore \
           --no-build \
           --configuration Release
