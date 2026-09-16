@@ -39,7 +39,8 @@ jobs:
     -
       name: C - Test
       run: |
-        dotnet test Test.csproj \
+        dotnet test \
+          --project Test.csproj \
           --no-restore \
           --no-build \
           --configuration Release
