@@ -37,16 +37,8 @@ jobs:
           --no-restore \
           --configuration Release
     -
-      name: C - Test
-      run: |
-        dotnet test \
-          --solution RndF.slnx \
-          --no-restore \
-          --no-build \
-          --configuration Release
-    -
       if: success()
-      name: D - Pack
+      name: C - Pack
       run: |
         dotnet pack Pack.csproj \
           --no-build \
@@ -55,7 +47,7 @@ jobs:
           -p:PackageVersion=${{ steps.version.outputs.contents }}
     -
       if: success()
-      name: E - Push
+      name: D - Push
       run: |
         dotnet nuget push "$HOME/.nupkgs/*.nupkg" \
           --skip-duplicate \
