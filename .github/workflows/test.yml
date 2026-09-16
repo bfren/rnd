@@ -43,7 +43,7 @@ jobs:
       run: |
         dotnet build RndF.slnx \
           --no-restore \
-          --configuration Release
+          --configuration Debug
     -
       name: C - Test
       run: |
@@ -51,7 +51,7 @@ jobs:
           --solution RndF.slnx \
           --no-restore \
           --no-build \
-          --configuration Release
+          --configuration Debug
     -
       if: success()
       name: Finish - Success
