@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Security.Cryptography;
 
 namespace RndF;
 
@@ -16,14 +15,14 @@ public static partial class Rnd
 		/// <returns>Random date/time.</returns>
 		public static DateTime Get() =>
 			new DateTime(
-				year: RandomNumberGenerator.GetInt32(1, YearMaxExclusive),
-				month: RandomNumberGenerator.GetInt32(1, MonthMaxExclusive),
-				day: RandomNumberGenerator.GetInt32(1, DayMaxExclusive),
-				hour: RandomNumberGenerator.GetInt32(0, HourMaxExclusive),
-				minute: RandomNumberGenerator.GetInt32(0, MinuteMaxExclusive),
-				second: RandomNumberGenerator.GetInt32(0, SecondMaxExclusive),
-				millisecond: RandomNumberGenerator.GetInt32(0, MillisecondMaxExclusive),
+				year: NumberF.GetInRange(1, YearMaxExclusive - 1),
+				month: NumberF.GetInRange(1, MonthMaxExclusive - 1),
+				day: NumberF.GetInRange(1, DayMaxExclusive - 1),
+				hour: NumberF.GetInRange(0, HourMaxExclusive - 1),
+				minute: NumberF.GetInRange(0, MinuteMaxExclusive - 1),
+				second: NumberF.GetInRange(0, SecondMaxExclusive - 1),
+				millisecond: NumberF.GetInRange(0, MillisecondMaxExclusive - 1),
 				kind: DateTimeKind.Utc
-			).AddDays(RandomNumberGenerator.GetInt32(0, 4));
+			).AddDays(NumberF.GetInRange(0, 3));
 	}
 }

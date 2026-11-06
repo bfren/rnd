@@ -1,8 +1,6 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System.Security.Cryptography;
-
 namespace RndF;
 
 public static partial class Rnd
@@ -14,13 +12,6 @@ public static partial class Rnd
 		/// </summary>
 		/// <returns>True or false.</returns>
 		public static bool Get() =>
-			RandomNumberGenerator.GetInt32(2) switch
-			{
-				0 =>
-					false,
-
-				_ =>
-					true
-			};
+			NumberF.GetInRange(0, 1) == 1;
 	}
 }

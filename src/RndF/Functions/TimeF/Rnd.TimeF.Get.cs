@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Security.Cryptography;
 
 namespace RndF;
 
@@ -16,10 +15,10 @@ public static partial class Rnd
 		/// <returns>Random time.</returns>
 		public static TimeOnly Get() =>
 			new(
-				hour: RandomNumberGenerator.GetInt32(0, DateTimeF.HourMaxExclusive),
-				minute: RandomNumberGenerator.GetInt32(0, DateTimeF.MinuteMaxExclusive),
-				second: RandomNumberGenerator.GetInt32(0, DateTimeF.SecondMaxExclusive),
-				millisecond: RandomNumberGenerator.GetInt32(0, DateTimeF.MillisecondMaxExclusive)
+				hour: NumberF.GetInRange(0, DateTimeF.HourMaxExclusive - 1),
+				minute: NumberF.GetInRange(0, DateTimeF.MinuteMaxExclusive - 1),
+				second: NumberF.GetInRange(0, DateTimeF.SecondMaxExclusive - 1),
+				millisecond: NumberF.GetInRange(0, DateTimeF.MillisecondMaxExclusive - 1)
 			);
 	}
 }

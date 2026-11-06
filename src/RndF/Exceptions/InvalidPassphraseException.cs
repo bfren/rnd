@@ -21,6 +21,9 @@ public sealed class InvalidPassphraseException(string message) : Exception(messa
 	internal static InvalidPassphraseException WordListCannotBeEmpty() =>
 		new(Rnd.StringF.WordListCannotBeEmpty);
 
+	internal static InvalidPassphraseException WordListCannotContainEmptyWords() =>
+		new(Rnd.StringF.WordListCannotContainEmptyWords);
+
 	internal static InvalidPassphraseException WordListCannotBeNull() =>
 		new(Rnd.StringF.WordListCannotBeNull);
 }

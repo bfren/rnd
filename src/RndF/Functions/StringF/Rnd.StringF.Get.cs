@@ -22,9 +22,6 @@ public static partial class Rnd
 		/// <summary>
 		/// Create a random string using specified character groups.
 		/// </summary>
-		/// <remarks>
-		/// Lowercase letters will always be used.
-		/// </remarks>
 		/// <param name="length">The length of the new random string.</param>
 		/// <param name="classes">The character classes to include.</param>
 		/// <returns>Random string.</returns>
@@ -37,47 +34,52 @@ public static partial class Rnd
 			void appendOneOf(char[] list) =>
 				random.Add(list[NumberF.GetInt32(max: list.Length - 1)]);
 
+			if (length < 1)
+			{
+				throw InvalidCharsException.LengthMustBePositive();
+			}
+
 			// Check whether or not we have a valid selection of character classes
 			if (classes == Chars.None)
 			{
 				throw InvalidCharsException.NotEnoughClasses();
 			}
 
-			// Array of characters to use
-			var useChars = new List<char>();
+			// Set of characters to use (a set, because Hexademical overlaps Number and Upper)
+			var useChars = new HashSet<char>();
 
 			// Add numbers
 			if ((classes & Chars.Number) == Chars.Number)
 			{
-				useChars.AddRange(NumberChars);
+				useChars.UnionWith(NumberChars);
 				appendOneOf(NumberChars);
 			}
 
 			// Add lowercase letters
 			if ((classes & Chars.Lower) == Chars.Lower)
 			{
-				useChars.AddRange(LowercaseChars);
+				useChars.UnionWith(LowercaseChars);
 				appendOneOf(LowercaseChars);
 			}
 
 			// Add uppercase letters
 			if ((classes & Chars.Upper) == Chars.Upper)
 			{
-				useChars.AddRange(UppercaseChars);
+				useChars.UnionWith(UppercaseChars);
 				appendOneOf(UppercaseChars);
 			}
 
 			// Add special characters
 			if ((classes & Chars.Special) == Chars.Special)
 			{
-				useChars.AddRange(SpecialChars);
+				useChars.UnionWith(SpecialChars);
 				appendOneOf(SpecialChars);
 			}
 
 			// Add hexadecimal characters
 			if ((classes & Chars.Hexademical) == Chars.Hexademical)
 			{
-				useChars.AddRange(HexadecimalChars);
+				useChars.UnionWith(HexadecimalChars);
 				appendOneOf(HexadecimalChars);
 			}
 
@@ -88,7 +90,7 @@ public static partial class Rnd
 			}
 
 			// Generate the rest of the random characters
-			var useCharsArray = useChars.ToArray();
+			char[] useCharsArray = [.. useChars];
 			while (random.Count < length)
 			{
 				appendOneOf(useCharsArray);

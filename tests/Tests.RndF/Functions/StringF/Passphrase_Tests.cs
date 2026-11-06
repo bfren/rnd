@@ -176,6 +176,22 @@ public class Passphrase_Tests
 			Assert.Equal(Rnd.StringF.WordListCannotBeNull, ex.Message);
 		}
 
+		[Theory]
+		[InlineData(true)]
+		[InlineData(false)]
+		public void Empty_Word_Throws_WordListCannotContainEmptyWordsMsg(bool upperFirst)
+		{
+			// Arrange
+			string[] wordList = ["a", ""];
+
+			// Act
+			var result = Record.Exception(() => Rnd.StringF.Passphrase(wordList, 2, '-', upperFirst, false));
+
+			// Assert
+			var ex = Assert.IsType<InvalidPassphraseException>(result);
+			Assert.Equal(Rnd.StringF.WordListCannotContainEmptyWords, ex.Message);
+		}
+
 		[Fact]
 		public void Empty_Returns_None_With_WordListCannotBeEmptyMsg()
 		{
