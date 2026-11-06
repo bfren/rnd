@@ -54,6 +54,26 @@ public class Shuffle_Tests
 		}
 
 		[Fact]
+		public void returns_every_order_equally_often()
+		{
+			// Arrange
+			int[] array = [1, 2, 3];
+			var counts = new Dictionary<string, int>();
+
+			// Act
+			for (var i = 0; i < 60_000; i++)
+			{
+				var order = string.Join(',', array.Shuffle());
+				counts[order] = counts.GetValueOrDefault(order) + 1;
+			}
+
+			// Assert: expect ~10,000 for each of the 6 orders (standard deviation ~91);
+			// Sattolo's variant never returns 4 of them, and the naive 'any index' shuffle favours some
+			Assert.Equal(6, counts.Count);
+			Assert.All(counts.Values, n => Assert.InRange(n, 9_000, 11_000));
+		}
+
+		[Fact]
 		public void does_not_modify_original_array()
 		{
 			// Arrange
