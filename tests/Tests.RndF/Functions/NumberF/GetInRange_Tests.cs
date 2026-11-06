@@ -5,16 +5,30 @@ namespace RndF.Rnd_Tests.NumberF_Tests;
 
 public class GetInRange_Tests
 {
-	[Fact]
-	public void Every_Value_Is_Equally_Likely()
+	[Theory]
+	[InlineData("Int32")] // 64-bit threshold path
+	[InlineData("Int128")] // 128-bit mask path
+	[InlineData("UInt128")]
+	public void Every_Value_Is_Equally_Likely(string type)
 	{
 		// Arrange
 		var counts = new int[10];
+		Func<int> draw = type switch
+		{
+			"Int32" =>
+				() => Rnd.NumberF.GetInt32(0, 9),
+
+			"Int128" =>
+				() => (int)Rnd.NumberF.GetInt128(0, 9),
+
+			_ =>
+				() => (int)Rnd.NumberF.GetUInt128(0, 9)
+		};
 
 		// Act
 		for (var i = 0; i < 200_000; i++)
 		{
-			counts[Rnd.NumberF.GetInt32(0, 9)]++;
+			counts[draw()]++;
 		}
 
 		// Assert: expect ~20,000 each (standard deviation ~134); the old rounding code gave ~11,000 for 0 and 9
