@@ -55,23 +55,20 @@ public class Generator_Routing_Tests
 	private sealed class CountingRng : IRng
 	{
 		// Count per thread, so tests running on other threads at the same time don't affect the result
-		[ThreadStatic]
-		private static int calls;
-
-		public static int Calls =>
-			calls;
+		[field: ThreadStatic]
+		public static int Calls { get; private set; }
 
 		private readonly DefaultRng inner = new();
 
 		public byte[] GetBytes(int length)
 		{
-			calls++;
+			Calls++;
 			return inner.GetBytes(length);
 		}
 
 		public void Fill(Span<byte> buffer)
 		{
-			calls++;
+			Calls++;
 			inner.Fill(buffer);
 		}
 	}

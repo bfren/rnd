@@ -67,8 +67,7 @@ public class Shuffle_Tests
 				counts[order] = counts.GetValueOrDefault(order) + 1;
 			}
 
-			// Assert: expect ~10,000 for each of the 6 orders (standard deviation ~91);
-			// Sattolo's variant never returns 4 of them, and the naive 'any index' shuffle favours some
+			// Assert
 			Assert.Equal(6, counts.Count);
 			Assert.All(counts.Values, n => Assert.InRange(n, 9_000, 11_000));
 		}
