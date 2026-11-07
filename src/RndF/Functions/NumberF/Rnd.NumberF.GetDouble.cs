@@ -1,6 +1,7 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
+using System;
 using RndF.Exceptions;
 
 namespace RndF;
@@ -36,9 +37,15 @@ public static partial class Rnd
 		/// <returns>Random number.</returns>
 		/// <exception cref="MaximumLessThanMinimumException"/>
 		/// <exception cref="MinimumLessThanZeroException"/>
+		/// <exception cref="ArgumentOutOfRangeException"/>
 		public static double GetDouble(double min, double max)
 		{
-			// Check arguments
+			// Check arguments (NaN fails every comparison, so check it first)
+			if (!double.IsFinite(min) || !double.IsFinite(max))
+			{
+				throw new ArgumentOutOfRangeException(double.IsFinite(min) ? nameof(max) : nameof(min), "Value must be a finite number.");
+			}
+
 			if (min >= max)
 			{
 				throw MaximumLessThanMinimumException.Create(nameof(GetDouble), min, max);

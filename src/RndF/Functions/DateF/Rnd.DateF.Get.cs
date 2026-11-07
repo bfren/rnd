@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Security.Cryptography;
 
 namespace RndF;
 
@@ -16,9 +15,9 @@ public static partial class Rnd
 		/// <returns>Random date.</returns>
 		public static DateOnly Get() =>
 			new DateOnly(
-				year: RandomNumberGenerator.GetInt32(1, DateTimeF.YearMaxExclusive),
-				month: RandomNumberGenerator.GetInt32(1, DateTimeF.MonthMaxExclusive),
-				day: RandomNumberGenerator.GetInt32(1, DateTimeF.DayMaxExclusive)
-			).AddDays(RandomNumberGenerator.GetInt32(0, 4));
+				year: NumberF.GetInRange(1, DateTimeF.YearMaxExclusive - 1),
+				month: NumberF.GetInRange(1, DateTimeF.MonthMaxExclusive - 1),
+				day: NumberF.GetInRange(1, DateTimeF.DayMaxExclusive - 1)
+			).AddDays(NumberF.GetInRange(0, 3));
 	}
 }

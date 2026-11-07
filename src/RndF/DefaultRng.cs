@@ -1,6 +1,7 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
+using System;
 using System.Security.Cryptography;
 
 namespace RndF;
@@ -17,4 +18,8 @@ public sealed class DefaultRng : IRng
 		RandomNumberGenerator.Fill(byteArray);
 		return byteArray;
 	}
+
+	/// <inheritdoc/>
+	public void Fill(Span<byte> buffer) =>
+		RandomNumberGenerator.Fill(buffer);
 }

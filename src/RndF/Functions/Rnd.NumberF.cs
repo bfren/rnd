@@ -10,10 +10,10 @@ public static partial class Rnd
 	/// <summary>Random number functions</summary>
 	public static partial class NumberF
 	{
-		internal static CompositeFormat MaximumMustBeGreaterThanMinimum =>
+		internal static readonly CompositeFormat MaximumMustBeGreaterThanMinimum =
 			CompositeFormat.Parse("{0}(): Maximum value '{1}' must be more than minimum value '{2}'.");
 
-		internal static CompositeFormat MinimumMustBeAtLeastZero =>
+		internal static readonly CompositeFormat MinimumMustBeAtLeastZero =
 			CompositeFormat.Parse("{0}(): Minimum value '{1}' must be at least 0.");
 	}
 }

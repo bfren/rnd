@@ -10,10 +10,10 @@ public class Get_Tests
 {
 	public class with_length
 	{
-		public class length_less_than_two
+		public class length_less_than_one
 		{
 			public static TheoryData<int> Length =>
-				[-1, 0, 1];
+				[-1, 0];
 
 			[Theory]
 			[MemberData(nameof(Length))]
@@ -23,6 +23,22 @@ public class Get_Tests
 
 				// Act
 				var result = Record.Exception(() => Get(length));
+
+				// Assert
+				var ex = Assert.IsType<InvalidCharsException>(result);
+				Assert.Equal(LengthMustBePositive, ex.Message);
+			}
+		}
+
+		public class length_one
+		{
+			[Fact]
+			public void throws_InvalidCharsException()
+			{
+				// Arrange
+
+				// Act
+				var result = Record.Exception(() => Get(1));
 
 				// Assert
 				var ex = Assert.IsType<InvalidCharsException>(result);
@@ -82,6 +98,29 @@ public class Get_Tests
 				// Assert
 				var ex = Assert.IsType<InvalidCharsException>(result);
 				Assert.Equal(TooManyClasses, ex.Message);
+			}
+		}
+
+		public class hexadecimal_with_number
+		{
+			[Fact]
+			public void does_not_favour_overlapping_characters()
+			{
+				// Arrange: Number adds 0-9 and Hexademical adds 0-9 again, plus A-F
+				var counts = new Dictionary<char, int>();
+
+				// Act
+				for (var i = 0; i < 16; i++)
+				{
+					foreach (var c in Get(10_000, Chars.Number | Chars.Hexademical))
+					{
+						counts[c] = counts.GetValueOrDefault(c) + 1;
+					}
+				}
+
+				// Assert: expect ~10,000 each; counting 0-9 twice gave ~12,300 for digits and ~6,150 for A-F
+				Assert.Equal(16, counts.Count);
+				Assert.All(counts.Values, n => Assert.InRange(n, 9_000, 11_000));
 			}
 		}
 

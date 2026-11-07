@@ -45,7 +45,7 @@ public static partial class Rnd
 	public static Int128 Int128 =>
 		NumberF.GetInt128(min: 10000L, max: 19999L);
 
-	/// <inheritdoc cref="NumberF.GetUIntPtr()"/>
+	/// <inheritdoc cref="NumberF.GetIntPtr()"/>
 	public static nint IntPtr =>
 		NumberF.GetIntPtr(min: 10000, max: 19999);
 

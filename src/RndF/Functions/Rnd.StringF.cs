@@ -10,13 +10,16 @@ public static partial class Rnd
 	/// <summary>Random string functions.</summary>
 	public static partial class StringF
 	{
+		internal const string LengthMustBePositive =
+			"The length of the string must be at least 1.";
+
 		internal const string NotEnoughClasses =
 			"You must include at least one character class.";
 
-		internal static CompositeFormat PassphraseNotLongEnough =>
+		internal static readonly CompositeFormat PassphraseNotLongEnough =
 			CompositeFormat.Parse("Passphrases must contain at least {0} words.");
 
-		internal static CompositeFormat PassphraseTooLong =>
+		internal static readonly CompositeFormat PassphraseTooLong =
 			CompositeFormat.Parse("You cannot request more words than the word list contains ({0}).");
 
 		internal const string TooManyClasses =
@@ -27,6 +30,9 @@ public static partial class Rnd
 
 		internal const string WordListCannotBeNull =
 			"The word list cannot be null.";
+
+		internal const string WordListCannotContainEmptyWords =
+			"The word list cannot contain null or empty words.";
 
 		/// <summary>
 		/// Passphrases must contain at least this many words.

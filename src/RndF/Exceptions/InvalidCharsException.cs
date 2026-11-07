@@ -11,6 +11,9 @@ namespace RndF.Exceptions;
 /// <param name="message">Exception message.</param>
 public sealed class InvalidCharsException(string message) : Exception(message)
 {
+	internal static InvalidCharsException LengthMustBePositive() =>
+		new(Rnd.StringF.LengthMustBePositive);
+
 	internal static InvalidCharsException NotEnoughClasses() =>
 		new(Rnd.StringF.NotEnoughClasses);
 

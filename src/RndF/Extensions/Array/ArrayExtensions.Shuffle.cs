@@ -2,7 +2,6 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
-using System.Security.Cryptography;
 
 namespace RndF;
 
@@ -30,9 +29,23 @@ public static partial class ArrayExtensions
 
 		// Copy to new array so the original is not affected
 		T[] shuffled = [.. @this];
-		RandomNumberGenerator.Shuffle(shuffled.AsSpan());
+		ShuffleInPlace(shuffled.AsSpan());
 
 		// Original array remains the same
 		return shuffled;
+	}
+
+	/// <summary>
+	/// Fisher-Yates shuffle using <see cref="Rnd.Generator"/>.
+	/// </summary>
+	/// <typeparam name="T">Object type.</typeparam>
+	/// <param name="items">Items to shuffle.</param>
+	internal static void ShuffleInPlace<T>(Span<T> items)
+	{
+		for (var i = items.Length - 1; i > 0; i--)
+		{
+			var j = Rnd.NumberF.GetInRange(0, i);
+			(items[i], items[j]) = (items[j], items[i]);
+		}
 	}
 }

@@ -38,5 +38,19 @@ public class GetDouble_Tests
 		[Fact]
 		public void Returns_Number_Between_Min_And_Max() =>
 			Helpers.CheckBounds(Rnd.NumberF.GetDouble, generateWithinBounds: Rnd.NumberF.GetDouble);
+
+		[Theory]
+		[InlineData(double.NaN, 1d)]
+		[InlineData(0d, double.NaN)]
+		[InlineData(0d, double.PositiveInfinity)]
+		[InlineData(double.NegativeInfinity, 1d)]
+		public void Not_Finite_Throws_ArgumentOutOfRangeException(double min, double max) =>
+			Assert.Throws<ArgumentOutOfRangeException>(() => Rnd.NumberF.GetDouble(min, max));
+
+		[Theory]
+		[InlineData(float.NaN, 1f)]
+		[InlineData(0f, float.PositiveInfinity)]
+		public void Single_Not_Finite_Throws_ArgumentOutOfRangeException(float min, float max) =>
+			Assert.Throws<ArgumentOutOfRangeException>(() => Rnd.NumberF.GetSingle(min, max));
 	}
 }

@@ -18,4 +18,14 @@ public class Guid_Tests
 		// Assert
 		Assert.Equal(iterations, result);
 	}
+
+	[Fact]
+	public void Returns_Random_Version_4_Guids()
+	{
+		// Act
+		var result = Rnd.For(100, () => Rnd.Guid);
+
+		// Assert: the version is the first character of the third group (time-based version 7 GUIDs fail this)
+		Assert.All(result, g => Assert.Equal('4', g.ToString()[14]));
+	}
 }

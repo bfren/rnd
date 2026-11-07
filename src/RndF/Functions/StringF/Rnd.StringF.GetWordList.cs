@@ -38,7 +38,7 @@ public static partial class Rnd
 		internal static string[] GetWordList(string input)
 		{
 			// Return empty array
-			if (string.IsNullOrWhiteSpace(input) || input.Length == 0)
+			if (string.IsNullOrWhiteSpace(input))
 			{
 				return [];
 			}

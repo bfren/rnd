@@ -13,9 +13,6 @@ public static partial class Rnd
 		/// <summary>
 		/// Returns a random positive integer between <see langword="0"/> and <see cref="UInt128.MaxValue"/> inclusive.
 		/// </summary>
-		/// <remarks>
-		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
-		/// </remarks>
 		/// <returns>Random number.</returns>
 		public static UInt128 GetUInt128() =>
 			GetUInt128(0, UInt128.MaxValue);
@@ -23,9 +20,6 @@ public static partial class Rnd
 		/// <summary>
 		/// Returns a random positive integer between <see langword="0"/> and <paramref name="max"/> inclusive.
 		/// </summary>
-		/// <remarks>
-		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
-		/// </remarks>
 		/// <param name="max">Maximum acceptable value</param>
 		/// <returns>Random number.</returns>
 		/// <exception cref="MaximumLessThanMinimumException"/>
@@ -35,9 +29,6 @@ public static partial class Rnd
 		/// <summary>
 		/// Returns a random positive integer between <paramref name="min"/> and <paramref name="max"/> inclusive.
 		/// </summary>
-		/// <remarks>
-		/// Don't share code with other GetUIntxx() methods for memory allocation reasons.
-		/// </remarks>
 		/// <param name="min">Minimum acceptable value.</param>
 		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
@@ -50,12 +41,7 @@ public static partial class Rnd
 				throw MaximumLessThanMinimumException.Create(nameof(GetUInt128), min, max);
 			}
 
-			// Get the range between the specified minimum and maximum values
-			var range = (double)(max - min);
-
-			// Now add a random amount of the range to the minimum value - it will never exceed maximum value
-			var add = (UInt128)Math.Round(range * Get());
-			return min + add;
+			return GetInRange(min, max);
 		}
 	}
 }

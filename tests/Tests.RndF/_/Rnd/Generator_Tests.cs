@@ -3,6 +3,7 @@
 
 namespace RndF.Rnd_Tests;
 
+[Collection(nameof(Rnd.Generator))] // don't run alongside tests that swap the generator
 public class Generator_Tests
 {
 	[Fact]

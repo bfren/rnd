@@ -1,8 +1,8 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
+using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using RndF.Exceptions;
 
 namespace RndF;
@@ -72,6 +72,12 @@ public static partial class Rnd
 				throw InvalidPassphraseException.WordListCannotBeEmpty();
 			}
 
+			// Every word must have at least one character
+			if (Array.Exists(wordList, string.IsNullOrEmpty))
+			{
+				throw InvalidPassphraseException.WordListCannotContainEmptyWords();
+			}
+
 			// Check for minimum number of words
 			if (numberOfWords < MinimumPassphraseWords)
 			{
@@ -120,7 +126,7 @@ public static partial class Rnd
 			}
 
 			// Shuffle the words
-			RandomNumberGenerator.Shuffle(words);
+			ArrayExtensions.ShuffleInPlace<string>(words);
 
 			// Return passphrase joined by separator
 			return string.Join(separator, words);
