@@ -6,69 +6,12 @@ on:
       - 'main'
     tags-ignore:
       - '**'
-    paths:
-      - '.github/workflows/test.yml'
-      - 'Directory.Packages.props'
-      - 'src/**'
-      - 'tests/**'
   workflow_dispatch:
 
 jobs:
-  restore-build-test:
-    runs-on: ubuntu-latest
-    steps:
-    -
-      name: Prepare - Checkout Code
-      uses: actions/checkout@v7
-    -
-      name: Prepare - Read Version
-      uses: bfren/read-file@v2
-      with:
-        file: ./Version
-      id: version
-    -
-      name: Prepare - Setup .NET
-      uses: actions/setup-dotnet@v6
-      with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-          10.0.x
-    -
-      name: A - Restore
-      run: |
-        dotnet restore RndF.slnx
-    -
-      name: B - Build
-      run: |
-        dotnet build RndF.slnx \
-          --no-restore \
-          --configuration Debug
-    -
-      name: C - Test
-      run: |
-        dotnet test \
-          --solution RndF.slnx \
-          --no-restore \
-          --no-build \
-          --configuration Debug
-    -
-      if: success()
-      name: Finish - Success
-      uses: bfren/action-slack-notify@master
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_USERNAME: Rnd (GitHub)
-        SLACK_MESSAGE: Tests Passed
-        SLACK_COLOR: good
-        SLACK_ICON: https://bfren.dev/img/logo-square-500x500.jpg
-    -
-      if: failure()
-      name: Finish - Failure
-      uses: bfren/action-slack-notify@master
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_USERNAME: Rnd (GitHub)
-        SLACK_MESSAGE: Test Failed
-        SLACK_COLOR: danger
-        SLACK_ICON: https://bfren.dev/img/logo-square-500x500.jpg
+  test:
+    uses: bfren/dotnet/.github/workflows/test.yml@main
+    with:
+      solution: "RndF.slnx"
+      name: Rnd
+    secrets: inherit
