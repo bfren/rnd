@@ -4,6 +4,11 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Check NuGet login without publishing
+        type: boolean
+        default: true
 
 env:
   DOTNET_NOLOGO: true                     # Disable the .NET logo in the console output
@@ -63,9 +68,9 @@ jobs:
         name: nupkgs
         path: ${{ env.PACKAGES_DIR }}
   add-assets:
+    if: success() && github.event_name == 'release'   # nothing to attach to without a release
     runs-on: ubuntu-latest
     needs: restore-build-test-pack
-    if: success()
     steps:
     - name: Retrieve
       uses: actions/download-artifact@v8
@@ -97,7 +102,7 @@ jobs:
       with:
         user: ${{ secrets.NUGET_USER }}
     -
-      if: success()
+      if: success() && !inputs.dry_run
       name: Push
       run: |
         dotnet nuget push "${{ env.PACKAGES_DIR }}/*.nupkg" \
@@ -111,7 +116,7 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     needs: [restore-build-test-pack, add-assets, publish]
-    if: always() # otherwise this job is skipped when an earlier job fails, and the failure message is never sent
+    if: always() && !inputs.dry_run # always(): otherwise this job is skipped when an earlier job fails, and the failure message is never sent
     steps:
     -
       if: success()
