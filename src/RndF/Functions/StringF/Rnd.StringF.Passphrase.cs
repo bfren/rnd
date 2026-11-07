@@ -126,7 +126,7 @@ public static partial class Rnd
 			}
 
 			// Shuffle the words
-			ArrayExtensions.ShuffleInPlace<string>(words);
+			ArrayExtensions.ShuffleInPlace(words);
 
 			// Return passphrase joined by separator
 			return string.Join(separator, words);

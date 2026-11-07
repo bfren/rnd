@@ -9,7 +9,7 @@ public class GetInt16_Tests
 	{
 		[Fact]
 		public void Returns_Number_Between_Zero_And_MaxValue() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetInt16(), (short)0, short.MaxValue);
+			Helpers.CheckBounds(Rnd.NumberF.GetInt16, (short)0, short.MaxValue);
 	}
 
 	public class With_Max

@@ -9,7 +9,7 @@ public class GetInt64_Tests
 	{
 		[Fact]
 		public void Returns_Number_Between_Zero_And_MaxValue() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetInt64(), 0, long.MaxValue);
+			Helpers.CheckBounds(Rnd.NumberF.GetInt64, 0, long.MaxValue);
 	}
 
 	public class With_Max

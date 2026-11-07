@@ -9,7 +9,7 @@ public class GetIntPtr_Tests
 	{
 		[Fact]
 		public void Returns_Number_Between_Zero_And_MaxValue() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetIntPtr(), 0, nint.MaxValue);
+			Helpers.CheckBounds(Rnd.NumberF.GetIntPtr, 0, nint.MaxValue);
 	}
 
 	public class With_Max
