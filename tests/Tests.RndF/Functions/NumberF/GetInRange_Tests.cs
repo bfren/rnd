@@ -39,7 +39,7 @@ public class GetInRange_Tests
 	public void UInt64_Uses_All_Bits()
 	{
 		// Act
-		var result = Rnd.For(10_000, () => Rnd.NumberF.GetUInt64());
+		var result = Rnd.For(10_000, Rnd.NumberF.GetUInt64);
 
 		// Assert: expect ~10 multiples of 1024; the old double-based code gave ~8,300
 		Assert.InRange(result.Count(v => v % 1024 == 0), 0, 100);

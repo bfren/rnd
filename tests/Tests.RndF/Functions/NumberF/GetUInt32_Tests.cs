@@ -9,7 +9,7 @@ public class GetUInt32_Tests
 	{
 		[Fact]
 		public void Returns_Number_Between_Zero_And_MaxValue() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetUInt32(), 0u, uint.MaxValue);
+			Helpers.CheckBounds(Rnd.NumberF.GetUInt32, 0u, uint.MaxValue);
 	}
 
 	public class With_Max

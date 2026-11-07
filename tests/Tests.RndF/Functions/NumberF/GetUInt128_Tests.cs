@@ -9,7 +9,7 @@ public class GetUInt128_Tests
 	{
 		[Fact]
 		public void Returns_Number_Between_Zero_And_MaxValue() =>
-			Helpers.CheckBounds(() => Rnd.NumberF.GetUInt128(), 0UL, UInt128.MaxValue);
+			Helpers.CheckBounds(Rnd.NumberF.GetUInt128, 0UL, UInt128.MaxValue);
 	}
 
 	public class With_Max
