@@ -17,4 +17,18 @@ public class Generator_Tests
 		// Assert
 		Assert.IsType<DefaultRng>(result);
 	}
+
+	[Fact]
+	public void Set_Null_Throws_And_Keeps_Generator()
+	{
+		// Arrange
+		var original = Rnd.Generator;
+
+		// Act
+		var result = Record.Exception(() => Rnd.Generator = null!);
+
+		// Assert
+		Assert.IsType<ArgumentNullException>(result);
+		Assert.Same(original, Rnd.Generator);
+	}
 }
