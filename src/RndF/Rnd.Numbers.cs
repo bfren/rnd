@@ -25,7 +25,12 @@ public static partial class Rnd
 	public static short Int16 =>
 		NumberF.GetInt16(min: 10000, max: 19999);
 
-	/// <inheritdoc cref="NumberF.GetInt32()"/>
+	/// <summary>
+	/// Gets a random integer between <c>10000</c> and <c>19999</c> inclusive.
+	/// </summary>
+	/// <remarks>
+	/// Use <see cref="NumberF.GetInt32()"/> for a value across the full range.
+	/// </remarks>
 	public static int Int32 =>
 		NumberF.GetInt32(min: 10000, max: 19999);
 
@@ -33,7 +38,12 @@ public static partial class Rnd
 	public static int Int =>
 		Int32;
 
-	/// <inheritdoc cref="NumberF.GetInt64()"/>
+	/// <summary>
+	/// Gets a random integer between <c>10000</c> and <c>19999</c> inclusive.
+	/// </summary>
+	/// <remarks>
+	/// Use <see cref="NumberF.GetInt64()"/> for a value across the full range.
+	/// </remarks>
 	public static long Int64 =>
 		NumberF.GetInt64(min: 10000L, max: 19999L);
 
@@ -53,11 +63,21 @@ public static partial class Rnd
 	public static ushort UInt16 =>
 		NumberF.GetUInt16(min: 10000, max: 19999);
 
-	/// <inheritdoc cref="NumberF.GetUInt32()"/>
+	/// <summary>
+	/// Gets a random integer between <c>10000</c> and <c>19999</c> inclusive.
+	/// </summary>
+	/// <remarks>
+	/// Use <see cref="NumberF.GetUInt32()"/> for a value across the full range.
+	/// </remarks>
 	public static uint UInt32 =>
 		NumberF.GetUInt32(min: 10000u, max: 19999u);
 
-	/// <inheritdoc cref="NumberF.GetUInt64()"/>
+	/// <summary>
+	/// Gets a random integer between <c>10000</c> and <c>19999</c> inclusive.
+	/// </summary>
+	/// <remarks>
+	/// Use <see cref="NumberF.GetUInt64()"/> for a value across the full range.
+	/// </remarks>
 	public static ulong UInt64 =>
 		NumberF.GetUInt64(min: 10000UL, max: 19999UL);
 
