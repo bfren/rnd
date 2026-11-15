@@ -12,12 +12,11 @@ public static partial class Rnd
 		/// <summary>
 		/// Return a random date between 0001-01-01 and 9999-12-31.
 		/// </summary>
+		/// <remarks>
+		/// Every date in the range is equally likely.
+		/// </remarks>
 		/// <returns>Random date.</returns>
 		public static DateOnly Get() =>
-			new DateOnly(
-				year: NumberF.GetInRange(1, DateTimeF.YearMaxExclusive - 1),
-				month: NumberF.GetInRange(1, DateTimeF.MonthMaxExclusive - 1),
-				day: NumberF.GetInRange(1, DateTimeF.DayMaxExclusive - 1)
-			).AddDays(NumberF.GetInRange(0, 3));
+			DateOnly.FromDayNumber(NumberF.GetInRange(0, DateOnly.MaxValue.DayNumber));
 	}
 }

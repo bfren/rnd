@@ -12,13 +12,11 @@ public static partial class Rnd
 		/// <summary>
 		/// Return a random time between 00:00:00.000 and 23:59:59.999.
 		/// </summary>
+		/// <remarks>
+		/// Every millisecond in the range is equally likely, and the result is a whole number of milliseconds.
+		/// </remarks>
 		/// <returns>Random time.</returns>
 		public static TimeOnly Get() =>
-			new(
-				hour: NumberF.GetInRange(0, DateTimeF.HourMaxExclusive - 1),
-				minute: NumberF.GetInRange(0, DateTimeF.MinuteMaxExclusive - 1),
-				second: NumberF.GetInRange(0, DateTimeF.SecondMaxExclusive - 1),
-				millisecond: NumberF.GetInRange(0, DateTimeF.MillisecondMaxExclusive - 1)
-			);
+			new(NumberF.GetInRange(0L, TimeOnly.MaxValue.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond);
 	}
 }

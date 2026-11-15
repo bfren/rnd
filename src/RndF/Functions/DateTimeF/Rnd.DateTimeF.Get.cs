@@ -12,17 +12,11 @@ public static partial class Rnd
 		/// <summary>
 		/// Return a random UTC date and time between 0001-01-01 00:00:00.000 and 9999-12-31 23:59:59.999.
 		/// </summary>
+		/// <remarks>
+		/// Every millisecond in the range is equally likely, and the result is a whole number of milliseconds.
+		/// </remarks>
 		/// <returns>Random date/time.</returns>
 		public static DateTime Get() =>
-			new DateTime(
-				year: NumberF.GetInRange(1, YearMaxExclusive - 1),
-				month: NumberF.GetInRange(1, MonthMaxExclusive - 1),
-				day: NumberF.GetInRange(1, DayMaxExclusive - 1),
-				hour: NumberF.GetInRange(0, HourMaxExclusive - 1),
-				minute: NumberF.GetInRange(0, MinuteMaxExclusive - 1),
-				second: NumberF.GetInRange(0, SecondMaxExclusive - 1),
-				millisecond: NumberF.GetInRange(0, MillisecondMaxExclusive - 1),
-				kind: DateTimeKind.Utc
-			).AddDays(NumberF.GetInRange(0, 3));
+			DateF.Get().ToDateTime(TimeF.Get(), DateTimeKind.Utc);
 	}
 }
