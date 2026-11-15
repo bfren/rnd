@@ -42,7 +42,7 @@ public static partial class Rnd
 			// Return empty array
 			if (string.IsNullOrWhiteSpace(input))
 			{
-				return ImmutableArray<string>.Empty;
+				return [];
 			}
 
 			// Split the input string into a list of words
