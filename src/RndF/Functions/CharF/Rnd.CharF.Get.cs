@@ -30,7 +30,7 @@ public static partial class Rnd
 		{
 			if (min >= max)
 			{
-				throw MaximumLessThanMinimumException.Create(nameof(CharF), min, max);
+				throw MaximumLessThanMinimumException.Create(nameof(Get), min, max);
 			}
 
 			return (char)NumberF.GetUInt16(min, max);

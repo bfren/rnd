@@ -50,8 +50,8 @@ public static partial class Rnd
 				throw InvalidCharsException.LengthMustBePositive();
 			}
 
-			// Check whether or not we have a valid selection of character classes
-			if (classes == Chars.None)
+			// Check whether or not we have a valid selection of character classes (ignoring undefined flags)
+			if ((classes & (Chars.All | Chars.Hexademical)) == Chars.None)
 			{
 				throw InvalidCharsException.NotEnoughClasses();
 			}
