@@ -1,8 +1,8 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using RndF.Exceptions;
 
 namespace RndF;
@@ -89,7 +89,7 @@ public static partial class Rnd
 		/// word, or <paramref name="numberOfWords"/> is out of range.
 		/// </exception>
 		public static string Passphrase(
-			string[] wordList,
+			IReadOnlyList<string> wordList,
 			int numberOfWords,
 			char separator,
 			bool upperFirst,
@@ -103,13 +103,13 @@ public static partial class Rnd
 			}
 
 			// Check word list length
-			if (wordList.Length == 0)
+			if (wordList.Count == 0)
 			{
 				throw InvalidPassphraseException.WordListCannotBeEmpty();
 			}
 
 			// Every word must have at least one character
-			if (Array.Exists(wordList, string.IsNullOrEmpty))
+			if (wordList.Any(string.IsNullOrEmpty))
 			{
 				throw InvalidPassphraseException.WordListCannotContainEmptyWords();
 			}
@@ -121,9 +121,9 @@ public static partial class Rnd
 			}
 
 			// Number of words cannot be higher than the word list
-			if (numberOfWords > wordList.Length)
+			if (numberOfWords > wordList.Count)
 			{
-				throw InvalidPassphraseException.PassphraseTooLong(wordList.Length);
+				throw InvalidPassphraseException.PassphraseTooLong(wordList.Count);
 			}
 
 			// Pre-allocated arrays for the correct number of words
@@ -173,7 +173,7 @@ public static partial class Rnd
 				int index;
 				do
 				{
-					index = NumberF.GetInt32(0, wordList.Length - 1);
+					index = NumberF.GetInt32(0, wordList.Count - 1);
 				}
 				while (!used.Add(index));
 
