@@ -108,7 +108,9 @@ public static partial class Rnd
 			}
 
 			// Return random string
-			return new(random.ToArray().Shuffle());
+			var result = random.ToArray();
+			ArrayExtensions.ShuffleInPlace(result);
+			return new(result);
 		}
 	}
 }
