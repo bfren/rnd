@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System;
+using System.Collections.Immutable;
 
 namespace RndF;
 
@@ -16,7 +17,7 @@ public static partial class Rnd
 		/// <remarks>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
-		public static readonly Lazy<string[]> ShortWordList = new(
+		public static readonly Lazy<ImmutableArray<string>> ShortWordList = new(
 			() => GetWordList(Properties.Resources.eff_short_word_list)
 		);
 
@@ -27,7 +28,7 @@ public static partial class Rnd
 		/// <remarks>
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
-		public static readonly Lazy<string[]> LongWordList = new(
+		public static readonly Lazy<ImmutableArray<string>> LongWordList = new(
 			() => GetWordList(Properties.Resources.eff_long_word_list)
 		);
 
@@ -36,7 +37,7 @@ public static partial class Rnd
 		/// </summary>
 		/// <param name="input">Comma-separated words.</param>
 		/// <returns>Array of words, or an empty array when <paramref name="input"/> is <see langword="null"/> or white space.</returns>
-		internal static string[] GetWordList(string input)
+		internal static ImmutableArray<string> GetWordList(string input)
 		{
 			// Return empty array
 			if (string.IsNullOrWhiteSpace(input))
@@ -45,7 +46,7 @@ public static partial class Rnd
 			}
 
 			// Split the input string into a list of words
-			return input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+			return [.. input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)];
 		}
 	}
 }

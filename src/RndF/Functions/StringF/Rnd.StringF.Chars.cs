@@ -34,7 +34,7 @@ public static partial class Rnd
 		/// Array of special characters.
 		/// </summary>
 		internal static readonly char[] SpecialChars =
-			['!', '#', '@', '+', '-', '*', '^', '=', ':', ';', '£', '$', '~', '`', '¬', '|'];
+			['!', '#', '@', '+', '-', '*', '^', '=', ':', ';', '$', '~', '`', '|', '%', '?'];
 
 		/// <summary>
 		/// Array of hexademical characters.

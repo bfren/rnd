@@ -12,12 +12,8 @@ namespace RndF;
 public sealed class DefaultRng : IRng
 {
 	/// <inheritdoc/>
-	public byte[] GetBytes(int length)
-	{
-		var byteArray = new byte[length];
-		RandomNumberGenerator.Fill(byteArray);
-		return byteArray;
-	}
+	public byte[] GetBytes(int length) =>
+		RandomNumberGenerator.GetBytes(length);
 
 	/// <inheritdoc/>
 	public void Fill(Span<byte> buffer) =>

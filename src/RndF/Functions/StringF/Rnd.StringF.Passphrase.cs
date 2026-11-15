@@ -1,8 +1,8 @@
 // Rnd: Random value generators.
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using RndF.Exceptions;
 
 namespace RndF;
@@ -22,7 +22,7 @@ public static partial class Rnd
 		/// </summary>
 		/// <remarks>
 		/// Words are separated by <c>-</c>, start with an upper-case letter, and two of them have a random digit added
-		/// at the start or end - see <see cref="Passphrase(string[], int, char, bool, bool)"/>.
+		/// at the start or end - see <see cref="Passphrase(IReadOnlyList{string}, int, char, bool, bool)"/>.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
 		/// <returns>Random passphrase.</returns>
@@ -35,7 +35,7 @@ public static partial class Rnd
 		/// </summary>
 		/// <remarks>
 		/// Words are separated by <c>-</c>, start with an upper-case letter, and one word in every five has a random
-		/// digit added at the start or end - see <see cref="Passphrase(string[], int, char, bool, bool)"/>.
+		/// digit added at the start or end - see <see cref="Passphrase(IReadOnlyList{string}, int, char, bool, bool)"/>.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
 		/// <param name="numberOfWords">The number of words in the passphrase, at least <c>2</c>.</param>
@@ -51,7 +51,7 @@ public static partial class Rnd
 		/// EFF's Long Word List, with higher entropy for use with fewer words.
 		/// </summary>
 		/// <remarks>
-		/// See <see cref="Passphrase(string[], int, char, bool, bool)"/> for how the options are applied.
+		/// See <see cref="Passphrase(IReadOnlyList{string}, int, char, bool, bool)"/> for how the options are applied.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
 		/// <param name="numberOfWords">The number of words in the passphrase, at least <c>2</c>.</param>
@@ -89,7 +89,7 @@ public static partial class Rnd
 		/// word, or <paramref name="numberOfWords"/> is out of range.
 		/// </exception>
 		public static string Passphrase(
-			string[] wordList,
+			IReadOnlyList<string> wordList,
 			int numberOfWords,
 			char separator,
 			bool upperFirst,
@@ -103,13 +103,13 @@ public static partial class Rnd
 			}
 
 			// Check word list length
-			if (wordList.Length == 0)
+			if (wordList.Count == 0)
 			{
 				throw InvalidPassphraseException.WordListCannotBeEmpty();
 			}
 
 			// Every word must have at least one character
-			if (Array.Exists(wordList, string.IsNullOrEmpty))
+			if (wordList.Any(string.IsNullOrEmpty))
 			{
 				throw InvalidPassphraseException.WordListCannotContainEmptyWords();
 			}
@@ -121,9 +121,9 @@ public static partial class Rnd
 			}
 
 			// Number of words cannot be higher than the word list
-			if (numberOfWords > wordList.Length)
+			if (numberOfWords > wordList.Count)
 			{
-				throw InvalidPassphraseException.PassphraseTooLong(wordList.Length);
+				throw InvalidPassphraseException.PassphraseTooLong(wordList.Count);
 			}
 
 			// Pre-allocated arrays for the correct number of words
@@ -173,7 +173,7 @@ public static partial class Rnd
 				int index;
 				do
 				{
-					index = NumberF.GetInt32(0, wordList.Length - 1);
+					index = NumberF.GetInt32(0, wordList.Count - 1);
 				}
 				while (!used.Add(index));
 
