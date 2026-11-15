@@ -7,31 +7,57 @@ public class Get_Tests
 {
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Year() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Year, 1, Rnd.DateTimeF.YearMaxExclusive);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Year, 1, 10000);
 
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Month() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Month, 1, Rnd.DateTimeF.MonthMaxExclusive);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Month, 1, 13);
 
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Day() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Day, 1, Rnd.DateTimeF.DayMaxExclusive + 3);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Day, 1, 32);
 
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Hour() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Hour, 0, Rnd.DateTimeF.HourMaxExclusive);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Hour, 0, 24);
 
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Minute() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Minute, 0, Rnd.DateTimeF.MinuteMaxExclusive);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Minute, 0, 60);
 
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Second() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Second, 0, Rnd.DateTimeF.SecondMaxExclusive);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Second, 0, 60);
 
 	[Fact]
 	public void Returns_DateTime_Between_Min_And_Max_Millisecond() =>
-		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Millisecond, 0, Rnd.DateTimeF.MillisecondMaxExclusive);
+		Helpers.CheckBounds(Rnd.DateTimeF.Get, dt => dt.Millisecond, 0, 1000);
+
+	[Fact]
+	public void Returns_Whole_Milliseconds()
+	{
+		// Arrange
+		var iterations = 100000;
+
+		// Act
+		var result = Rnd.For(iterations, Rnd.DateTimeF.Get);
+
+		// Assert
+		Assert.All(result, x => Assert.Equal(0, x.Ticks % TimeSpan.TicksPerMillisecond));
+	}
+
+	[Fact]
+	public void Returns_The_31st_As_Often_As_The_Calendar()
+	{
+		// Arrange
+		var iterations = 100000;
+
+		// Act
+		var result = Rnd.For(iterations, () => Rnd.DateTimeF.Get().Day).Count(d => d == 31);
+
+		// Assert - 7 days in every 365.2425 are the 31st, so expect about 1,917 (standard deviation about 44)
+		Assert.InRange(result, 1500, 2300);
+	}
 
 	[Fact]
 	public void Returns_UTC()
