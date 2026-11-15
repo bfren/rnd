@@ -3,7 +3,7 @@
 
 namespace RndF.Functions.CharF;
 
-internal sealed class Get_Tests
+public sealed class Get_Tests
 {
 	public sealed class Without_Args
 	{
@@ -18,7 +18,7 @@ internal sealed class Get_Tests
 		{
 			[Fact]
 			public void Throws_MaximumNotMoreThanMinimumException() =>
-				Helpers.MaximumLessThanMinimum(nameof(Rnd.CharF.Get), () => (char)Rnd.UInt16, (min, max) => Rnd.CharF.Get(min, max));
+				Helpers.MaximumLessThanMinimum(nameof(Rnd.CharF.Get), () => Rnd.UInt16, (min, max) => Rnd.CharF.Get(min, max));
 		}
 
 		[Fact]

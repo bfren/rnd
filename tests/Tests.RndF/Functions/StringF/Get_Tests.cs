@@ -141,6 +141,23 @@ public class Get_Tests
 			}
 		}
 
+		public class classes_undefined
+		{
+			[Fact]
+			public void throws_InvalidCharsException()
+			{
+				// Arrange
+				var length = Rnd.NumberF.GetInt32(min: 2, max: 40);
+
+				// Act
+				var result = Record.Exception(() => Get(length, (Chars)(1 << 5)));
+
+				// Assert
+				var ex = Assert.IsType<InvalidCharsException>(result);
+				Assert.Equal(NotEnoughClasses, ex.Message);
+			}
+		}
+
 		[Fact]
 		public void returns_string_of_correct_length()
 		{
