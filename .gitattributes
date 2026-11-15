@@ -1,2 +1,3 @@
-# Check out C# files with CRLF on every OS, so IDE0055 (formatting) matches the files on Linux runners
-*.cs text eol=crlf
+# Store and check out text files with LF on every OS, matching end_of_line in .editorconfig,
+# so IDE0055 (formatting) agrees on Windows, Linux runners and files written by tools
+* text=auto eol=lf

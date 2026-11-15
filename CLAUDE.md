@@ -40,7 +40,7 @@ Rnd targets **.NET 8, 9, 10 and 11** (`net8.0;net9.0;net10.0;net11.0`, set in `s
 ### EditorConfig Rules
 The project uses [EditorConfig](https://editorconfig.org) for consistent formatting:
 - **Indent**: tabs (4 wide) in C# files; 4 spaces elsewhere, except project/XML/JSON/YAML files: 2 spaces
-- **Line endings**: CRLF for every file except `*.sh` (`.editorconfig`); `.gitattributes` also checks out `*.cs` with CRLF on every OS so IDE0055 matches on Linux runners. Keep CRLF in files you edit, and don't convert them to LF.
+- **Line endings**: LF (`.editorconfig` and `.gitattributes`), so files written by tools that save LF need no conversion. Don't convert files to CRLF.
 - **Charset**: UTF-8
 - **Trailing whitespace**: Trimmed
 - **File header**: every C# file starts with the two-line `// Rnd: …` / `// Copyright (c) bfren …` header
