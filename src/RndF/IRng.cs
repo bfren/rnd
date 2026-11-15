@@ -11,7 +11,7 @@ namespace RndF;
 public interface IRng
 {
 	/// <summary>
-	/// Get random bytes.
+	/// Return an array of random bytes.
 	/// </summary>
 	/// <param name="length">The length of the byte array.</param>
 	/// <returns>Array of random bytes.</returns>

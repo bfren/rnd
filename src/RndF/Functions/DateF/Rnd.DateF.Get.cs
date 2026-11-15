@@ -10,7 +10,7 @@ public static partial class Rnd
 	public static partial class DateF
 	{
 		/// <summary>
-		/// Return a random Date between 0001-01-01 and 9999-12-31.
+		/// Return a random date between 0001-01-01 and 9999-12-31.
 		/// </summary>
 		/// <returns>Random date.</returns>
 		public static DateOnly Get() =>

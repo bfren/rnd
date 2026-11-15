@@ -29,17 +29,17 @@ public enum Chars
 	Upper = 1 << 2,
 
 	/// <summary>
-	/// Various special characters (excluding %).
+	/// Special characters <c>! # @ + - * ^ = : ; £ $ ~ ` ¬ |</c>.
 	/// </summary>
 	Special = 1 << 3,
 
 	/// <summary>
-	/// Hexademical 0-9, A-F.
+	/// Hexadecimal digits 0-9 and A-F.
 	/// </summary>
 	Hexademical = 1 << 4,
 
 	/// <summary>
-	/// All characters.
+	/// Numbers, letters and special characters (hexadecimal digits are already included).
 	/// </summary>
 	All = Number | Lower | Upper | Special,
 

@@ -8,11 +8,17 @@ namespace RndF;
 public static partial class ArrayExtensions
 {
 	/// <summary>
-	/// Create a copy of an array and shuffle the elements.
+	/// Copy an array and shuffle the copy, leaving the original unchanged.
 	/// </summary>
-	/// <typeparam name="T">Object type.</typeparam>
+	/// <remarks>
+	/// Arrays with fewer than two elements are returned as they are, not copied.
+	/// </remarks>
+	/// <typeparam name="T">Element type.</typeparam>
 	/// <param name="this">Array to shuffle.</param>
-	/// <returns>Shuffled array.</returns>
+	/// <returns>
+	/// A shuffled copy of <paramref name="this"/>, <paramref name="this"/> itself when it has fewer than two
+	/// elements, or an empty array when it is <see langword="null"/>.
+	/// </returns>
 	public static T[] Shuffle<T>(this T[] @this)
 	{
 		// Return empty list for null

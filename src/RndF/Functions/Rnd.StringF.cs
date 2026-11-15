@@ -40,7 +40,7 @@ public static partial class Rnd
 		internal const int MinimumPassphraseWords = 2;
 
 		/// <summary>
-		/// Combine character classes.
+		/// Combine the number, letter and special character classes into <see cref="AllChars"/>.
 		/// </summary>
 		static StringF() =>
 			AllChars = [.. NumberChars, .. LowercaseChars, .. UppercaseChars, .. SpecialChars];

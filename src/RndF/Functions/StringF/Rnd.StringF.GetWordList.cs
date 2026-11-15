@@ -10,7 +10,7 @@ public static partial class Rnd
 	public static partial class StringF
 	{
 		/// <summary>
-		/// Retrieve a modified (i.e. with British spellings) form of EFF's Short Word List,
+		/// Modified (i.e. with British spellings) form of EFF's Short Word List,
 		/// with unique three-character prefixes.
 		/// </summary>
 		/// <remarks>
@@ -21,7 +21,7 @@ public static partial class Rnd
 		);
 
 		/// <summary>
-		/// Retrieve a modified form (i.e. with British spellings) of EFF's Long Word List,
+		/// Modified (i.e. with British spellings) form of EFF's Long Word List,
 		/// with higher entropy for use with fewer words.
 		/// </summary>
 		/// <remarks>
@@ -32,9 +32,10 @@ public static partial class Rnd
 		);
 
 		/// <summary>
-		/// Convert an input string into a list of words
+		/// Split a comma-separated string into an array of trimmed, non-empty words.
 		/// </summary>
-		/// <param name="input">Input string of words</param>
+		/// <param name="input">Comma-separated words.</param>
+		/// <returns>Array of words, or an empty array when <paramref name="input"/> is <see langword="null"/> or white space.</returns>
 		internal static string[] GetWordList(string input)
 		{
 			// Return empty array

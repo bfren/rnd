@@ -11,7 +11,7 @@ public static partial class Rnd
 	public static partial class NumberF
 	{
 		/// <summary>
-		/// Returns a random double-precision floating point number between 0 and 1.
+		/// Return a random double-precision floating-point number between <c>0</c> and <c>1</c> inclusive, using <see cref="Generator"/>.
 		/// </summary>
 		/// <remarks>
 		/// Thanks to https://stackoverflow.com/users/11178549/theodor-zoulias for comments and suggested improvements

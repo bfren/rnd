@@ -17,41 +17,77 @@ public static partial class Rnd
 		internal const char DefaultSeparator = '-';
 
 		/// <summary>
-		/// Generate a random passphrase using a modified (i.e. with British spellings) form of EFF's Short Word List,
-		/// with unique three-character prefixes.
+		/// Generate a random passphrase of eight words from <see cref="ShortWordList"/>, a modified (i.e. with British
+		/// spellings) form of EFF's Short Word List, with unique three-character prefixes.
 		/// </summary>
 		/// <remarks>
+		/// Words are separated by <c>-</c>, start with an upper-case letter, and two of them have a random digit added
+		/// at the start or end - see <see cref="Passphrase(string[], int, char, bool, bool)"/>.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
-		/// <inheritdoc cref="Passphrase(int, char, bool, bool)"/>
+		/// <returns>Random passphrase.</returns>
 		public static string Passphrase() =>
 			Passphrase(ShortWordList.Value, 8, DefaultSeparator, true, true);
 
-		/// <inheritdoc cref="Passphrase(int, char, bool, bool)"/>
+		/// <summary>
+		/// Generate a random passphrase from <see cref="LongWordList"/>, a modified (i.e. with British spellings) form of
+		/// EFF's Long Word List, with higher entropy for use with fewer words.
+		/// </summary>
+		/// <remarks>
+		/// Words are separated by <c>-</c>, start with an upper-case letter, and one word in every five has a random
+		/// digit added at the start or end - see <see cref="Passphrase(string[], int, char, bool, bool)"/>.
+		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
+		/// </remarks>
+		/// <param name="numberOfWords">The number of words in the passphrase, at least <c>2</c>.</param>
+		/// <returns>Random passphrase.</returns>
+		/// <exception cref="InvalidPassphraseException">
+		/// <paramref name="numberOfWords"/> is less than <c>2</c> or more than the number of words in the list.
+		/// </exception>
 		public static string Passphrase(int numberOfWords) =>
 			Passphrase(numberOfWords, DefaultSeparator, true, true);
 
 		/// <summary>
-		/// Generate a random passphrase using a modified (i.e. with British spellings) form of EFF's Long Word List,
-		/// with unique three-character prefixes.
+		/// Generate a random passphrase from <see cref="LongWordList"/>, a modified (i.e. with British spellings) form of
+		/// EFF's Long Word List, with higher entropy for use with fewer words.
 		/// </summary>
 		/// <remarks>
+		/// See <see cref="Passphrase(string[], int, char, bool, bool)"/> for how the options are applied.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
-		/// <inheritdoc cref="Passphrase(string[], int, char, bool, bool)"/>
+		/// <param name="numberOfWords">The number of words in the passphrase, at least <c>2</c>.</param>
+		/// <param name="separator">Word separator.</param>
+		/// <param name="upperFirst">Whether to make the first letter of each word upper case.</param>
+		/// <param name="includeNumber">
+		/// Whether to add a random digit (0-9) to the start or end of the first word and every fifth word after it.
+		/// </param>
+		/// <returns>Random passphrase.</returns>
+		/// <exception cref="InvalidPassphraseException">
+		/// <paramref name="numberOfWords"/> is less than <c>2</c> or more than the number of words in the list.
+		/// </exception>
 		public static string Passphrase(int numberOfWords, char separator, bool upperFirst, bool includeNumber) =>
 			Passphrase(LongWordList.Value, numberOfWords, separator, upperFirst, includeNumber);
 
 		/// <summary>
-		/// Generate a random passphrase using the specified <paramref name="wordList"/>.
+		/// Generate a random passphrase from the specified <paramref name="wordList"/>.
 		/// </summary>
+		/// <remarks>
+		/// Each word is used at most once. Words are numbered before the list is shuffled, so the words with a digit
+		/// can appear anywhere in the passphrase.
+		/// </remarks>
 		/// <param name="wordList">List of words to use for the passphrase.</param>
-		/// <param name="numberOfWords">The number of words in the passphrase (see <see cref="MinimumPassphraseWords"/>).</param>
+		/// <param name="numberOfWords">
+		/// The number of words in the passphrase, from <c>2</c> to the number of words in <paramref name="wordList"/>.
+		/// </param>
 		/// <param name="separator">Word separator.</param>
-		/// <param name="upperFirst">Whether or not to make the first letter of each word upper case.</param>
-		/// <param name="includeNumber">Whether or not to include a number with one of the words.</param>
+		/// <param name="upperFirst">Whether to make the first letter of each word upper case.</param>
+		/// <param name="includeNumber">
+		/// Whether to add a random digit (0-9) to the start or end of the first word and every fifth word after it.
+		/// </param>
 		/// <returns>Random passphrase.</returns>
-		/// <exception cref="InvalidPassphraseException"/>
+		/// <exception cref="InvalidPassphraseException">
+		/// <paramref name="wordList"/> is <see langword="null"/>, empty or contains a <see langword="null"/> or empty
+		/// word, or <paramref name="numberOfWords"/> is out of range.
+		/// </exception>
 		public static string Passphrase(
 			string[] wordList,
 			int numberOfWords,

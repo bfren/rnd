@@ -9,7 +9,7 @@ namespace RndF.Exceptions;
 /// <summary>
 /// Used in random number functions when a maximum value is not greater than minimum.
 /// </summary>
-/// <param name="message">See <see cref="Rnd.NumberF.MaximumMustBeGreaterThanMinimum"/>.</param>
+/// <param name="message">Exception message.</param>
 public sealed class MaximumLessThanMinimumException(string message) : Exception(message)
 {
 	internal static MaximumLessThanMinimumException Create<T>(string method, T min, T max) =>

@@ -13,16 +13,27 @@ public static partial class Rnd
 #pragma warning disable CA1720 // Identifier contains type name
 
 	/// <summary>
-	/// Random Number Generator
+	/// Gets or sets the random number generator that supplies the random bytes for every function except
+	/// <see cref="GuidF.Get"/>.
 	/// </summary>
+	/// <remarks>
+	/// Defaults to <see cref="DefaultRng"/>, which is cryptographically secure.
+	/// </remarks>
 	public static IRng Generator { get; set; } =
 		new DefaultRng();
 
-	/// <inheritdoc cref="BooleanF.Get()"/>
+	/// <summary>
+	/// Gets a random <see langword="true"/> or <see langword="false"/> value.
+	/// </summary>
 	public static bool Flip =>
 		BooleanF.Get();
 
-	/// <inheritdoc cref="CharF.Get(ushort, ushort)"/>
+	/// <summary>
+	/// Gets a random character between <c>'0'</c> (U+0030) and <c>'z'</c> (U+007A) inclusive.
+	/// </summary>
+	/// <remarks>
+	/// As well as digits and letters, the range includes <c>: ; &lt; = &gt; ? @ [ \ ] ^ _ `</c>.
+	/// </remarks>
 	public static char Char =>
 		CharF.Get(48, 122);
 
@@ -30,11 +41,18 @@ public static partial class Rnd
 	public static Guid Guid =>
 		GuidF.Get();
 
-	/// <inheritdoc cref="StringF.Passphrase()"/>
+	/// <summary>
+	/// Gets a random passphrase of eight words from <see cref="StringF.ShortWordList"/>.
+	/// </summary>
+	/// <remarks>
+	/// See <see cref="StringF.Passphrase()"/> for the format.
+	/// </remarks>
 	public static string Pass =>
 		StringF.Passphrase();
 
-	/// <inheritdoc cref="StringF.Get(int)"/>
+	/// <summary>
+	/// Gets a random string of six letters (a-z and A-Z), with at least one of each case.
+	/// </summary>
 	public static string Str =>
 		StringF.Get(6);
 
