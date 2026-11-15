@@ -19,7 +19,8 @@ public static partial class Rnd
 	/// <remarks>
 	/// Defaults to <see cref="DefaultRng"/>, which is cryptographically secure.
 	/// </remarks>
-	public static IRng Generator { get; set; } =
+	/// <exception cref="ArgumentNullException">The value is <see langword="null"/>.</exception>
+	public static IRng Generator { get; set => field = value ?? throw new ArgumentNullException(nameof(value)); } =
 		new DefaultRng();
 
 	/// <summary>

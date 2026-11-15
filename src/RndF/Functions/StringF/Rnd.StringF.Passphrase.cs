@@ -22,7 +22,7 @@ public static partial class Rnd
 		/// </summary>
 		/// <remarks>
 		/// Words are separated by <c>-</c>, start with an upper-case letter, and two of them have a random digit added
-		/// at the start or end - see <see cref="Passphrase(string[], int, char, bool, bool)"/>.
+		/// at the start or end - see <see cref="Passphrase(IReadOnlyList{string}, int, char, bool, bool)"/>.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
 		/// <returns>Random passphrase.</returns>
@@ -35,7 +35,7 @@ public static partial class Rnd
 		/// </summary>
 		/// <remarks>
 		/// Words are separated by <c>-</c>, start with an upper-case letter, and one word in every five has a random
-		/// digit added at the start or end - see <see cref="Passphrase(string[], int, char, bool, bool)"/>.
+		/// digit added at the start or end - see <see cref="Passphrase(IReadOnlyList{string}, int, char, bool, bool)"/>.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
 		/// <param name="numberOfWords">The number of words in the passphrase, at least <c>2</c>.</param>
@@ -51,7 +51,7 @@ public static partial class Rnd
 		/// EFF's Long Word List, with higher entropy for use with fewer words.
 		/// </summary>
 		/// <remarks>
-		/// See <see cref="Passphrase(string[], int, char, bool, bool)"/> for how the options are applied.
+		/// See <see cref="Passphrase(IReadOnlyList{string}, int, char, bool, bool)"/> for how the options are applied.
 		/// See https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases.
 		/// </remarks>
 		/// <param name="numberOfWords">The number of words in the passphrase, at least <c>2</c>.</param>
