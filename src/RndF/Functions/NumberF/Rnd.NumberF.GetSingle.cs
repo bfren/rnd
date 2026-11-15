@@ -11,7 +11,7 @@ public static partial class Rnd
 	public static partial class NumberF
 	{
 		/// <summary>
-		/// Returns a random positive single-precision floating number between <see langword="0"/> and
+		/// Return a random non-negative single-precision floating-point number between <c>0</c> and
 		/// <see cref="float.MaxValue"/> inclusive.
 		/// </summary>
 		/// <returns>Random number.</returns>
@@ -19,25 +19,26 @@ public static partial class Rnd
 			GetSingle(0, float.MaxValue);
 
 		/// <summary>
-		/// Returns a random positive single-precision floating number between <see langword="0"/> and
+		/// Return a random non-negative single-precision floating-point number between <c>0</c> and
 		/// <paramref name="max"/> inclusive.
 		/// </summary>
 		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
-		/// <exception cref="MaximumLessThanMinimumException"/>
+		/// <exception cref="MaximumLessThanMinimumException"><paramref name="max"/> is not greater than <c>0</c>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="max"/> is not a finite number.</exception>
 		public static float GetSingle(float max) =>
 			GetSingle(0, max);
 
 		/// <summary>
-		/// Returns a random positive single-precision floating number between <paramref name="min"/> and
+		/// Return a random non-negative single-precision floating-point number between <paramref name="min"/> and
 		/// <paramref name="max"/> inclusive.
 		/// </summary>
-		/// <param name="min">Minimum acceptable value.</param>
+		/// <param name="min">Minimum acceptable value (must be at least <c>0</c>).</param>
 		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
-		/// <exception cref="MaximumLessThanMinimumException"/>
-		/// <exception cref="MinimumLessThanZeroException"/>
-		/// <exception cref="ArgumentOutOfRangeException"/>
+		/// <exception cref="MaximumLessThanMinimumException"><paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
+		/// <exception cref="MinimumLessThanZeroException"><paramref name="min"/> is less than <c>0</c>.</exception>
+		/// <exception cref="ArgumentOutOfRangeException"><paramref name="min"/> or <paramref name="max"/> is not a finite number.</exception>
 		public static float GetSingle(float min, float max)
 		{
 			// Check arguments (NaN fails every comparison, so check it first)

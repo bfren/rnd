@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 namespace RndF;
 
 /// <summary>
-/// Default Random Number Generator.
+/// Default random number generator, using <see cref="RandomNumberGenerator"/>.
 /// </summary>
 public sealed class DefaultRng : IRng
 {

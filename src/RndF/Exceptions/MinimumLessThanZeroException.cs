@@ -9,7 +9,7 @@ namespace RndF.Exceptions;
 /// <summary>
 /// Used in random number functions when a minimum value of less than zero is used.
 /// </summary>
-/// <param name="message">See <see cref="Rnd.NumberF.MinimumMustBeAtLeastZero"/>.</param>
+/// <param name="message">Exception message.</param>
 public sealed class MinimumLessThanZeroException(string message) : Exception(message)
 {
 	internal static MinimumLessThanZeroException Create<T>(string method, T min) =>

@@ -8,9 +8,9 @@ public static partial class Rnd
 	public static partial class BooleanF
 	{
 		/// <summary>
-		/// Returns a cryptographically-secure random true or false value.
+		/// Return a random <see langword="true"/> or <see langword="false"/> value, using <see cref="Generator"/>.
 		/// </summary>
-		/// <returns>True or false.</returns>
+		/// <returns><see langword="true"/> or <see langword="false"/>.</returns>
 		public static bool Get() =>
 			NumberF.GetInRange(0, 1) == 1;
 	}

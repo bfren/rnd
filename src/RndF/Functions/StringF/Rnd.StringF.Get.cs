@@ -11,21 +11,32 @@ public static partial class Rnd
 	public static partial class StringF
 	{
 		/// <summary>
-		/// Create a random string using default character groups - see <see cref="Chars.Letters"/>.
+		/// Create a random string of letters (a-z and A-Z) - see <see cref="Chars.Letters"/>.
 		/// </summary>
 		/// <param name="length">The length of the new random string.</param>
+		/// <remarks>
+		/// The string contains at least one character from each class in <see cref="Chars.Letters"/>.
+		/// </remarks>
 		/// <returns>Random string.</returns>
-		/// <exception cref="InvalidCharsException"/>
+		/// <exception cref="InvalidCharsException">
+		/// <paramref name="length"/> is less than <c>2</c>, so there is no room for both cases.
+		/// </exception>
 		public static string Get(int length) =>
 			Get(length, Chars.Letters);
 
 		/// <summary>
-		/// Create a random string using specified character groups.
+		/// Create a random string from the specified character classes.
 		/// </summary>
 		/// <param name="length">The length of the new random string.</param>
 		/// <param name="classes">The character classes to include.</param>
+		/// <remarks>
+		/// The string contains at least one character from each class in <paramref name="classes"/>.
+		/// </remarks>
 		/// <returns>Random string.</returns>
-		/// <exception cref="InvalidCharsException"/>
+		/// <exception cref="InvalidCharsException">
+		/// <paramref name="length"/> is less than <c>1</c>, <paramref name="classes"/> is <see cref="Chars.None"/>,
+		/// or <paramref name="length"/> is less than the number of classes in <paramref name="classes"/>.
+		/// </exception>
 		public static string Get(int length, Chars classes)
 		{
 			// Setup

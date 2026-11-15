@@ -6,7 +6,7 @@ using System;
 namespace RndF.Sodium;
 
 /// <summary>
-/// LibSodium Random Number Generator.
+/// Random number generator using libsodium.
 /// </summary>
 public sealed class SodiumRng : IRng
 {

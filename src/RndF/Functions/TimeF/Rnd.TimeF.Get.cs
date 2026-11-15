@@ -10,7 +10,7 @@ public static partial class Rnd
 	public static partial class TimeF
 	{
 		/// <summary>
-		/// Return a random Time.
+		/// Return a random time between 00:00:00.000 and 23:59:59.999.
 		/// </summary>
 		/// <returns>Random time.</returns>
 		public static TimeOnly Get() =>

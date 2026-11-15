@@ -7,7 +7,7 @@ namespace RndF;
 
 public static partial class Rnd
 {
-	/// <summary>Random number functions</summary>
+	/// <summary>Random number functions.</summary>
 	public static partial class NumberF
 	{
 		internal static readonly CompositeFormat MaximumMustBeGreaterThanMinimum =
