@@ -26,14 +26,7 @@ public static partial class Rnd
 		/// <param name="max">Highest acceptable UTF-16 code unit.</param>
 		/// <returns>Random character.</returns>
 		/// <exception cref="MaximumLessThanMinimumException"><paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
-		public static char Get(ushort min, ushort max)
-		{
-			if (min >= max)
-			{
-				throw MaximumLessThanMinimumException.Create(nameof(Get), min, max);
-			}
-
-			return (char)NumberF.GetUInt16(min, max);
-		}
+		public static char Get(ushort min, ushort max) =>
+			(char)NumberF.GetChecked(nameof(Get), min, max);
 	}
 }
