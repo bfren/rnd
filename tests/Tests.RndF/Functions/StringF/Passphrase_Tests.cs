@@ -134,7 +134,7 @@ public class Passphrase_Tests
 		[InlineData(-1)]
 		[InlineData(0)]
 		[InlineData(1)]
-		public void Less_Than_Two_Returns_None_With_NumberOfWordsMustBeAtLeastTwoMsg(int input)
+		public void Less_Than_Two_Throws_PassphraseNotLongEnoughMsg(int input)
 		{
 			// Arrange
 
@@ -147,7 +147,7 @@ public class Passphrase_Tests
 		}
 
 		[Fact]
-		public void Higher_Than_Word_List_Count_Returns_None_With_NumberOfWordsCannotBeMoreThanWordListMsg()
+		public void Higher_Than_Word_List_Count_Throws_PassphraseTooLongMsg()
 		{
 			// Arrange
 			var maximum = Rnd.StringF.LongWordList.Value.Length;
@@ -164,7 +164,7 @@ public class Passphrase_Tests
 	public class With_Word_List
 	{
 		[Fact]
-		public void Null_Returns_None_With_WordListCannotBeNullMsg()
+		public void Null_Throws_WordListCannotBeNullMsg()
 		{
 			// Arrange
 
@@ -193,7 +193,7 @@ public class Passphrase_Tests
 		}
 
 		[Fact]
-		public void Empty_Returns_None_With_WordListCannotBeEmptyMsg()
+		public void Empty_Throws_WordListCannotBeEmptyMsg()
 		{
 			// Arrange
 			var empty = Array.Empty<string>();
