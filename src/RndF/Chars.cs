@@ -29,7 +29,7 @@ public enum Chars
 	Upper = 1 << 2,
 
 	/// <summary>
-	/// Special characters <c>! # @ + - * ^ = : ; £ $ ~ ` ¬ |</c>.
+	/// Special characters <c>! # @ + - * ^ = : ; $ ~ ` | % ?</c>.
 	/// </summary>
 	Special = 1 << 3,
 
