@@ -8,11 +8,6 @@ public static partial class Rnd
 	public static partial class StringF
 	{
 		/// <summary>
-		/// Array of all characters.
-		/// </summary>
-		internal static char[] AllChars { get; }
-
-		/// <summary>
 		/// Array of lowercase characters.
 		/// </summary>
 		internal static readonly char[] LowercaseChars =

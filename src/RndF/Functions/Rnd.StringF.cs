@@ -38,11 +38,5 @@ public static partial class Rnd
 		/// Passphrases must contain at least this many words.
 		/// </summary>
 		internal const int MinimumPassphraseWords = 2;
-
-		/// <summary>
-		/// Combine the number, letter and special character classes into <see cref="AllChars"/>.
-		/// </summary>
-		static StringF() =>
-			AllChars = [.. NumberChars, .. LowercaseChars, .. UppercaseChars, .. SpecialChars];
 	}
 }
