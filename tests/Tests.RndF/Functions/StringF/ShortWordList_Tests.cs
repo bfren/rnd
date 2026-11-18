@@ -19,4 +19,18 @@ public class ShortWordList_Tests
 		// Assert
 		Assert.Equal(list, result);
 	}
+
+	[Fact]
+	public void contains_only_unique_lowercase_words()
+	{
+		// Arrange
+		var list = Rnd.StringF.ShortWordList.Value;
+
+		// Act
+		var invalid = list.Where(w => !w.All(char.IsAsciiLetterLower));
+
+		// Assert
+		Assert.Empty(invalid);
+		Assert.Equal(list.Length, list.Distinct().Count());
+	}
 }
