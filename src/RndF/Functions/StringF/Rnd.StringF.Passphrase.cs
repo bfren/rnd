@@ -2,6 +2,7 @@
 // Copyright (c) bfren - licensed under https://mit.bfren.dev/2021
 
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using RndF.Exceptions;
 
@@ -108,8 +109,9 @@ public static partial class Rnd
 				throw InvalidPassphraseException.WordListCannotBeEmpty();
 			}
 
-			// Every word must have at least one character
-			if (wordList.Any(string.IsNullOrEmpty))
+			// Every word must have at least one character (GetWordList already drops empty words from the built-in lists)
+			var isBuiltIn = wordList is ImmutableArray<string> list && (list == ShortWordList.Value || list == LongWordList.Value);
+			if (!isBuiltIn && wordList.Any(string.IsNullOrEmpty))
 			{
 				throw InvalidPassphraseException.WordListCannotContainEmptyWords();
 			}

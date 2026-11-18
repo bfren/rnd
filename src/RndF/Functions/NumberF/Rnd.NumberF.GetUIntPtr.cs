@@ -32,15 +32,7 @@ public static partial class Rnd
 		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
 		/// <exception cref="MaximumLessThanMinimumException"><paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
-		public static nuint GetUIntPtr(nuint min, nuint max)
-		{
-			// Check arguments
-			if (min >= max)
-			{
-				throw MaximumLessThanMinimumException.Create(nameof(GetUIntPtr), min, max);
-			}
-
-			return GetInRange(min, max);
-		}
+		public static nuint GetUIntPtr(nuint min, nuint max) =>
+			GetChecked(nameof(GetUIntPtr), min, max);
 	}
 }

@@ -4,6 +4,7 @@
 using System;
 using System.Buffers.Binary;
 using System.Numerics;
+using RndF.Exceptions;
 
 namespace RndF;
 
@@ -11,6 +12,34 @@ public static partial class Rnd
 {
 	public static partial class NumberF
 	{
+		/// <summary>
+		/// Check the arguments of a public <c>Get*</c> integer method and return a random integer between
+		/// <paramref name="min"/> and <paramref name="max"/> inclusive.
+		/// </summary>
+		/// <typeparam name="T">Integer type.</typeparam>
+		/// <param name="method">Name of the calling method, used in exception messages.</param>
+		/// <param name="min">Minimum acceptable value (must be at least <c>0</c>).</param>
+		/// <param name="max">Maximum acceptable value.</param>
+		/// <returns>Random number.</returns>
+		/// <exception cref="MaximumLessThanMinimumException"><paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
+		/// <exception cref="MinimumLessThanZeroException"><paramref name="min"/> is less than <c>0</c>.</exception>
+		internal static T GetChecked<T>(string method, T min, T max)
+			where T : IBinaryInteger<T>, IMinMaxValue<T>
+		{
+			if (min >= max)
+			{
+				throw MaximumLessThanMinimumException.Create(method, min, max);
+			}
+
+			// Always false for unsigned types
+			if (T.IsNegative(min))
+			{
+				throw MinimumLessThanZeroException.Create(method, min);
+			}
+
+			return GetInRange(min, max);
+		}
+
 		/// <summary>
 		/// Returns a uniformly distributed random integer between <paramref name="min"/> and <paramref name="max"/>
 		/// inclusive, using bytes from <see cref="Generator"/>.

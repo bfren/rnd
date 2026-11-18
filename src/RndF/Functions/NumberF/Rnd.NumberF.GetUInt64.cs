@@ -32,15 +32,7 @@ public static partial class Rnd
 		/// <param name="max">Maximum acceptable value.</param>
 		/// <returns>Random number.</returns>
 		/// <exception cref="MaximumLessThanMinimumException"><paramref name="max"/> is not greater than <paramref name="min"/>.</exception>
-		public static ulong GetUInt64(ulong min, ulong max)
-		{
-			// Check arguments
-			if (min >= max)
-			{
-				throw MaximumLessThanMinimumException.Create(nameof(GetUInt64), min, max);
-			}
-
-			return GetInRange(min, max);
-		}
+		public static ulong GetUInt64(ulong min, ulong max) =>
+			GetChecked(nameof(GetUInt64), min, max);
 	}
 }

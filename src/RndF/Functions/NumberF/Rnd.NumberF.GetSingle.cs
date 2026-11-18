@@ -60,9 +60,9 @@ public static partial class Rnd
 			// Get the range between the specified minimum and maximum values
 			var range = max - min;
 
-			// Now add a random amount of the range to the minimum value - it will never exceed maximum value
+			// Now add a random amount of the range to the minimum value - rounding can push it just past the maximum, so clamp
 			var add = range * Get();
-			return (float)(min + add);
+			return Math.Min((float)(min + add), max);
 		}
 	}
 }
