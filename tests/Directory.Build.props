@@ -6,6 +6,14 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- pinned, so a newer SDK can't add rules that fail CI; raise it with the target framework -->
+    <AnalysisLevel>11.0-recommended</AnalysisLevel>
+    <!-- GitHub Actions sets CI=true, so CI fails on any warning; run dotnet build -warnaserror to match it locally -->
+    <TreatWarningsAsErrors Condition="'$(CI)' == 'true'">true</TreatWarningsAsErrors>
+    <!-- needed for IDE0005 (unnecessary usings) to run on build; tests don't need doc comments -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="Xunit"/>
