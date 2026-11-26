@@ -1,3 +1,6 @@
 [*.{cs,csx,cake,vb,vbx}]
 
 file_header_template = Rnd: Random value generators.\nCopyright (c) bfren - licensed under https://mit.bfren.dev/2021
+
+# IDE0073: Require file header
+dotnet_diagnostic.IDE0073.severity = error
