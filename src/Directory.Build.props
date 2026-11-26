@@ -6,6 +6,13 @@
     <TargetFrameworks>net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- pinned, so a newer SDK can't add rules that fail CI; raise it with the target framework -->
+    <AnalysisLevel>11.0-recommended</AnalysisLevel>
+    <!-- GitHub Actions sets CI=true, so CI fails on any warning; run dotnet build -warnaserror to match it locally -->
+    <TreatWarningsAsErrors Condition="'$(CI)' == 'true'">true</TreatWarningsAsErrors>
+    <!-- the built-in word lists are English, so .NET doesn't look for translated resources (CA1824) -->
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <!-- Enable Internal Testing -->
@@ -16,7 +23,7 @@
   </ItemGroup>
 
   <!-- Documentation -->
-  <PropertyGroup Label="Documentation" Condition="'$(Configuration)'=='Release'">
+  <PropertyGroup Label="Documentation">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

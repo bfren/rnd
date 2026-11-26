@@ -21,6 +21,7 @@ jobs:
     uses: bfren/dotnet/.github/workflows/prepare.yml@main
     with:
       solution: "RndF.slnx"
+      style: false # the build enforces style (EnforceCodeStyleInBuild)
   nuget:
     needs: prepare
     runs-on: ubuntu-latest

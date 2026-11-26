@@ -158,6 +158,23 @@ public class Get_Tests
 			}
 		}
 
+		public class classes_defined_and_undefined
+		{
+			[Fact]
+			public void ignores_undefined_classes()
+			{
+				// Arrange
+				var length = Rnd.NumberF.GetInt32(min: 2, max: 40);
+
+				// Act
+				var result = Get(length, Chars.Number | (Chars)(1 << 5));
+
+				// Assert
+				Assert.Equal(length, result.Length);
+				Assert.All(result, c => Assert.Contains(c, Helpers.Chars.Numbers));
+			}
+		}
+
 		[Fact]
 		public void returns_string_of_correct_length()
 		{
