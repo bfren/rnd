@@ -17,17 +17,14 @@ Published on [NuGet](https://www.nuget.org/packages/rnd/). User documentation is
 # Restore dependencies
 dotnet restore RndF.slnx
 
-# Check code style (using EditorConfig rules)
-dotnet format style -v d RndF.slnx --no-restore
-
-# Build solution
-dotnet build RndF.slnx --no-restore --configuration Debug
+# Build solution (-warnaserror fails on any warning, as CI does)
+dotnet build RndF.slnx --no-restore --configuration Debug -warnaserror
 
 # Run all tests (Microsoft.Testing.Platform, set in global.json, needs --solution)
 dotnet test --solution RndF.slnx --no-restore --no-build --configuration Debug
 ```
 
-These match the shared CI workflow (`bfren/dotnet/.github/workflows/test.yml`). `dotnet test Test.csproj` finds no tests under Microsoft.Testing.Platform, so always use `--solution`.
+These match the shared CI workflow (`bfren/dotnet/.github/workflows/test.yml`), which runs with `style: false` so the build is the only style check. `dotnet test Test.csproj` finds no tests under Microsoft.Testing.Platform, so always use `--solution`.
 
 The test projects are excluded from Release builds of the solution, so run tests in Debug.
 
@@ -39,20 +36,21 @@ Rnd targets **.NET 8, 9, 10 and 11** (`net8.0;net9.0;net10.0;net11.0`, set in `s
 
 ### EditorConfig Rules
 The project uses [EditorConfig](https://editorconfig.org) for consistent formatting:
-- **Indent**: tabs (4 wide) in C# files; 4 spaces elsewhere, except project/XML/JSON/YAML files: 2 spaces
+- **Indent**: tabs (size 4) in `.cs` files, 2 spaces in XML/JSON/YAML and project files (`*.csproj`, `*.props`, `*.slnx`), 4 spaces elsewhere
 - **Line endings**: LF (`.editorconfig` and `.gitattributes`), so files written by tools that save LF need no conversion. Don't convert files to CRLF.
 - **Charset**: UTF-8
-- **Trailing whitespace**: Trimmed
-- **File header**: every C# file starts with the two-line `// Rnd: …` / `// Copyright (c) bfren …` header
+- **Trailing whitespace**: Trimmed in every file type except Markdown, where two trailing spaces are a line break
+- **File header**: every C# file starts with the two-line `// Rnd: …` / `// Copyright (c) bfren …` header (IDE0073, an error in `src`)
+
+`.editorconfig` only holds settings that differ from the .NET defaults (`dotnet new editorconfig`), and matches Wrap's apart from the file headers.
 
 ### Style Checking
-Code style is enforced via `dotnet format style` in the test workflow. Always run this before committing:
-```bash
-dotnet format style -v d RndF.slnx --no-restore
-```
+The build is the only style gate. `AnalysisLevel` is `11.0-recommended`, pinned so a newer SDK can't add rules that fail CI, and `TreatWarningsAsErrors` is on when `CI=true`, so any warning fails CI while a local build only shows it. The exception is NU1901 (a low-severity vulnerability), which stays a warning: moderate and above fail (`Directory.Packages.props`). Run `dotnet build -warnaserror` to see exactly what CI will reject.
+
+Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formatting), IDE0060 (unused parameter), IDE1006 (naming), IDE0073 (file header, an error in `src`), the CA rules in `11.0-recommended`, and the compiler, nullability and XML doc warnings. Every other style preference is a suggestion: it shows in the editor and never fails anything. Use `dotnet format style` to apply fixes, not as a check. Add a pragma only for a single real exception.
 
 ### XML Doc Comments
-`GenerateDocumentationFile` is on for **Release builds only** (`src/Directory.Build.props`), and the comments become the NuGet IntelliSense text, so they must be accurate. When writing or correcting them:
+`GenerateDocumentationFile` is on for every build (`src/Directory.Build.props`), and the comments become the NuGet IntelliSense text, so they must be accurate. When writing or correcting them:
 
 **Scope and safety**
 - Change only `///` lines. Never change code, and never reorder or rename members while editing docs.
@@ -80,10 +78,9 @@ dotnet format style -v d RndF.slnx --no-restore
 **crefs**
 - A cref can also point at an internal or private member (`<see cref="AllChars"/>`), but IntelliSense users can't see those, so prefer `<c>…</c>` with the value in public docs.
 
-**Verify** (all three must be clean)
-1. `dotnet build <project> --no-restore --configuration Release --no-incremental`: no CS1572–CS1574, CS1580, CS1587 or CS1591 warnings. Debug builds don't generate docs, so they can't show these.
-2. In `bin/Release/net10.0/RndF.xml` (or `RndF.Sodium.xml`), every `cref="…"` must resolve to the intended symbol prefix (`T:` type, `P:` property, `M:` method, `F:` field) and none may start with `!:`.
-3. `dotnet format style -v d RndF.slnx --no-restore --verify-no-changes --include src/<Project>`. Without `--verify-no-changes` and `--include`, it rewrites files in other projects. Fix what it reports in your project only, and leave warnings elsewhere alone.
+**Verify** (both must be clean)
+1. `dotnet build <project> --no-restore --no-incremental -warnaserror`: no warnings, including CS1572–CS1574, CS1580, CS1587 and CS1591.
+2. In `bin/Debug/net10.0/RndF.xml` (or `RndF.Sodium.xml`), every `cref="…"` must resolve to the intended symbol prefix (`T:` type, `P:` property, `M:` method, `F:` field) and none may start with `!:`.
 
 ## Project Structure
 
@@ -121,7 +118,7 @@ dotnet format style -v d RndF.slnx --no-restore
 ### When Adding Features
 1. Add to the matching `Functions/<Type>F` folder, or `Rnd*.cs` for a shortcut property
 2. Add corresponding tests
-3. Run `dotnet format style` to ensure consistent formatting
+3. Build with `-warnaserror` and fix every warning
 4. Ensure all tests pass on every target framework
 
 ### When Fixing Bugs
