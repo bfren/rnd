@@ -36,6 +36,7 @@ Rnd targets **.NET 8, 9, 10 and 11** (`net8.0;net9.0;net10.0;net11.0`, set in `s
 
 ### EditorConfig Rules
 The project uses [EditorConfig](https://editorconfig.org) for consistent formatting:
+
 - **Indent**: tabs (size 4) in `.cs` files, 2 spaces in XML/JSON/YAML and project files (`*.csproj`, `*.props`, `*.slnx`), 4 spaces elsewhere
 - **Line endings**: LF (`.editorconfig` and `.gitattributes`), so files written by tools that save LF need no conversion. Don't convert files to CRLF.
 - **Charset**: UTF-8
@@ -53,6 +54,7 @@ Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formattin
 `GenerateDocumentationFile` is on for every build (`src/Directory.Build.props`), and the comments become the NuGet IntelliSense text, so they must be accurate. When writing or correcting them:
 
 **Scope and safety**
+
 - Change only `///` lines. Never change code, and never reorder or rename members while editing docs.
 - Describe what the code does now. Read the member body before writing. If the code looks wrong, report it rather than documenting it.
 - Some behaviour is intended, not a bug. Document it, don't report it:
@@ -61,6 +63,7 @@ Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formattin
   - `NumberF.Get*` ranges are inclusive at both ends, and `min` must be less than `max` (and at least `0` for signed types).
 
 **Content**
+
 - `<summary>`: one sentence in the imperative for methods ("Return a random…", "Generate…") and "Gets…" for properties.
 - `<param>`, `<typeparam>` and `<returns>`: one each, matching the signature. Properties get no `<returns>`.
 - `<returns>` covers every outcome. For example, `ByteF.Get` returns an empty array when `length` is `0` or less.
@@ -71,14 +74,17 @@ Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formattin
 - Say "non-negative" rather than "positive" when `0` is included.
 
 **Reuse**
+
 - Use `<inheritdoc/>` for interface or override members only after you have opened the base member and read its docs. If they are stale or describe another type, write explicit docs instead and report the stale base.
 - Use `<inheritdoc cref="…"/>` for overload families. Point it at a member with the same parameter names, otherwise the `<param>` text is lost or wrong.
 - Never let a property inherit from a method with parameters: the inherited `<param>` text describes arguments the property doesn't have.
 
 **crefs**
+
 - A cref can also point at an internal or private member (`<see cref="AllChars"/>`), but IntelliSense users can't see those, so prefer `<c>…</c>` with the value in public docs.
 
 **Verify** (both must be clean)
+
 1. `dotnet build <project> --no-restore --no-incremental -warnaserror`: no warnings, including CS1572–CS1574, CS1580, CS1587 and CS1591.
 2. In `bin/Debug/net10.0/RndF.xml` (or `RndF.Sodium.xml`), every `cref="…"` must resolve to the intended symbol prefix (`T:` type, `P:` property, `M:` method, `F:` field) and none may start with `!:`.
 
@@ -102,12 +108,14 @@ Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formattin
 ## Key Implementation Notes
 
 ### Random Generation
+
 - **One source of bytes**: `Rnd.Generator` (an `IRng`, default `DefaultRng` using `RandomNumberGenerator`) supplies every random byte. Implement `IRng.Fill(Span<byte>)` to avoid an allocation per call.
 - **Integers**: `NumberF.GetInRange` draws uniformly without modulo bias. Public `NumberF.Get*` methods check their arguments and then call it.
 - **Floating point**: `NumberF.Get()` returns `0` to `1` inclusive and the `GetSingle`/`GetDouble` methods scale it.
 - **Shortcut properties**: the `Rnd` properties (`Rnd.Int`, `Rnd.Str`, `Rnd.Pass`…) are for tests and keep values small and readable.
 
 ### Testing
+
 - xUnit v3 on Microsoft.Testing.Platform, with `Using Include="Xunit"` and implicit usings in `tests/Directory.Build.props`
 - Internals are visible to `Tests.<ProjectName>`
 - Test classes must be `public`, including the outer class of nested test classes. xUnit silently skips an `internal` class, so its tests never run.
@@ -116,18 +124,21 @@ Only a few rules are warnings: IDE0005 (unnecessary `using`), IDE0055 (formattin
 ## Guidelines for Changes
 
 ### When Adding Features
+
 1. Add to the matching `Functions/<Type>F` folder, or `Rnd*.cs` for a shortcut property
 2. Add corresponding tests
 3. Build with `-warnaserror` and fix every warning
 4. Ensure all tests pass on every target framework
 
 ### When Fixing Bugs
+
 1. Add a test case that reproduces the bug first, and check that it fails
 2. Fix the bug in the implementation
 3. Verify the test passes
 4. Run full test suite to check for regressions
 
 ### When Updating Dependencies
+
 - Changes to Directory.Packages.props affect all projects
 - Verify all tests pass after dependency updates
 
